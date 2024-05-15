@@ -7,5 +7,5 @@ from django.views import View
 
 class IndexView(View):
     def get(self, request):
-        template = loader.get_template("index.html")
+        template = loader.get_template("pages/index.html")
         return HttpResponse(template.render(None, request))

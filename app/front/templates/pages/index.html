@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+<body>
+    {% block content %}
+    <div class="w-full">
+        <img class="w-full" src="{% static 'images/banner-index-view.jpg' %}" alt="">
+    </div>
+    <!-- <div class="w-full flex flex-row">
+        <div class="w-1/2">
+            <img class="w-full" src="{% static 'images/silver-ring.webp' %}" alt="">
+        </div>
+        <div class="w-1/2">
+            <img class="w-full" src="{% static 'images/gold-ring.webp' %}" alt="">
+        </div>
+    </div> -->
+    <h1 class="bg-red-300">
+        Hello Tailwind
+    </h1>
+    {% endblock content %}
+</body>
+</html>

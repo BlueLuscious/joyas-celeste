@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyas Celeste</title>
+    {% include "tailwind/cdn-tailwind.html" %}
+</head>
+<body>
+    <!-- NAVBAR -->
+    <div class="relative w-full flex flex-row items-center justify-between
+        p-2 border-b border-red-500">
+        <div class="w-16 h-16">
+            <img class="w-16 h-16" src="" alt="">
+        </div>
+        <div class="w-1/2 flex flex-row justify-evenly">
+            <div class="cursor-pointer">
+                Anillos
+            </div>
+            <div class="cursor-pointer">
+                Aros
+            </div>
+            <div class="cursor-pointer">
+                Colgantes
+            </div>
+            <div class="cursor-pointer">
+                Pulseras
+            </div>
+        </div>
+        <div></div>
+    </div>
+
+    {% block content %}
+    {% endblock content %}
+    
+    <!-- FOOTER -->
+
+</body>
+</html>

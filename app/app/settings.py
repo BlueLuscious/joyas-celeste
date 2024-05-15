@@ -138,3 +138,29 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Media files
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# Logs
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {"format": "%(levelname)s %(asctime)s %(module)s  %(message)s"},
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler", "formatter": "simple"
+        },
+    },
+    "root": {
+        "handlers": ["console"], 
+        "level": "INFO", 
+        "formatter": "simple"
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+    },
+}

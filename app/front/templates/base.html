@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joyas Celeste</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="icon" href="{% static 'images/favicon_v2.ico' %}" type="image/x-icon">
     {% include "tailwind/cdn-tailwind.html" %}
 </head>
 <body>
@@ -34,6 +35,9 @@
 
     <!-- LEFT SIDE NAVBAR -->
     {% include "t-base/left-side-navbar.html" %}
+
+    <!-- RIGHT SIDE NAVBAR -->
+    {% include "t-base/right-side-navbar.html" %}
 
     {% block content %}
     {% endblock content %}

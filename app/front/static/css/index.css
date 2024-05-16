@@ -1,0 +1,5 @@
+.banner{
+    background-image: url("../../static/images/banner-index-view.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}

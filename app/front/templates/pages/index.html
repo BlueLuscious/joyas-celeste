@@ -10,32 +10,61 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 items-center content-evenly justify-items-center
             w-full h-full py-8 gap-y-8 sm:p-0 sm:gap-0">
 
-
-            <div class="w-3/4 h-52 flex flex-col items-center justify-center bg-white shadow rounded-lg
-                text-center">
-                <div class="w-full p-5">
-                    <span class="text-3xl cinzel-600">Anillos</span>
+            <div class="relative w-3/4 h-52">
+                <div class="category_label absolute left-0 top-[2%] h-1/5 w-full sm:w-2/4 lg:w-1/4 
+                    flex justify-center p-1 pb-10 bg-black rounded-t
+                    transform translate-y-full transition-transform duration-500 ease-in-out">
+                    <span class="text-xl text-white">Anillos</span>
                 </div>
-            </div>
-            <div class="w-3/4 h-52 flex items-center justify-center bg-white shadow rounded-lg 
-                text-center">
-                <div class="w-full p-5">
-                    <span class="text-3xl cinzel-600">Aros</span>
-                </div>
-            </div>
-            <div class="w-3/4 h-52 flex items-center justify-center bg-white shadow rounded-lg 
-                text-center">
-                <div class="w-full p-5">
-                    <span class="text-3xl cinzel-600">Colgantes</span>
-                </div>
-            </div>
-            <div class="w-3/4 h-52 flex items-center justify-center bg-white shadow rounded-lg 
-                text-center">
-                <div class="w-full p-5">
-                    <span class="text-3xl cinzel-600">Pulseras</span>
+                <div class="category_box relative w-full h-full flex items-center justify-center
+                    bg-white shadow rounded-lg text-center cursor-pointer">
+                    <div class="category_text w-full p-5">
+                        <span class="text-3xl cinzel-600">Anillos</span>
+                    </div>
                 </div>
             </div>
 
+            <div class="relative w-3/4 h-52">
+                <div class="category_label absolute left-0 top-[2%] h-1/5 w-full sm:w-2/4 lg:w-1/4 
+                    flex justify-center p-1 pb-10 bg-black rounded-t
+                    transform translate-y-full transition-transform duration-500 ease-in-out">
+                    <span class="text-xl text-white">Aros</span>
+                </div>
+                <div class="category_box relative w-full h-full flex items-center justify-center
+                    bg-white shadow rounded-lg text-center cursor-pointer">
+                    <div class="category_text w-full p-5">
+                        <span class="text-3xl cinzel-600">Aros</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative w-3/4 h-52">
+                <div class="category_label absolute left-0 top-[2%] h-1/5 w-full sm:w-2/4 lg:w-1/4 
+                    flex justify-center p-1 pb-10 bg-black rounded-t
+                    transform translate-y-full transition-transform duration-500 ease-in-out">
+                    <span class="text-xl text-white">Colgantes</span>
+                </div>
+                <div class="category_box relative w-full h-full flex items-center justify-center
+                    bg-white shadow rounded-lg text-center cursor-pointer">
+                    <div class="category_text w-full p-5">
+                        <span class="text-3xl cinzel-600">Colgantes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative w-3/4 h-52">
+                <div class="category_label absolute left-0 top-[2%] h-1/5 w-full sm:w-2/4 lg:w-1/4 
+                    flex justify-center p-1 pb-10 bg-black rounded-t
+                    transform translate-y-full transition-transform duration-500 ease-in-out">
+                    <span class="text-xl text-white">Pulseras</span>
+                </div>
+                <div class="category_box relative w-full h-full flex items-center justify-center
+                    bg-white shadow rounded-lg text-center cursor-pointer">
+                    <div class="category_text w-full p-5">
+                        <span class="text-3xl cinzel-600">Pulseras</span>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </section>
@@ -43,4 +72,5 @@
         Hello Tailwind
     </h1>
 </body>
+<script src="{% static 'js/index.js' %}"></script>
 {% endblock content %}

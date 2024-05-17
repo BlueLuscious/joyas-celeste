@@ -25,6 +25,27 @@
     </div>
 
 
-
-
 </div>
+
+
+
+# HIDDEN LABEL
+
+<div class="category_label absolute left-0 top-[2%] h-1/5 w-full sm:w-2/4 lg:w-1/4 
+    flex justify-center p-1 pb-10 bg-black rounded-t
+    transform translate-y-full transition-transform duration-500 ease-in-out">
+    <span class="text-xl text-white">Anillos</span>
+</div>
+
+const categoryBox = Array.from(document.getElementsByClassName("category_box"))
+const categoryLabel = Array.from(document.getElementsByClassName("category_label"))
+
+categoryBox.forEach((box, index) => {
+    box.addEventListener("mouseover", () => {
+        categoryLabel[index].classList.toggle("-translate-y-full")
+    })
+
+    box.addEventListener("mouseout", () => {
+        categoryLabel[index].classList.toggle("-translate-y-full")
+    })
+})

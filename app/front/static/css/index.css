@@ -3,3 +3,41 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.ring_card {
+    background-image: url("../../static/images/ring-card.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.earring_card {
+    background-image: url("../../static/images/earrings-card.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.necklace_card {
+    background-image: url("../../static/images/necklace-card.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bracelet_card {
+    background-image: url("../../static/images/bracelet-card.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.ring_card, .earring_card,
+.necklace_card, .bracelet_card {
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.250);
+        border-radius: 0.5rem;
+    }
+}

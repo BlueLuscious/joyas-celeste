@@ -10,40 +10,53 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 items-center content-evenly justify-items-center
             w-full h-full py-8 gap-y-8 sm:p-0 sm:gap-0">
 
-            <div class="relative w-4/5 h-60">
-                <div class="ring_card relative w-full h-full flex items-center justify-center
-                    shadow rounded-lg text-center">
-                    <div class="absolute w-full p-5">
-                        <span class="text-3xl text-white cinzel-600">Anillos</span>
+            
+            <div class="relative w-4/5 h-60 sm:ml-5 md:ml-10">
+                <a href="{% url 'index' %}">
+                    <div class="ring_card relative w-full h-full flex items-center justify-center
+                        shadow rounded-lg text-center transform transition-transform duration-300 ease-in-out 
+                        hover:scale-105">
+                        <div class="absolute w-full p-5">
+                            <span class="text-3xl text-white cinzel-600">Anillos</span>
+                        </div>
                     </div>
-                </div>
+                </a>
+            </div>
+        
+            <div class="relative w-4/5 h-60 sm:mr-5 md:mr-10">
+                <a href="{% url 'index' %}">
+                    <div class="earring_card relative w-full h-full flex items-center justify-center
+                        shadow rounded-lg text-center transform transition-transform duration-300 ease-in-out 
+                        hover:scale-105">
+                        <div class="absolute w-full p-5">
+                            <span class="text-3xl text-white cinzel-600">Aros</span>
+                        </div>
+                    </div>
+                </a>
             </div>
 
-            <div class="relative w-4/5 h-60">
-                <div class="earring_card relative w-full h-full flex items-center justify-center
-                    shadow rounded-lg text-center">
-                    <div class="absolute w-full p-5">
-                        <span class="text-3xl text-white cinzel-600">Aros</span>
+            <div class="relative w-4/5 h-60 sm:ml-5 md:ml-10">
+                <a href="{% url 'index' %}">
+                    <div class="necklace_card relative w-full h-full flex items-center justify-center
+                        shadow rounded-lg text-center transform transition-transform duration-300 ease-in-out 
+                            hover:scale-105">
+                        <div class="absolute w-full p-5">
+                            <span class="text-3xl text-white cinzel-600">Colgantes</span>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
-            <div class="relative w-4/5 h-60">
-                <div class="necklace_card relative w-full h-full flex items-center justify-center
-                    shadow rounded-lg text-center">
-                    <div class="absolute w-full p-5">
-                        <span class="text-3xl text-white cinzel-600">Colgantes</span>
+            <div class="relative w-4/5 h-60 sm:mr-5 md:mr-10">
+                <a href="{% url 'index' %}">
+                    <div class="bracelet_card relative w-full h-full flex items-center justify-center
+                        shadow rounded-lg text-center transform transition-transform duration-300 ease-in-out 
+                            hover:scale-105">
+                        <div class="absolute w-full p-5">
+                            <span class="text-3xl text-white cinzel-600">Pulseras</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="relative w-4/5 h-60">
-                <div class="bracelet_card relative w-full h-full flex items-center justify-center
-                    shadow rounded-lg text-center">
-                    <div class="absolute w-full p-5">
-                        <span class="text-3xl text-white cinzel-600">Pulseras</span>
-                    </div>
-                </div>
+                </a>
             </div>
 
         </div>

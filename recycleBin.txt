@@ -1,0 +1,30 @@
+<div class="category_box relative w-full h-full flex items-center justify-center
+    bg-white shadow rounded-lg text-center cursor-pointer">
+    <div class="category_text w-full p-5">
+        <span class="text-3xl cinzel-600">Anillos</span>
+    </div>
+
+
+
+
+    <div id="carrousel" class="relative w-full h-full">
+        <div class="w-full h-full">
+            <img class="carrousel_image w-full h-full bg-cover rounded-lg active" 
+                src="{% static 'images/silver-ring.webp' %}" alt="Silver Ring">
+            <img class="carrousel_image w-full h-full bg-cover rounded-lg hidden" 
+                src="{% static 'images/gold-ring.webp' %}" alt="Gold Ring">
+        </div>
+        <div class="absolute left-0 top-0 flex flex-row items-center justify-between w-full h-full">
+            <button id="prevBtn" class="p-2 ml-5 bg-black text-white rounded-md">
+                &#10094;
+            </button>
+            <button id="nextBtn" class="p-2 mr-5 bg-black text-white rounded-md">
+                &#10095;
+            </button>
+        </div>
+    </div>
+
+
+
+
+</div>

@@ -5,3 +5,9 @@
     font-weight: 600;
     font-style: normal;
 }
+
+#left_side_navbar::-webkit-scrollbar,
+.sub_menu::-webkit-scrollbar {
+    display: none;
+    appearance: none;
+}

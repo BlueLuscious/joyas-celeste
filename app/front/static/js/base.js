@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     openSideNavbar(leftSideNavbarButtons, leftSideNavbar, "-translate-x-full")
 
-    /* Expamd Sub-Menus */
+    /* Expand Sub-Menus */
     const cardArrows = Array.from(document.getElementsByClassName("card_arrow"))
     const subMenus = Array.from(document.getElementsByClassName("sub_menu"))
 

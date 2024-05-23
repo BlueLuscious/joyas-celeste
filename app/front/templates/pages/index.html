@@ -1,64 +1,65 @@
 {% extends "base.html" %}
 {% load static %}
+{% load index_tag %}
 
 {% block content %}
 <head>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-    <section class="banner relative w-full h-[70rem] sm:h-[40rem]">
+    <section class="banner relative w-full h-[70rem] sm:h-[40rem] mt-24">
         <div class="grid grid-cols-1 sm:grid-cols-2 items-center content-evenly justify-items-center
             w-full h-full py-8 gap-y-8 sm:p-0 sm:gap-0">
 
+            {% url 'index' as index_url %}
+
+            {% comment %} {% url 'ring' as ring_url %}
+            {% url 'earring' as earring_url %}
+            {% url 'necklace' as necklace_url %}
+            {% url 'bracelet' as bracelet_url %} {% endcomment %}
+
+            {% comment %} {% with url_list = [ring_url, earring_url, necklace_url, bracelet_url] %} {% endcomment %}
+                {% comment %} {% for url in url_list %} {% endcomment %}
+                    {% for category in categories %}
+                        {% category_card index_url category.name %}
+                    {% endfor %}
+                {% comment %} {% endfor %} {% endcomment %}
+            {% comment %} {% endwith %} {% endcomment %}
+
+        </div>
+    </section>
+    <section class="relative w-full bg-yellow-50">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center content-evenly justify-items-center
+            w-full h-full py-8 gap-y-8">
             
-            <div class="relative w-4/5 h-60 sm:ml-5 md:ml-10">
-                <a href="{% url 'index' %}">
-                    <div class="ring_card relative w-full h-full flex items-center justify-center
-                        shadow rounded-lg text-center transform transition-transform duration-300 ease-in-out 
-                        hover:scale-105">
-                        <div class="absolute w-full p-5">
-                            <span class="text-3xl text-white cinzel-600">Anillos</span>
-                        </div>
+            {% for product in products %}
+            <div class="relative flex flex-col items-center w-4/5 bg-white rounded-lg shadow-xl 
+                transform transition-transform duration-300 ease-in-out hover:scale-105">
+                <div class="absolute top-3 right-3 p-1 rounded-md shadow-md cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                        stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                    <div class="absolute top-[20%] left-[33%] text-xl font-bold">+</div>
+                </div>
+                <div class="w-full">
+                    <img src="{{ product.image.url }}" alt="image">
+                </div>
+                <div class="w-full p-2 text-center">
+                    {{ product.name }}
+                </div>
+                <div class="flex flex-row justify-evenly w-full">
+                    <div class="p-2">
+                        Stock: {{ product.stock }}
                     </div>
-                </a>
-            </div>
-        
-            <div class="relative w-4/5 h-60 sm:mr-5 md:mr-10">
-                <a href="{% url 'index' %}">
-                    <div class="earring_card relative w-full h-full flex items-center justify-center
-                        shadow rounded-lg text-center transform transition-transform duration-300 ease-in-out 
-                        hover:scale-105">
-                        <div class="absolute w-full p-5">
-                            <span class="text-3xl text-white cinzel-600">Aros</span>
-                        </div>
+                    <div class="p-2">
+                        $ {{ product.price }}
                     </div>
-                </a>
+                </div>
             </div>
-
-            <div class="relative w-4/5 h-60 sm:ml-5 md:ml-10">
-                <a href="{% url 'index' %}">
-                    <div class="necklace_card relative w-full h-full flex items-center justify-center
-                        shadow rounded-lg text-center transform transition-transform duration-300 ease-in-out 
-                            hover:scale-105">
-                        <div class="absolute w-full p-5">
-                            <span class="text-3xl text-white cinzel-600">Colgantes</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="relative w-4/5 h-60 sm:mr-5 md:mr-10">
-                <a href="{% url 'index' %}">
-                    <div class="bracelet_card relative w-full h-full flex items-center justify-center
-                        shadow rounded-lg text-center transform transition-transform duration-300 ease-in-out 
-                            hover:scale-105">
-                        <div class="absolute w-full p-5">
-                            <span class="text-3xl text-white cinzel-600">Pulseras</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
+            {% endfor %}
+            
         </div>
     </section>
 </body>

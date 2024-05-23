@@ -17,13 +17,12 @@
         </div>
     </div>
     <div class="flex flex-col items-center w-full h-1/2">
-
-        {% for _ in "1234" %}
         <div class="flex flex-col gap-y-2 w-[90%]">
-
+            
+            {% for category in categories %}
             <div class="relative p-2 text-center border border-2 rounded-sm">
                 <div class="w-full text-lg cursor-pointer">
-                    Anillos
+                    {{ category.name }}
                 </div>
                 <div class="absolute right-2 bottom-3">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
@@ -42,9 +41,8 @@
                     <li><a href="#" class="block py-1 border-b-2">Plata</a></li>
                 </ul>
             </div>
+            {% endfor %}
 
         </div>
-        {% endfor %}
-
     </div>
 </div>

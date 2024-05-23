@@ -8,9 +8,11 @@ class FrontConfig(AppConfig):
     def ready(self) -> None:
         
         from .admins import (
-            category_admin
+            category_admin,
+            product_admin,
         )
 
         from .models import (
-            category_model
+            category_model,
+            product_model,
         )

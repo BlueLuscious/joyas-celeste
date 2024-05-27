@@ -1,24 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
-{% load index_tag %}
 
 {% block content %}
 <head>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
 </head>
 <body>
-    <section class="banner relative w-full h-full mt-24">
-        <div class="grid grid-cols-1 sm:grid-cols-2 items-center content-evenly justify-items-center
-            w-full h-full py-12 gap-y-12">
 
-            {% for category in categories %}
-                {% url 'category' name=category.name|lower as url %}
-                {% category_card url category.name %}
-            {% endfor %}
-
+    {% if category %}
+    <section class="relative w-full bg-yellow-50 mt-24">
+        <div class="flex justify-center w-full pt-12">
+            <div class="p-5 bg-yellow-100 text-center text-5xl text-black cinzel-600 rounded-md">
+                {{ category.name }}
+            </div>
+            <!-- add search input and filters -->
         </div>
-    </section>
-    <section class="relative w-full bg-yellow-50">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center content-evenly justify-items-center
             w-full h-full py-12 gap-y-12">
             
@@ -52,6 +48,7 @@
             
         </div>
     </section>
+    {% endif %}
+
 </body>
-<script src="{% static 'js/index.js' %}"></script>
 {% endblock content %}

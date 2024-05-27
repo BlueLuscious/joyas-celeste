@@ -12,8 +12,8 @@
             w-full h-full py-12 gap-y-12">
 
             {% for category in categories %}
-                {% url 'category' name=category.name|lower as url %}
-                {% category_card url category.name %}
+                {% url 'category' name=category.name|lower as category_url %}
+                {% category_card category_url category.name %}
             {% endfor %}
 
         </div>

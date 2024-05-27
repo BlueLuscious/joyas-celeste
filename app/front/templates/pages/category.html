@@ -48,6 +48,49 @@
             
         </div>
     </section>
+    {% else %}
+    <section class="relative w-full bg-yellow-50 mt-24">
+        <div class="flex justify-center w-full pt-12">
+            <div class="p-5 bg-yellow-100 text-center text-5xl text-black cinzel-600 rounded-md">
+                Categorias
+            </div>
+            <!-- add search input and filters -->
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center content-evenly justify-items-center
+            w-full h-full py-12 gap-y-12">
+            
+            {% for product in products %}
+            {% if product.category.name == "Anillos" %} <!-- create an include -->
+            <div class="relative flex flex-col items-center w-4/5 bg-white rounded-lg shadow-xl 
+                transform transition-transform duration-300 ease-in-out hover:scale-105">
+                <div class="absolute top-3 right-3 p-1 rounded-md shadow-md cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                        stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                    <div class="absolute top-[20%] left-[33%] text-xl font-bold">+</div>
+                </div>
+                <div class="w-full">
+                    <img class="rounded-t-lg" src="{{ product.image.url }}" alt="image">
+                </div>
+                <div class="w-full p-2 text-center">
+                    {{ product.name }}
+                </div>
+                <div class="flex flex-row justify-evenly w-full">
+                    <div class="p-2">
+                        Stock: {{ product.stock }}
+                    </div>
+                    <div class="p-2">
+                        $ {{ product.price }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            
+        </div>
+    </section>
     {% endif %}
 
 </body>

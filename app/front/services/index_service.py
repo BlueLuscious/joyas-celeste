@@ -1,6 +1,6 @@
 import logging
-from front.models.product_model import ProductModel
 from front.models.category_model import CategoryModel
+from front.models.product_model import ProductModel
 
 logger = logging.getLogger(__name__)
 
@@ -9,13 +9,14 @@ class IndexService():
     
     @staticmethod
     def get_context():
-        products = ProductModel.objects.all()
         categories = CategoryModel.objects.all()
+        products = ProductModel.objects.all()
 
         context = {
-            "products": products,
             "categories": categories,
+            "products": products,
         }
-        logger.info(f"index context: {context}")
+
+        logger.info(f"index_view context: {context}")
 
         return context

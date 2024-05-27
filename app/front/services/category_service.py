@@ -9,8 +9,9 @@ class CategoryService():
     
     @staticmethod
     def get_context(name):
+        categories = CategoryModel.objects.all()
+
         if name is None:
-            categories = CategoryModel.objects.all()
             products = ProductModel.objects.all()
 
             context = {
@@ -19,11 +20,12 @@ class CategoryService():
             }
         else:
             category = CategoryModel.objects.get(name=name.capitalize())
-            products = ProductModel.objects.filter(category=category)
+            products_by_category = ProductModel.objects.filter(category=category)
 
             context = {
+                "categories": categories,
                 "category": category,
-                "products": products,
+                "products": products_by_category,
             }
 
         logger.info(f"categories_view context: {context}")

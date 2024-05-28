@@ -58,7 +58,13 @@
         </div>
 
         {% for category in categories %}
-        <div>{{ category.name }}</div>
+        <div class="flex justify-center w-full pt-12">
+            <div class="p-5 bg-yellow-100 text-center text-5xl text-black cinzel-600 rounded-md">
+                <a href="{% url 'category' name=category.name|lower %}">
+                    {{ category.name }}
+                </a>
+            </div>
+        </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center content-evenly justify-items-center
             w-full h-full py-12 gap-y-12">

@@ -35,8 +35,8 @@
             <div class="sub_menu h-0 pb-0 transition-all duration-500 ease-in-out opacity-0 overflow-auto">
                 <ul class="flex flex-col items-center gap-y-2">
                     {% for category in categories %}
-                    <a href="{% url 'category' name=category.name|lower %}" class="block py-1 border-b-2">
-                        <li>{{ category.name }}</li>
+                    <a href="{% url 'category' name=category.name|lower %}">
+                        <li class="py-1 border-b-2">{{ category.name }}</li>
                     </a>
                     {% endfor %}
                 </ul>

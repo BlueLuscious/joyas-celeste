@@ -25,7 +25,7 @@
             {% for product in products %}
             <div class="relative flex flex-col items-center w-full bg-white rounded-lg shadow-xl 
                 transform transition-transform duration-300 ease-in-out hover:scale-105">
-                <div class="absolute top-3 right-3 p-1 rounded-md shadow-md cursor-pointer">
+                <div class="absolute top-3 right-3 p-1 bg-white rounded-md shadow-md cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
                         stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                         <path stroke-linecap="round" stroke-linejoin="round" 
@@ -34,7 +34,7 @@
                     <div class="absolute top-[20%] left-[33%] text-xl font-bold">+</div>
                 </div>
                 <div class="w-full">
-                    <img class="rounded-t-lg" src="{{ product.image.url }}" alt="image">
+                    <img class="w-full rounded-t-lg" src="{{ product.image.url }}" alt="image">
                 </div>
                 <div class="w-full p-2 text-center">
                     {{ product.name }}

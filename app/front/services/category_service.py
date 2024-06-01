@@ -1,4 +1,5 @@
 import logging
+import random
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 
@@ -12,11 +13,16 @@ class CategoryService():
         categories = CategoryModel.objects.all()
 
         if name is None:
-            products = ProductModel.objects.all()
+            products_random_by_category = {
+                category: random.sample(
+                    list(ProductModel.objects.filter(category=category)), 
+                    min(len(ProductModel.objects.filter(category=category)), 10)
+                ) for category in categories
+            }
 
             context = {
                 "categories": categories,
-                "products": products,
+                "products": products_random_by_category,
             }
         else:
             category = CategoryModel.objects.get(name=name.capitalize())

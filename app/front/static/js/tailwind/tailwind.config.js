@@ -7,13 +7,13 @@ tailwind.config = {
             },
             colors: {
                 primary: {
-                    50: "rgb(233, 250, 255)",
-                    100: "#00ADE6",
-                    600: "#2E9FE5",
-                    700: "#0F3E56",
+                    earth_tone_1: "#A47E4E",
+                    earth_tone_2: "#BFA169",
+                    earth_tone_3: "#D9BD9C",
+                    earth_tone_4: "#8C694B",
                 },
                 secondary: {
-                    500: "#1AB71A",
+                    gray_tone_1: "#F2F2F2",
                 },
             },
         },

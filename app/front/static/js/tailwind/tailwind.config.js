@@ -1,10 +1,10 @@
 tailwind.config = {
     theme: {
         extend: {
-            fontFamily: {
-                poppins: "Poppins, sans-serif",
-                sans: "Inter, sans-serif",
-            },
+            // fontFamily: {
+            //     poppins: "Poppins, sans-serif",
+            //     sans: "Inter, sans-serif",
+            // },
             colors: {
                 primary: {
                     earth_tone_1: "#A47E4E",

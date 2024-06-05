@@ -9,10 +9,9 @@ logger = logging.getLogger(__name__)
 
 class CategoryView(View):
     def get(self, request, name=None):
-        template = loader.get_template("pages/category.html")
-        logger.info(f"get template: {template.template.name}")
-
         category_service = CategoryService()
+        
+        template = category_service.get_template(name)
         context = category_service.get_context(name)
 
         return HttpResponse(template.render(context, request))

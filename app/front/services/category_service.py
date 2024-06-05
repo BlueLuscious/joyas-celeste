@@ -1,5 +1,6 @@
 import logging
 import random
+from django.template import loader
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 
@@ -37,3 +38,15 @@ class CategoryService():
         logger.info(f"categories_view context: {context}")
 
         return context
+    
+    @staticmethod
+    def get_template(name):
+
+        if name is None:
+            template = loader.get_template("pages/categories.html")
+        else:
+            template = loader.get_template("pages/category.html")
+
+        logger.info(f"get template: {template.template.name}")
+
+        return template

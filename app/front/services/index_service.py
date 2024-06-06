@@ -9,6 +9,22 @@ class IndexService():
     
     @staticmethod
     def get_context() -> dict:
+
+        """
+        Get context: --> (IndexView)
+
+        Returns:
+            dict: Dictionary containing context data. (categories and products)
+
+        Logs:
+            Show the context data.
+
+        Example:
+            context = index_service.get_template("Rings")
+            
+            context = index_service.get_template(None)
+        """
+
         categories = CategoryModel.objects.all()
         products = ProductModel.objects.all()
 

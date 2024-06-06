@@ -1,9 +1,7 @@
 import random
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.core.management import call_command
 from django.template import Context, Template
-from django.template.loader import get_template
-from django.templatetags.static import static
 from django.urls import reverse
 from front.models.category_model import CategoryModel
 

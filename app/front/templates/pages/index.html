@@ -35,11 +35,7 @@
                     </svg>
                 </div>
                 <div class="w-full">
-                    {% if product.image %}
-                    <img class="w-full rounded-t-lg" src="{{ product.image.url }}" alt="image">
-                    {% else %}
-                    <img class="w-full rounded-t-lg" src="{% static 'images/default-no-image.png' %}" alt="default image">
-                    {% endif %}
+                    <img class="w-full rounded-t-lg" src="{{ product.image|image_or_default }}" alt="image">
                 </div>
                 <div class="w-full p-2 text-center">
                     {{ product.name }}

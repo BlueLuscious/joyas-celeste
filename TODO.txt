@@ -1,0 +1,1 @@
+Add DocString to all the methods.

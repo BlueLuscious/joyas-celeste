@@ -6,6 +6,7 @@ class IndexViewTest(TestCase):
     def setUp(self):
         self.client = Client()
 
+
     def test_get_template(self):
         response = self.client.get(reverse("index"))
         self.assertEqual(response.status_code, 200)

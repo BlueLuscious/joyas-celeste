@@ -5,7 +5,7 @@ logger = logging.getLogger(__name__)
 register = template.Library()
 
 
-@register.inclusion_tag("pages/t-index/category-card.html")
+@register.inclusion_tag("pages/components-index/category-card.html")
 def category_card(url: str, category_name: str) -> dict:
     logger.info(f"url: {url} | category: {category_name}")
     context = {

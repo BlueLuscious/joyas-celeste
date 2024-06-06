@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
+{% load product_filter %}
 
 {% block content %}
 <head>
 
 </head>
 <body>
-
     <section class="relative w-full bg-primary-earth_tone_3_light mt-24">
         <div class="flex justify-center w-full pt-12">
             <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
@@ -20,8 +20,8 @@
             justify-items-center w-full h-full py-12 px-12 gap-12">
             
             {% for product in products %}
-            <div class="relative flex flex-col items-center w-full bg-white rounded-lg shadow-xl mukta-light 
-                transform transition-transform duration-300 ease-in-out hover:scale-105">
+            <div class="relative flex flex-col items-center w-full bg-white text-lg mukta-light 
+                rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
                 <div class="absolute top-3 right-3 p-1 bg-white rounded-md shadow-md cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
                         stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-primary-earth_tone_4">
@@ -31,7 +31,11 @@
                     </svg>
                 </div>
                 <div class="w-full">
+                    {% if product.image %}
                     <img class="w-full rounded-t-lg" src="{{ product.image.url }}" alt="image">
+                    {% else %}
+                    <img class="w-full rounded-t-lg" src="{% static 'images/default-no-image.png' %}" alt="default image">
+                    {% endif %}
                 </div>
                 <div class="w-full p-2 text-center">
                     {{ product.name }}
@@ -40,8 +44,8 @@
                     <div class="p-2">
                         Stock: {{ product.stock }}
                     </div>
-                    <div class="p-2">
-                        $ {{ product.price }}
+                    <div class="p-2 font-semibold">
+                        $ {{ product.price|format_number }}
                     </div>
                 </div>
             </div>
@@ -49,6 +53,5 @@
             
         </div>
     </section>
-
 </body>
 {% endblock content %}

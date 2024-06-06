@@ -1,6 +1,6 @@
 import logging
 import random
-from django.template import loader
+from django.template import Template, loader
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 
@@ -10,16 +10,17 @@ logger = logging.getLogger(__name__)
 class CategoryService():
     
     @staticmethod
-    def get_context(name):
+    def get_context(name: str) -> dict:
         categories = CategoryModel.objects.all()
 
         if name is None:
-            products_random_by_category = {
-                category: random.sample(
-                    list(ProductModel.objects.filter(category=category)), 
+            products_random_by_category = (lambda categories: [
+                product for category in categories
+                for product in random.sample(
+                    list(ProductModel.objects.filter(category=category)),
                     min(len(ProductModel.objects.filter(category=category)), 10)
-                ) for category in categories
-            }
+                )
+            ])(categories)
 
             context = {
                 "categories": categories,
@@ -40,7 +41,7 @@ class CategoryService():
         return context
     
     @staticmethod
-    def get_template(name):
+    def get_template(name: str) -> Template:
 
         if name is None:
             template = loader.get_template("pages/categories.html")

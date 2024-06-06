@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 class IndexService():
     
     @staticmethod
-    def get_context():
+    def get_context() -> dict:
         categories = CategoryModel.objects.all()
         products = ProductModel.objects.all()
 

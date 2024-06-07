@@ -6,5 +6,5 @@ from front.views.category_view import CategoryView
 urlpatterns = [
     path("index/", IndexView.as_view(), name="index"),
     path("categories/", CategoryView.as_view(), name="categories"),
-    path("categories/<str:name>", CategoryView.as_view(), name="category"),
+    path("categories/<str:name>/", CategoryView.as_view(), name="category"),
 ]

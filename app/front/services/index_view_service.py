@@ -5,7 +5,7 @@ from front.models.product_model import ProductModel
 logger = logging.getLogger(__name__)
 
 
-class IndexService():
+class IndexViewService():
     
     @staticmethod
     def get_context() -> dict:
@@ -15,14 +15,6 @@ class IndexService():
 
         Returns:
             dict: Dictionary containing context data. (categories and products)
-
-        Logs:
-            Show the context data.
-
-        Example:
-            context = index_service.get_template("Rings")
-            
-            context = index_service.get_template(None)
         """
 
         categories = CategoryModel.objects.all()

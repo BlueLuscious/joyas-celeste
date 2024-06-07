@@ -1,16 +1,16 @@
 import logging
-import random
 from django.template import Template, loader
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
+from front.services.product_service import ProductService
 
 logger = logging.getLogger(__name__)
 
 
-class CategoryService():
+class CategoryViewService():
     
     @staticmethod
-    def get_context(name: str) -> dict:
+    def get_context(name: str, page: int) -> dict:
 
         """
         Get context by name: --> (CategoryView)
@@ -22,43 +22,34 @@ class CategoryService():
 
         Returns:
             dict: Dictionary containing context data. (categories and products)
-
-        Logs:
-            Show the context data.
-
-        Example:
-            context = category_service.get_template("Rings")
-            
-            context = category_service.get_template(None)
         """
 
         categories = CategoryModel.objects.all()
+        product_service = ProductService()
 
         if name is None:
-            products_random_by_category = (lambda categories: [
-                product for category in categories
-                for product in random.sample(
-                    list(ProductModel.objects.filter(category=category)),
-                    min(len(ProductModel.objects.filter(category=category)), 10)
-                )
-            ])(categories)
+            products = product_service.get_random_products_by_category(categories, 10)
 
             context = {
                 "categories": categories,
-                "products": products_random_by_category,
+                "products": products,
             }
+
         else:
             category = CategoryModel.objects.get(name=name.capitalize())
             products_by_category = ProductModel.objects.filter(category=category)
+            pagination = product_service.paginate_products(products_by_category, page, 12)
 
             context = {
                 "categories": categories,
                 "category": category,
-                "products": products_by_category,
+                "products": pagination.get("products_page"),
+                "page_numbers": pagination.get("page_numbers"),
             }
 
         logger.info(f"categories_view context: {context}")
         return context
+    
     
     @staticmethod
     def get_template(name: str) -> Template:
@@ -73,14 +64,6 @@ class CategoryService():
 
         Returns:
             Template: Django template.
-
-        Logs:
-            Show the template name.
-
-        Example:
-            template = category_service.get_template("Rings")
-            
-            template = category_service.get_template(None)
         """
 
         if name is None:

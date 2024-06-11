@@ -15,7 +15,7 @@ class CategoryViewService():
         """
         Get context by name: --> (CategoryView)
 
-        If name is None, get context for /categories/ else get context for /categories/<str:name>.
+        If name is None, get context for /categories/ else get context for /categories/<str:name>/.
 
         Args:
             name (str): Category name.

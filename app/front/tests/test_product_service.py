@@ -13,8 +13,6 @@ class ProductServiceTest(TestCase):
         self.categories = CategoryModel.objects.all()
         self.category = random.choice(self.categories)
         self.products_by_category = ProductModel.objects.filter(category=self.category)
-        self.default_page = 1
-        self.default_products_by_page = 12 
 
 
     def test_get_random_products_for_each_category(self):
@@ -23,8 +21,14 @@ class ProductServiceTest(TestCase):
 
 
     def test_paginate_products(self):
-        pagination = ProductService.paginate_products(self.products_by_category, self.default_page, self.default_products_by_page)
-        products_page = pagination.get("products_page")
+        default_page = 1
+        default_products_by_page = 12
+        default_total_pages = 5
         
-        self.assertEqual(products_page.number, self.default_page)
-        self.assertLessEqual(len(products_page), self.default_products_by_page)
+        pagination = ProductService.paginate_products(self.products_by_category, default_page, default_products_by_page)
+        products_page = pagination.get("products_page")
+        page_numbers = pagination.get("page_numbers")
+        
+        self.assertEqual(products_page.number, default_page)
+        self.assertLessEqual(len(products_page), default_products_by_page)
+        self.assertLessEqual(len(page_numbers), default_total_pages)

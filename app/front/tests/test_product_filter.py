@@ -1,9 +1,10 @@
 import random
-from django.test import TestCase
 from django.core.management import call_command
 from django.templatetags.static import static
+from django.test import TestCase
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
+from front.services.product_service import ProductService
 from front.templatetags import product_filter
 
 
@@ -11,23 +12,16 @@ class ProductFilterTest(TestCase):
     def setUp(self):
         call_command("loaddata", "seeds/category_seed.json")
         call_command("loaddata", "seeds/product_seed.json")
+        self.categories = CategoryModel.objects.all()
+        self.category = random.choice(self.categories)
         self.product = random.choice(ProductModel.objects.all())
 
 
     def test_products_by_category(self):
-        categories = CategoryModel.objects.all()
-        category = random.choice(categories)
-
-        products = (lambda categories: [
-            product for category in categories
-            for product in random.sample(
-                list(ProductModel.objects.filter(category=category)),
-                min(len(ProductModel.objects.filter(category=category)), 10)
-            )
-        ])(categories)
-
-        filtered_products = product_filter.products_by_category(products, category)
-        self.assertTrue(all(product.category == category for product in filtered_products))
+        products = ProductService.get_random_products_for_each_category(self.categories, 10)
+        filtered_products = product_filter.products_by_category(products, self.category)
+        self.assertLessEqual(len(filtered_products), 10)
+        self.assertTrue(all(product.category == self.category for product in filtered_products))
 
 
     def test_format_number(self):

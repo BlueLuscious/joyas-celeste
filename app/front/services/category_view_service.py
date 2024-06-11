@@ -28,7 +28,7 @@ class CategoryViewService():
         product_service = ProductService()
 
         if name is None:
-            products = product_service.get_random_products_by_category(categories, 10)
+            products = product_service.get_random_products_for_each_category(categories, 10)
 
             context = {
                 "categories": categories,

@@ -1,7 +1,7 @@
 import random
-from django.test import TestCase
 from django.core.management import call_command
 from django.template import Context, Template
+from django.test import TestCase
 from django.urls import reverse
 from front.models.category_model import CategoryModel
 

@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class ProductService():
 
     @staticmethod
-    def get_random_products_by_category(categories: Iterable[CategoryModel], quantity: int = 10) -> list[ProductModel]:
+    def get_random_products_for_each_category(categories: Iterable[CategoryModel], quantity: int = 10) -> list[ProductModel]:
 
         """
         Get a list of random products for each category.

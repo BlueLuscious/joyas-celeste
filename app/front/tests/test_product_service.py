@@ -1,9 +1,9 @@
 import random
 from django.core.management import call_command
 from django.test import TestCase
-from front.services.product_service import ProductService
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
+from front.services.product_service import ProductService
 
 
 class ProductServiceTest(TestCase):

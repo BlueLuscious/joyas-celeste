@@ -31,7 +31,7 @@ class CategoryViewService():
         product_service = ProductService()
 
         cripto_ya_service = CriptoYaService()
-        dollar_quotes = cripto_ya_service.get_dollar_quotes()
+        dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")
         dollar_blue_ask = dollar_quotes.get("blue").get("ask")
 
         if name is None:

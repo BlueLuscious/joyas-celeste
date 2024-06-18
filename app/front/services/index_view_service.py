@@ -25,7 +25,7 @@ class IndexViewService():
         # .exclude(stock=0)
 
         cripto_ya_service = CriptoYaService()
-        dollar_quotes = cripto_ya_service.get_dollar_quotes()
+        dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")
         dollar_blue_ask = dollar_quotes.get("blue").get("ask")
 
         context = {
@@ -35,5 +35,4 @@ class IndexViewService():
         }
 
         logger.info(f"index_view context: {context}")
-
         return context

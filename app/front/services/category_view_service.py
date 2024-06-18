@@ -1,4 +1,5 @@
 import logging
+from back.services.cripto_ya_service import CriptoYaService
 from django.template import Template, loader
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
@@ -21,11 +22,17 @@ class CategoryViewService():
             name (str): Category name.
 
         Returns:
-            dict: Dictionary containing context data. (categories and products)
+            dict: Dictionary containing context data. 
+            - categories and products
+            - dollar quotation
         """
 
         categories = CategoryModel.objects.all()
         product_service = ProductService()
+
+        cripto_ya_service = CriptoYaService()
+        dollar_quotes = cripto_ya_service.get_dollar_quotes()
+        dollar_blue_ask = dollar_quotes.get("blue").get("ask")
 
         if name is None:
             products = product_service.get_random_products_for_each_category(categories, 10)
@@ -33,6 +40,7 @@ class CategoryViewService():
             context = {
                 "categories": categories,
                 "products": products,
+                "dollar_blue": dollar_blue_ask,
             }
 
         else:
@@ -45,6 +53,7 @@ class CategoryViewService():
                 "category": category,
                 "products": pagination.get("products_page"),
                 "page_numbers": pagination.get("page_numbers"),
+                "dollar_blue": dollar_blue_ask,
             }
 
         logger.info(f"categories_view context: {context}")

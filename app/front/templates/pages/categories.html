@@ -50,7 +50,7 @@
                             Stock: {{ product.stock }}
                         </div>
                         <div class="p-2 font-semibold">
-                            $ {{ product.price|format_number_AR }}
+                            $ {{ product.price|convert_price_to_ARS:dollar_blue|format_number_AR }}
                         </div>
                     </div>
                 </div>

@@ -164,3 +164,6 @@ LOGGING = {
         },
     },
 }
+
+# CriptoYa API
+CRIPTO_YA_BASE_URL = "https://criptoya.com"

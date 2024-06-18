@@ -19,11 +19,11 @@ def products_by_category(products: list, category: CategoryModel) -> list:
     
 
 @register.filter
-def format_number(number: Decimal) -> str:
-    locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
-    formated_number = locale.format_string("%.2f", number, grouping=True)
-    logger.info(f"original number: {number} | formatted number: {formated_number}")
-    return formated_number
+def format_number_AR(number: Decimal) -> str:
+    locale.setlocale(locale.LC_ALL, 'es_AR.UTF-8')
+    formatted_number = locale.format_string("%.2f", number, grouping=True)
+    logger.info(f"original number: {number} | formatted number: {formatted_number}")
+    return formatted_number
     
 
 @register.filter

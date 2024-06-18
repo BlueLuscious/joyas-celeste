@@ -19,6 +19,7 @@ class IndexViewService():
 
         categories = CategoryModel.objects.all()
         products = ProductModel.objects.all()
+        # .exclude(stock=0)
 
         context = {
             "categories": categories,

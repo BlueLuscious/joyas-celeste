@@ -14,7 +14,7 @@ class CriptoYaService():
         Get dollar quotes from CriptoYa Api.
 
         Returns:
-            dict: Dictionary containing different dollar quotes.
+            dict: Dictionary containing different dollar quotes and response status code.
         """
 
         url = f"{CRIPTO_YA_BASE_URL}/api/dolar"
@@ -24,4 +24,7 @@ class CriptoYaService():
         logger.info(f"response status: {response.status_code}")
         logger.info(f"response data: {response.json()}")
 
-        return response.json()
+        return {
+            "data": response.json(),
+            "status": response.status_code,
+        }

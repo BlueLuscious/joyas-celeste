@@ -6,7 +6,7 @@ register = template.Library()
 
 
 @register.inclusion_tag("pages/components-index/category-card.html")
-def category_card(url: str, category_name: str) -> dict:
+def index_category_card(url: str, category_name: str) -> dict:
     logger.info(f"url: {url} | category: {category_name}")
     context = {
         "url": url,

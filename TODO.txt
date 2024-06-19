@@ -2,4 +2,4 @@ TODO:
 
 Add DocString to all the methods.
 
-Test: index_tag.py
+Test: All tags

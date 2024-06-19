@@ -1,8 +1,8 @@
-.banner{
+/* .banner{
     background-image: url("../../static/images/banner-index-view.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-}
+} */
 
 .category_card:nth-of-type(1) {
     background-image: url("../../static/images/ring-card.webp");

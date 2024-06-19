@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-{% load index_tag %}
+{% load category_card_tag %}
+{% load product_card_tag %}
 {% load product_filter %}
 
 {% block content %}
@@ -8,48 +9,22 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-    <section class="banner relative w-full h-full mt-24">
+    <section class="relative w-full h-full pt-24 bg-primary-earth_tone_3"> <!-- class banner -->
         <div class="grid grid-cols-1 sm:grid-cols-2 items-center content-evenly justify-items-center
             w-full h-full py-12 px-12 gap-12">
 
             {% for category in categories %}
                 {% url 'category' name=category.name|lower as category_url %}
-                {% category_card category_url category.name %}
+                {% index_category_card category_url category.name %}
             {% endfor %}
 
         </div>
     </section>
-    <section class="relative w-full bg-yellow-50">
+    <section class="relative w-full">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center content-evenly 
             justify-items-center w-full h-full py-12 px-12 gap-12">
             
-            {% for product in products %}
-            <div class="relative flex flex-col items-center w-full bg-white text-lg mukta-light
-                rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
-                <div class="absolute top-3 right-3 p-1 bg-white rounded-md shadow-md cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
-                        stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-primary-earth_tone_4">
-                        <path stroke-linecap="round" stroke-linejoin="round" 
-                            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                            <text x="12" y="15.5" stroke-width="1" text-anchor="middle" dy=".3em" class="text-xs">+</text>
-                    </svg>
-                </div>
-                <div class="w-full">
-                    <img class="w-full rounded-t-lg" src="{{ product.image|image_or_default }}" alt="image">
-                </div>
-                <div class="w-full p-2 text-center">
-                    {{ product.name }}
-                </div>
-                <div class="flex flex-row justify-evenly w-full">
-                    <div class="p-2">
-                        Stock: {{ product.stock }}
-                    </div>
-                    <div class="p-2 font-semibold">
-                        $ {{ product.price|convert_price_to_ARS:dollar_blue|format_number_AR }}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+            {% product_card products dollar_blue %}
             
         </div>
     </section>

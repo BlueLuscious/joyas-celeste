@@ -16,6 +16,9 @@ tailwind.config = {
                 secondary: {
                     gray_tone_1: "#F2F2F2",
                 },
+                tertiary: {
+                    whatsapp_green_tone: "#00bb2d",
+                },
             },
         },
     },

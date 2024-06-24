@@ -1,0 +1,49 @@
+{% load footer_info_content_tag %}
+
+<div class="relative flex flex-col items-center justify-evenly gap-y-4 w-full 
+    bg-primary-earth_tone_4">
+
+    <div class="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full">
+        <div class="flex flex-col items-center gap-y-2 w-full">
+            <div class="w-fit p-2 pt-12 text-center">
+                <div class="p-2 px-4 text-xl text-primary-earth_tone_4 bg-primary-earth_tone_3 rounded-sm 
+                    cinzel-semibold">
+                    Redes Sociales
+                </div>
+            </div>
+            {% footer_info_content "instagram" None "icons/instagram.html" "joyasceleste.longhi" %}
+        </div>
+        <div class="flex flex-col items-center gap-y-2 w-full">
+            <div class="w-fit p-2 pt-12 text-center">
+                <div class="p-2 px-4 text-xl text-primary-earth_tone_4 bg-primary-earth_tone_3 rounded-sm 
+                    cinzel-semibold">
+                    Contacto
+                </div>
+            </div>
+            {% footer_info_content "whatsapp" "whatsapp_icon_tag" "whatsapp_icon 'w-6 h-6 text-primary-earth_tone_3_light'" "+54 9 336 458-1618" %}
+        </div>
+        <div class="flex flex-col items-center gap-y-2 w-full">
+            <div class="w-fit p-2 pt-12 text-center">
+                <div class="p-2 px-4 text-xl text-primary-earth_tone_4 bg-primary-earth_tone_3 rounded-sm 
+                    cinzel-semibold">
+                    Ubicación
+                </div>
+            </div>
+            {% footer_info_content "location" None "icons/location.html" "Empalme V.C., Irigoyen 997" %}
+        </div>
+    </div>
+    
+    <div>
+        <div class="p-6">
+            <div id="copyright" class="flex flex-row items-center gap-x-4 w-fit">
+                <div>
+                    {% include "icons/copyright.html" %}                
+                </div>
+                <div class="p-2 border-b-2 border-transparent text-primary-earth_tone_3_light">
+                    Copyright Joyas Celeste - 2024
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

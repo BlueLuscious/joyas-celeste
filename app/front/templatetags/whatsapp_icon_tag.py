@@ -5,11 +5,10 @@ logger = logging.getLogger(__name__)
 register = template.Library()
 
 
-@register.inclusion_tag("icons/arrow-down.html")
-def arrow_icon(tailwind_rotate: str = "") -> dict:
-    logger.info(f"rotation: {tailwind_rotate}")
+@register.inclusion_tag("icons/whatsapp.html")
+def whatsapp_icon(tailwind_class: str = "") -> dict:
     context = {
-        "rotate": tailwind_rotate,
+        "tailwind_class": tailwind_class,
     }
     logger.info(f"tailwind class: {context}")
 

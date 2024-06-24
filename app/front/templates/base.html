@@ -1,4 +1,5 @@
 {% load static %}
+{% load whatsapp_icon_tag %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +29,20 @@
     </section>
 
     <!-- FOOTER -->
+    <section>
+        {% include "components-base/footer.html" %}
+    </section>
+
+    <!-- whatsapp button -->
+    <div id="whatsapp_button" 
+        class="z-10 fixed bottom-3 right-3 sm:bottom-5 sm:right-5 p-3 pt-4 bg-tertiary-whatsapp_green_tone 
+        rounded-full shadow-xl cursor-pointer scale-80">
+        <button type="button">
+            {% whatsapp_icon "w-10 h-8 text-white" %}
+        </button>
+    </div>
 
 </body>
-<script src="{% static 'js/base.js' %}"></script>
+<script type="module" src="{% static 'js/base.js' %}"></script>
 <script src="{% static 'js/tailwind/tailwind.config.js' %}"></script>
 </html>

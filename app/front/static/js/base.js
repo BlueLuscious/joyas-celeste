@@ -1,3 +1,9 @@
+import { Helpers } from "./helpers/helpers.js"
+import { WhatsappService } from "./services/whatsapp-service.js"
+
+const Helper = new Helpers()
+const WA_Service = new WhatsappService()
+
 document.addEventListener("DOMContentLoaded", () => {
 
     /* LEFT SIDE NAVBAR */
@@ -7,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftSideNavbar = document.getElementById("left_side_navbar")
     const leftSideNavbarButtons = [menu, closeMenu]
 
-    openSideNavbar(leftSideNavbarButtons, leftSideNavbar, "-translate-x-full")
+    Helper.openSideNavbar(leftSideNavbarButtons, leftSideNavbar, "-translate-x-full")
 
     /* Expand Sub-Menus */
     const cardArrows = Array.from(document.getElementsByClassName("card_arrow"))
@@ -28,16 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const rightSideNavbar = document.getElementById("right_side_navbar")
     const rightSideNavbarButtons = [cart, closeCart]
 
-    openSideNavbar(rightSideNavbarButtons, rightSideNavbar, "translate-x-full")
+    Helper.openSideNavbar(rightSideNavbarButtons, rightSideNavbar, "translate-x-full")
 
+    /* FOOTER */
+    const instagramRedirect = document.getElementById("instagram")
+    const whatsappRedirect = document.getElementById("whatsapp")
+    const whatsappButton = document.getElementById("whatsapp_button")
+    const locationRedirect = document.getElementById("location")
 
+    instagramRedirect.addEventListener("click", () => {
+        window.open("https://www.instagram.com/joyasceleste.longhi/", "_blank")
+    })
+
+    whatsappRedirect.addEventListener("click", WA_Service.openWhatsApp)
+    whatsappButton.addEventListener("click", WA_Service.openWhatsApp)
+
+    locationRedirect.addEventListener("click", () => {
+        const latitude = -33.253801
+        const longitude = -60.3725502
+        window.open(`https://www.google.com/maps?q=${latitude},${longitude}`, "_blank")
+    })
 
 })
-
-function openSideNavbar(buttons, element, classlist) {
-    buttons.forEach(button => {
-        button.addEventListener("click", () => {
-            element.classList.toggle(classlist)
-        })
-    })
-}

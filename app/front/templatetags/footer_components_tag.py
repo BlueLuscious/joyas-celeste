@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 register = template.Library()
 
 
-@register.inclusion_tag("pages/components/footer-info-content.html", takes_context=True)
+@register.inclusion_tag("components-base/components-footer/footer-info-content.html", takes_context=True)
 def footer_info_content(context, id_: str, icon_inclusion: str, content: str) -> dict:
 
     template_string = f"{{% include {icon_inclusion} %}}"

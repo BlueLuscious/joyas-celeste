@@ -11,7 +11,9 @@
                     Redes Sociales
                 </div>
             </div>
-            {% footer_info_content "instagram" None "icons/instagram.html" "joyasceleste.longhi" %}
+            {% with instagram_icon="'icons/instagram.html'" %}
+                {% footer_info_content id_="instagram" icon_inclusion=instagram_icon content="joyasceleste.longhi" %}
+            {% endwith %}
         </div>
         <div class="flex flex-col items-center gap-y-2 w-full">
             <div class="w-fit p-2 pt-12 text-center">
@@ -20,7 +22,9 @@
                     Contacto
                 </div>
             </div>
-            {% footer_info_content "whatsapp" "whatsapp_icon_tag" "whatsapp_icon 'w-6 h-6 text-primary-earth_tone_3_light'" "+54 9 336 458-1618" %}
+            {% with whatsapp_icon="'icons/whatsapp.html' with tailwind_class='w-6 h-6 text-primary-earth_tone_3_light'" %}
+                {% footer_info_content id_="whatsapp" icon_inclusion=whatsapp_icon content="+54 9 336 458-1618" %}
+            {% endwith %}
         </div>
         <div class="flex flex-col items-center gap-y-2 w-full">
             <div class="w-fit p-2 pt-12 text-center">
@@ -29,7 +33,9 @@
                     Ubicación
                 </div>
             </div>
-            {% footer_info_content "location" None "icons/location.html" "Empalme V.C., Irigoyen 997" %}
+            {% with location_icon="'icons/location.html'" %}
+                {% footer_info_content id_="location" icon_inclusion=location_icon content="Empalme V.C., Irigoyen 997" %}
+            {% endwith %}
         </div>
     </div>
     

@@ -17,40 +17,50 @@
             <!-- add search input and filters -->
         </div>
 
+        <div class="flex flex-col gap-y-12 py-12">
         {% for category in categories %}
-            {% if products|products_by_category:category %}
-            <div class="flex justify-center w-full pt-12">
-                <div class="p-5 bg-primary-earth_tone_4 text-center rounded-md">
-                    <a href="{% url 'category' name=category.name|lower %}">
-                        <span class="text-3xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
-                            {{ category.name }}
-                        </span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="all_category_card inline-flex overflow-x-scroll w-full h-full py-12 px-10 sm:px-12 gap-12">
-
-                {% product_card products dollar_blue category %}
-                
-                {% if products|products_by_category:category|length == 10 %}
-                <div class="relative flex flex-col items-center justify-center w-[15rem] md:w-[20rem] ">
-                    <div class="w-[15rem] md:w-[20rem]">
-                        <div class="p-5 bg-primary-earth_tone_4 text-center text-3xl text-primary-earth_tone_3 
-                            cinzel-semibold rounded-md shadow-xl transform transition-transform duration-300 
-                            ease-in-out hover:bg-primary-earth_tone_3 hover:text-primary-earth_tone_4 hover:scale-105
-                            cursor-pointer">
-                            <a href="{% url 'category' name=category.name|lower %}">
-                                Ver mas
-                            </a>
-                        </div>
+            
+            <div>
+                <div class="flex justify-center w-full">
+                    <div class="p-5 bg-primary-earth_tone_4 text-center rounded-md">
+                        <a href="{% url 'category' name=category.name|lower %}">
+                            <span class="text-3xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
+                                {{ category.name }}
+                            </span>
+                        </a>
                     </div>
                 </div>
-                {% endif %}
 
+                {% if products|products_by_category:category %}
+                <div class="all_category_card inline-flex overflow-x-scroll w-full h-full py-12 px-10 sm:px-12 gap-12">
+                    {% product_card products dollar_blue category %}
+                    
+                    {% if products|products_by_category:category|length == 10 %}
+                    <div class="relative flex flex-col items-center justify-center w-[15rem] md:w-[20rem] ">
+                        <div class="w-[15rem] md:w-[20rem]">
+                            <div class="p-5 bg-primary-earth_tone_4 text-center text-3xl text-primary-earth_tone_3 
+                                cinzel-semibold rounded-md shadow-xl transform transition-all duration-300 
+                                ease-in-out hover:bg-primary-earth_tone_3 hover:text-primary-earth_tone_4 hover:scale-105
+                                cursor-pointer">
+                                <a href="{% url 'category' name=category.name|lower %}">
+                                    Ver mas
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="flex flex-wrap items-center justify-center py-48">
+                <div class="p-2 sm:p-4 text-center text-lg sm:text-2xl text-primary-earth_tone_4 mukta-light 
+                    border-b-2 border-primary-earth_tone_4 rounded-sm">
+                    Aún no hay productos en esta categoria
+                </div>
             </div>
             {% endif %}
         {% endfor %}
+        </div>
 
     </section>
 

@@ -1,0 +1,44 @@
+{% load arrow_icon_tag %}
+
+{% if products.has_other_pages %}
+<div class="flex flex-row gap-x-6 items-center justify-center">
+    {% if products.has_previous %}
+    <div>
+        <a href="?page={{ products.previous_page_number }}">
+            <div class="transition-transform duration-300 ease-in-out hover:scale-110">
+                {% arrow_icon "rotate-90" %}
+            </div>
+        </a>
+    </div>
+    {% endif %}
+
+    <div class="flex flex-row gap-x-2">
+        {% for num in page_numbers %}
+            {% if products.number == num %}
+            <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3
+                rounded-sm cursor-default">
+                {{ num }}
+            </div>
+            {% else %}
+            <a href="?page={{ num }}">
+                <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2
+                    border-primary-earth_tone_4 rounded-sm 
+                    transition-transform duration-300 ease-in-out hover:scale-105">
+                    {{ num }}
+                </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if products.has_next %}
+    <div>
+        <a href="?page={{ products.next_page_number }}">
+            <div class="transition-transform duration-300 ease-in-out hover:scale-110">
+                {% arrow_icon "-rotate-90" %}
+            </div>
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endif %}

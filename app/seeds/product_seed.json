@@ -1,0 +1,212 @@
+[
+{
+  "model": "front.productmodel",
+  "pk": 1,
+  "fields": {
+    "name": "Gold Ring",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "5000.00",
+    "stock": 3,
+    "image": "products/gold-ring.webp",
+    "description": null,
+    "created_at": "2024-05-23T08:08:43.230Z",
+    "updated_at": "2024-05-23T08:08:43.230Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 2,
+  "fields": {
+    "name": "Silver Ring",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "2500.00",
+    "stock": 5,
+    "image": "products/silver-ring.webp",
+    "description": null,
+    "created_at": "2024-05-23T08:09:02.932Z",
+    "updated_at": "2024-05-23T08:09:02.932Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 3,
+  "fields": {
+    "name": "Gold Rose Ring",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "4500.00",
+    "stock": 5,
+    "image": "products/gold-rose.jpg",
+    "description": null,
+    "created_at": "2024-05-23T08:09:34.299Z",
+    "updated_at": "2024-05-23T08:09:34.299Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 4,
+  "fields": {
+    "name": "Gold Ring 2",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "5000.00",
+    "stock": 2,
+    "image": "products/gold-ring-2.webp",
+    "description": null,
+    "created_at": "2024-05-23T08:10:00.341Z",
+    "updated_at": "2024-05-23T08:10:00.341Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 5,
+  "fields": {
+    "name": "Silver Ring 2",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "2500.00",
+    "stock": 5,
+    "image": "products/silver-ring-2.webp",
+    "description": null,
+    "created_at": "2024-05-23T08:10:31.163Z",
+    "updated_at": "2024-05-23T08:10:31.163Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 6,
+  "fields": {
+    "name": "Gold Rose Ring 2",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "4500.00",
+    "stock": 2,
+    "image": "products/gold-rose-2.webp",
+    "description": null,
+    "created_at": "2024-05-23T08:10:58.166Z",
+    "updated_at": "2024-05-23T08:10:58.166Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 8,
+  "fields": {
+    "name": "Gold Ring 3",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "9000.00",
+    "stock": 2,
+    "image": "products/gold-ring-3.jpg",
+    "description": null,
+    "created_at": "2024-05-28T07:35:07.572Z",
+    "updated_at": "2024-05-28T07:35:07.572Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 9,
+  "fields": {
+    "name": "Gold Necklace",
+    "category": "b391ac96-7a22-446f-9716-0553bf8b0fdc",
+    "price": "10000.00",
+    "stock": 2,
+    "image": "products/gold-necklace.webp",
+    "description": null,
+    "created_at": "2024-06-01T04:35:47.144Z",
+    "updated_at": "2024-06-01T04:35:47.144Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 10,
+  "fields": {
+    "name": "Gold Earrings",
+    "category": "e1c48e68-053e-484a-b87a-14c56af3fae3",
+    "price": "5000.00",
+    "stock": 2,
+    "image": "products/gold-earrings_RcZXpnU.jpg",
+    "description": null,
+    "created_at": "2024-06-01T04:43:07.078Z",
+    "updated_at": "2024-06-01T04:43:07.078Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 11,
+  "fields": {
+    "name": "Anillo 1",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "1000.00",
+    "stock": 2,
+    "image": "products/Anillo-1-10-63c085a4ba3d6.jpg",
+    "description": null,
+    "created_at": "2024-06-01T05:50:27.413Z",
+    "updated_at": "2024-06-01T05:50:27.414Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 12,
+  "fields": {
+    "name": "Anillo 2",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "2000.00",
+    "stock": 2,
+    "image": "products/white_1.webp",
+    "description": null,
+    "created_at": "2024-06-01T05:50:51.498Z",
+    "updated_at": "2024-06-01T05:50:51.498Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 13,
+  "fields": {
+    "name": "Anillo 3",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "3000.00",
+    "stock": 3,
+    "image": "products/white.webp",
+    "description": null,
+    "created_at": "2024-06-01T05:51:06.455Z",
+    "updated_at": "2024-06-01T05:51:06.455Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 14,
+  "fields": {
+    "name": "Anillo 4",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "4000.00",
+    "stock": 4,
+    "image": "products/red_white.webp",
+    "description": null,
+    "created_at": "2024-06-01T05:51:22.916Z",
+    "updated_at": "2024-06-01T05:53:52.673Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 15,
+  "fields": {
+    "name": "Anillo 5",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "5000.00",
+    "stock": 5,
+    "image": "products/TI-OR-FC_SX-0001_G2-AM-UNI_6MM_V45_box.webp",
+    "description": null,
+    "created_at": "2024-06-01T05:51:41.954Z",
+    "updated_at": "2024-06-01T05:51:41.954Z"
+  }
+},
+{
+  "model": "front.productmodel",
+  "pk": 16,
+  "fields": {
+    "name": "Anillo 6",
+    "category": "369d813e-196d-42ed-8185-ee4083bd0b22",
+    "price": "7500.00",
+    "stock": 3,
+    "image": "",
+    "description": null,
+    "created_at": "2024-06-05T23:14:55.787Z",
+    "updated_at": "2024-06-05T23:14:55.787Z"
+  }
+}
+]

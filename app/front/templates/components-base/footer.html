@@ -1,0 +1,40 @@
+{% load footer_components_tag %}
+
+<div class="relative flex flex-col items-center justify-evenly gap-y-4 w-full 
+    bg-primary-earth_tone_4">
+
+    <div class="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full">
+        <div class="flex flex-col items-center gap-y-2 w-full">
+            {% include "./components-footer/footer-info-title.html" with title="Redes Sociales" %}
+            {% with instagram_icon="'icons/instagram.html'" %}
+                {% footer_info_content id_="instagram" icon_inclusion=instagram_icon content="joyasceleste.longhi" %}
+            {% endwith %}
+        </div>
+        <div class="flex flex-col items-center gap-y-2 w-full">
+            {% include "./components-footer/footer-info-title.html" with title="Contacto" %}
+            {% with whatsapp_icon="'icons/whatsapp.html' with tailwind_class='w-6 h-6 text-primary-earth_tone_3_light'" %}
+                {% footer_info_content id_="whatsapp" icon_inclusion=whatsapp_icon content="+54 9 336 458-1618" %}
+            {% endwith %}
+        </div>
+        <div class="flex flex-col items-center gap-y-2 w-full">
+            {% include "./components-footer/footer-info-title.html" with title="Ubicación" %}
+            {% with location_icon="'icons/location.html'" %}
+                {% footer_info_content id_="location" icon_inclusion=location_icon content="Empalme V.C., Irigoyen 997" %}
+            {% endwith %}
+        </div>
+    </div>
+    
+    <div>
+        <div class="p-6">
+            <div id="copyright" class="flex flex-row items-center gap-x-4 w-fit">
+                <div>
+                    {% include "icons/copyright.html" %}                
+                </div>
+                <div class="p-2 border-b-2 border-transparent text-primary-earth_tone_3_light">
+                    Copyright Joyas Celeste - 2024
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

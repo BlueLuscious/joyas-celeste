@@ -1,10 +1,60 @@
 /* FONTS */
-.cinzel-600 {
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
+
+.cinzel-semibold {
     font-family: "Cinzel", serif;
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
 }
+
+.mukta-light {
+    font-family: "Mukta", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* VARS */
+:root {
+    /* Primary Colors */
+    --earth-tone-1: #A47E4E;
+    --earth-tone-2: #BFA169;
+    --earth-tone-3: #D9BD9C;
+    --earth-tone-3-light: #FCF2E6;
+    --earth-tone-4: #8C694B;
+    --earth-tone-4-0750: #8C694BCE;
+
+    /* Secondary Colors */
+    --gray-tone-1: #F2F2F2;
+    --white-tone: #FFFFFF;
+}
+
+/* BODY */
+body {
+    &::-webkit-scrollbar {
+        width: 1rem;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: var(--white-tone);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--earth-tone-1);
+        cursor: grab;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: var(--earth-tone-2);
+        cursor: grab;
+    }
+    
+    &::-webkit-scrollbar-thumb:active {
+        background-color: var(--earth-tone-2);
+        cursor: grabbing;
+    }
+}
+
 
 #left_side_navbar::-webkit-scrollbar,
 .sub_menu::-webkit-scrollbar {

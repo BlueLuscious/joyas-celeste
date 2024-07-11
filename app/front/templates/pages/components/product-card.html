@@ -7,9 +7,11 @@
         
         {% include "../../icons/shopping-bag-add.html" %}
 
-        <div class="w-full">
-            <img class="w-full rounded-t-lg" src="{{ product.image|image_or_default }}" alt="image">
-        </div>
+        <a href="{% url 'product' name=product.slug %}">
+            <div class="w-full">
+                <img class="w-full rounded-t-lg" src="{{ product.image|image_or_default }}" alt="image">
+            </div>
+        </a>
         <div class="w-full p-2 text-center">
             {{ product.name }}
         </div>
@@ -30,9 +32,11 @@
 
         {% include "../../icons/shopping-bag-add.html" %}
 
-        <div class="w-[15rem] md:w-[20rem]">
-            <img class="w-full rounded-t-lg" src="{{ product.image|image_or_default }}" alt="image">
-        </div>
+        <a href="{% url 'product' name=product.slug %}">
+            <div class="w-[15rem] md:w-[20rem]">
+                <img class="w-full rounded-t-lg" src="{{ product.image|image_or_default }}" alt="image">
+            </div>
+        </a>
         <div class="w-full p-2 text-center">
             {{ product.name }}
         </div>

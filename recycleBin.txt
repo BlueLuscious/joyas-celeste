@@ -1,0 +1,212 @@
+<div class="category_box relative w-full h-full flex items-center justify-center
+    bg-white shadow rounded-lg text-center cursor-pointer">
+    <div class="category_text w-full p-5">
+        <span class="text-3xl cinzel-600">Anillos</span>
+    </div>
+
+
+
+
+    <div id="carrousel" class="relative w-full h-full">
+        <div class="w-full h-full">
+            <img class="carrousel_image w-full h-full bg-cover rounded-lg active" 
+                src="{% static 'images/silver-ring.webp' %}" alt="Silver Ring">
+            <img class="carrousel_image w-full h-full bg-cover rounded-lg hidden" 
+                src="{% static 'images/gold-ring.webp' %}" alt="Gold Ring">
+        </div>
+        <div class="absolute left-0 top-0 flex flex-row items-center justify-between w-full h-full">
+            <button id="prevBtn" class="p-2 ml-5 bg-black text-white rounded-md">
+                &#10094;
+            </button>
+            <button id="nextBtn" class="p-2 mr-5 bg-black text-white rounded-md">
+                &#10095;
+            </button>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+# HIDDEN LABEL
+
+<div class="category_label absolute left-0 top-[2%] h-1/5 w-full sm:w-2/4 lg:w-1/4 
+    flex justify-center p-1 pb-10 bg-black rounded-t
+    transform translate-y-full transition-transform duration-500 ease-in-out">
+    <span class="text-xl text-white">Anillos</span>
+</div>
+
+const categoryBox = Array.from(document.getElementsByClassName("category_box"))
+const categoryLabel = Array.from(document.getElementsByClassName("category_label"))
+
+categoryBox.forEach((box, index) => {
+    box.addEventListener("mouseover", () => {
+        categoryLabel[index].classList.toggle("-translate-y-full")
+    })
+
+    box.addEventListener("mouseout", () => {
+        categoryLabel[index].classList.toggle("-translate-y-full")
+    })
+})
+
+
+
+# PRODUCT CARDS
+
+<section class="relative w-full bg-yellow-50">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center content-evenly justify-items-center
+        w-full h-full py-8 gap-y-8">
+        
+        {% for product in products %}
+        <div class="relative flex flex-col items-center w-4/5 bg-white rounded-lg shadow-xl 
+            transform transition-transform duration-300 ease-in-out hover:scale-105">
+            <div class="absolute top-3 right-3 p-1 rounded-md shadow-md cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                    stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" 
+                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                <div class="absolute top-[20%] left-[33%] text-xl font-bold">+</div>
+            </div>
+            <div class="w-full">
+                <img src="{{ product.image.url }}" alt="image">
+            </div>
+            <div class="w-full p-2 text-center">
+                {{ product.name }}
+            </div>
+            <div class="flex flex-row justify-evenly w-full">
+                <div class="p-2">
+                    Stock: {{ product.stock }}
+                </div>
+                <div class="p-2">
+                    $ {{ product.price }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+</section>
+
+
+
+
+FONTS WEIGHT
+extrabold: 800
+bold: 700
+semibold: 600
+medium: 500
+regular: 400
+light: 300
+extralight: 200
+
+
+
+
+<div class="flex flex-row gap-x-2">
+    {% with current_page=products.number total_pages=products.paginator.num_pages %}
+        {% if total_pages > 5 %}
+            {% if current_page <= 3 %}
+                {% for num in 1|range_custom:5 %}
+                    {% if products.number == num %}
+                    <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3 rounded-sm cursor-default">
+                        {{ num }}
+                    </div>
+                    {% else %}
+                    <a href="?page={{ num }}">
+                        <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2 border-primary-earth_tone_4 rounded-sm transition-transform duration-300 ease-in-out hover:scale-105">
+                            {{ num }}
+                        </div>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            {% elif current_page > total_pages|add:-3 %}
+                {% for num in total_pages|add:-4|range_custom:total_pages %}
+                    {% if products.number == num %}
+                    <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3 rounded-sm cursor-default">
+                        {{ num }}
+                    </div>
+                    {% else %}
+                    <a href="?page={{ num }}">
+                        <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2 border-primary-earth_tone_4 rounded-sm transition-transform duration-300 ease-in-out hover:scale-105">
+                            {{ num }}
+                        </div>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for num in current_page|add:-2|range_custom:current_page|add:2 %}
+                    {% if products.number == num %}
+                    <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3 rounded-sm cursor-default">
+                        {{ num }}
+                    </div>
+                    {% else %}
+                    <a href="?page={{ num }}">
+                        <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2 border-primary-earth_tone_4 rounded-sm transition-transform duration-300 ease-in-out hover:scale-105">
+                            {{ num }}
+                        </div>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% else %}
+            {% for num in 1|range_custom:total_pages %}
+                {% if products.number == num %}
+                    <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3 rounded-sm cursor-default">
+                        {{ num }}
+                    </div>
+                    {% else %}
+                    <a href="?page={{ num }}">
+                        <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2 border-primary-earth_tone_4 rounded-sm transition-transform duration-300 ease-in-out hover:scale-105">
+                            {{ num }}
+                        </div>
+                    </a>
+                    {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+@register.filter
+def range_custom(start, end):
+    return range(start, end + 1)
+
+
+
+
+class PaginatorService():
+
+    @staticmethod
+    def calculate_page_numbers(current_page: int, total_pages: int, max_pages_to_show: int) -> list:
+
+        """
+        Calculate the list of page numbers to display in pagination.
+
+        Args:
+            current_page (int): The current page number.
+            total_pages (int): The total number of pages.
+            max_pages_to_show (int): The maximum number of pages to show.
+
+        Returns:
+            list: A list of page numbers to display in pagination.
+
+        """
+
+        half_pages_to_show = max_pages_to_show // 2
+
+        if total_pages <= max_pages_to_show:
+            return list(range(1, total_pages + 1))
+
+        if current_page <= half_pages_to_show:
+            return list(range(1, max_pages_to_show + 1))
+
+        if current_page >= total_pages - half_pages_to_show:
+            return list(range(total_pages - max_pages_to_show + 1, total_pages + 1))
+
+        return list(range(current_page - half_pages_to_show, current_page + half_pages_to_show + 1))
+
+
+
+
+

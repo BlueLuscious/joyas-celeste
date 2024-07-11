@@ -24,6 +24,7 @@ SECRET_KEY = "django-insecure-&8@n)_5t*az4x540@x88#6ysvtcj43f$^onlc+^7gw^09^y^4+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# ENVIRONMENT = os.environ.get("ENVIRONMENT", "local")
 
 ALLOWED_HOSTS = []
 
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "back",
+    "front",
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,7 @@ ROOT_URLCONF = "app.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -136,3 +139,32 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Media files
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# Logs
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {"format": "%(levelname)s %(asctime)s %(module)s  %(message)s"},
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler", "formatter": "simple"
+        },
+    },
+    "root": {
+        "handlers": ["console"], 
+        "level": "INFO", 
+        "formatter": "simple"
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+    },
+}
+
+# CriptoYa API
+CRIPTO_YA_BASE_URL = "https://criptoya.com"

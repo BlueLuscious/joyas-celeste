@@ -1,0 +1,42 @@
+[
+{
+  "model": "front.categorymodel",
+  "pk": "369d813e-196d-42ed-8185-ee4083bd0b22",
+  "fields": {
+    "name": "Anillos",
+    "description": null,
+    "created_at": "2024-05-23T08:07:31.662Z",
+    "updated_at": "2024-05-23T08:07:31.662Z"
+  }
+},
+{
+  "model": "front.categorymodel",
+  "pk": "75cc7103-1935-412a-8cdb-69beecae896b",
+  "fields": {
+    "name": "Pulseras",
+    "description": null,
+    "created_at": "2024-05-23T08:08:02.079Z",
+    "updated_at": "2024-05-23T08:08:02.079Z"
+  }
+},
+{
+  "model": "front.categorymodel",
+  "pk": "b391ac96-7a22-446f-9716-0553bf8b0fdc",
+  "fields": {
+    "name": "Colgantes",
+    "description": null,
+    "created_at": "2024-05-23T08:07:55.488Z",
+    "updated_at": "2024-05-23T08:07:55.488Z"
+  }
+},
+{
+  "model": "front.categorymodel",
+  "pk": "e1c48e68-053e-484a-b87a-14c56af3fae3",
+  "fields": {
+    "name": "Aros",
+    "description": null,
+    "created_at": "2024-05-23T08:07:43.111Z",
+    "updated_at": "2024-05-23T08:07:43.111Z"
+  }
+}
+]

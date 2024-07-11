@@ -14,7 +14,7 @@
             w-full h-full py-12 px-12 gap-12"> <!-- h-[100vh] py-36 - another option -->
 
             {% for category in categories %}
-                {% url 'category' name=category.name|lower as category_url %}
+                {% url 'category' name=category.slug as category_url %}
                 {% index_category_card category_url category.name %}
             {% endfor %}
 

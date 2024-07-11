@@ -91,6 +91,7 @@ categoryBox.forEach((box, index) => {
 
 
 
+
 FONTS WEIGHT
 extrabold: 800
 bold: 700
@@ -99,3 +100,113 @@ medium: 500
 regular: 400
 light: 300
 extralight: 200
+
+
+
+
+<div class="flex flex-row gap-x-2">
+    {% with current_page=products.number total_pages=products.paginator.num_pages %}
+        {% if total_pages > 5 %}
+            {% if current_page <= 3 %}
+                {% for num in 1|range_custom:5 %}
+                    {% if products.number == num %}
+                    <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3 rounded-sm cursor-default">
+                        {{ num }}
+                    </div>
+                    {% else %}
+                    <a href="?page={{ num }}">
+                        <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2 border-primary-earth_tone_4 rounded-sm transition-transform duration-300 ease-in-out hover:scale-105">
+                            {{ num }}
+                        </div>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            {% elif current_page > total_pages|add:-3 %}
+                {% for num in total_pages|add:-4|range_custom:total_pages %}
+                    {% if products.number == num %}
+                    <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3 rounded-sm cursor-default">
+                        {{ num }}
+                    </div>
+                    {% else %}
+                    <a href="?page={{ num }}">
+                        <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2 border-primary-earth_tone_4 rounded-sm transition-transform duration-300 ease-in-out hover:scale-105">
+                            {{ num }}
+                        </div>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for num in current_page|add:-2|range_custom:current_page|add:2 %}
+                    {% if products.number == num %}
+                    <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3 rounded-sm cursor-default">
+                        {{ num }}
+                    </div>
+                    {% else %}
+                    <a href="?page={{ num }}">
+                        <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2 border-primary-earth_tone_4 rounded-sm transition-transform duration-300 ease-in-out hover:scale-105">
+                            {{ num }}
+                        </div>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% else %}
+            {% for num in 1|range_custom:total_pages %}
+                {% if products.number == num %}
+                    <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3 rounded-sm cursor-default">
+                        {{ num }}
+                    </div>
+                    {% else %}
+                    <a href="?page={{ num }}">
+                        <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2 border-primary-earth_tone_4 rounded-sm transition-transform duration-300 ease-in-out hover:scale-105">
+                            {{ num }}
+                        </div>
+                    </a>
+                    {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+@register.filter
+def range_custom(start, end):
+    return range(start, end + 1)
+
+
+
+
+class PaginatorService():
+
+    @staticmethod
+    def calculate_page_numbers(current_page: int, total_pages: int, max_pages_to_show: int) -> list:
+
+        """
+        Calculate the list of page numbers to display in pagination.
+
+        Args:
+            current_page (int): The current page number.
+            total_pages (int): The total number of pages.
+            max_pages_to_show (int): The maximum number of pages to show.
+
+        Returns:
+            list: A list of page numbers to display in pagination.
+
+        """
+
+        half_pages_to_show = max_pages_to_show // 2
+
+        if total_pages <= max_pages_to_show:
+            return list(range(1, total_pages + 1))
+
+        if current_page <= half_pages_to_show:
+            return list(range(1, max_pages_to_show + 1))
+
+        if current_page >= total_pages - half_pages_to_show:
+            return list(range(total_pages - max_pages_to_show + 1, total_pages + 1))
+
+        return list(range(current_page - half_pages_to_show, current_page + half_pages_to_show + 1))
+
+
+
+
+

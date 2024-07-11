@@ -1,0 +1,20 @@
+.banner_categories {
+    background-image: url("../../static/images/360_F_292569116_Phht4uRj1YIuLFgBhrLu8171npBOcJcr.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--earth-tone-4-0750);
+    }
+}
+
+.all_category_card::-webkit-scrollbar {
+    display: none;
+    appearance: none;
+}

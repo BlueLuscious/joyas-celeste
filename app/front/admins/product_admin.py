@@ -4,6 +4,6 @@ from front.models.product_model import ProductModel
 
 @admin.register(ProductModel)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "category", "price", "stock", "created_at", "id", )
+    list_display = ("name", "category", "price", "stock", "created_at", "slug", "uuid", )
     ordering = ("-created_at", )
-    search_fields = ("id", "name", "category__uuid", "category__name", )
+    search_fields = ("uuid", "name", "slug", "category__uuid", "category__name", )

@@ -9,26 +9,39 @@
     <link rel="icon" href="{% static 'images/favicon_v2.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% include "tailwind/cdn-tailwind.html" %}
-    {% include "fonts/cinzel-font.html" %}
 </head>
 <body>
     <!-- NAVBAR -->
     <section>
-        {% include "t-base/navbar.html" %}
+        {% include "components-base/navbar.html" %}
 
         <!-- LEFT SIDE NAVBAR -->
-        {% include "t-base/left-side-navbar.html" %}
+        {% include "components-base/left-side-navbar.html" %}
 
         <!-- RIGHT SIDE NAVBAR -->
-        {% include "t-base/right-side-navbar.html" %}
+        {% include "components-base/right-side-navbar.html" %}
     </section>    
 
+    <section class="bg-primary-earth_tone_3_light">
         {% block content %}
         {% endblock content %}
+    </section>
 
     <!-- FOOTER -->
+    <section>
+        {% include "components-base/footer.html" %}
+    </section>
+
+    <!-- whatsapp button -->
+    <div id="whatsapp_button" 
+        class="z-10 fixed bottom-3 right-3 sm:bottom-5 sm:right-5 p-3 pt-4 bg-tertiary-whatsapp_green_tone 
+        rounded-full shadow-xl cursor-pointer scale-80">
+        <button type="button">
+            {% include "icons/whatsapp.html" with tailwind_class="w-10 h-8 text-white" %}
+        </button>
+    </div>
 
 </body>
-<script src="{% static 'js/base.js' %}"></script>
+<script type="module" src="{% static 'js/base.js' %}"></script>
 <script src="{% static 'js/tailwind/tailwind.config.js' %}"></script>
 </html>

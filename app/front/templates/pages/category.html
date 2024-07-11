@@ -1,122 +1,41 @@
 {% extends "base.html" %}
 {% load static %}
-{% load product_filter %}
+{% load pagination_controls_tag %}
+{% load product_card_tag %}
 
 {% block content %}
 <head>
-    <link rel="stylesheet" href="{% static 'css/category.css' %}">
+
 </head>
 <body>
-
-    {% if category %}
-    <section class="relative w-full bg-yellow-50 mt-24">
-        <div class="flex justify-center w-full pt-12">
-            <div class="p-5 bg-yellow-100 text-center text-5xl text-black cinzel-600 rounded-md">
-                {{ category.name }}
+    <section class="relative w-full pt-36 pb-12 {% if not products %} h-[100vh] {% endif %}">
+        <div class="flex justify-center w-full">
+            <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
+                <span class="text-3xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
+                    {{ category.name }}
+                </span>
             </div>
             <!-- add search input and filters -->
         </div>
+
+        {% if products %}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center content-evenly 
             justify-items-center w-full h-full py-12 px-12 gap-12">
-            
-            {% for product in products %}
-            <div class="relative flex flex-col items-center w-full bg-white rounded-lg shadow-xl 
-                transform transition-transform duration-300 ease-in-out hover:scale-105">
-                <div class="absolute top-3 right-3 p-1 bg-white rounded-md shadow-md cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
-                        stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-primary-earth_tone_4">
-                        <path stroke-linecap="round" stroke-linejoin="round" 
-                            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                    </svg>
-                    <div class="absolute top-[20%] left-[32.5%] text-xl text-primary-earth_tone_4 font-bold">+</div>
-                </div>
-                <div class="w-full">
-                    <img class="w-full rounded-t-lg" src="{{ product.image.url }}" alt="image">
-                </div>
-                <div class="w-full p-2 text-center">
-                    {{ product.name }}
-                </div>
-                <div class="flex flex-row justify-evenly w-full">
-                    <div class="p-2">
-                        Stock: {{ product.stock }}
-                    </div>
-                    <div class="p-2">
-                        $ {{ product.price }}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            
-        </div>
-    </section>
-    {% else %}
-    <section class="relative w-full bg-yellow-50 mt-24">
-        <div class="flex justify-center w-full pt-12">
-            <div class="p-5 bg-yellow-100 text-center text-3xl text-black cinzel-600 rounded-md">
-                Categorias
-            </div>
-            <!-- add search input and filters -->
+            {% product_card products dollar_blue %}
         </div>
 
-        {% for category in categories %}
-            {% if products|products_in_category:category %}
-            <div class="flex justify-center w-full pt-12">
-                <div class="p-5 bg-yellow-100 text-center text-5xl text-black cinzel-600 rounded-md">
-                    <a href="{% url 'category' name=category.name|lower %}">
-                        {{ category.name }}
-                    </a>
-                </div>
+        <div>
+            {% pagination_controls products page_numbers %}
+        </div>
+        {% else %}
+        <div class="flex flex-wrap items-center justify-center h-4/5">
+            <div class="p-2 sm:p-4 text-center text-lg sm:text-2xl text-primary-earth_tone_4 mukta-light 
+                border-b-2 border-primary-earth_tone_4 rounded-sm">
+                Aún no hay productos en esta categoria
             </div>
-
-            <div class="all_category_card inline-flex overflow-x-scroll w-full h-full py-12 px-10 sm:px-12 gap-12">
-
-                {% for product in products|products_in_category:category %} <!-- create an include -->
-                <div class="relative flex flex-col items-center w-[15rem] md:w-[20rem] bg-white 
-                    rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
-                    <div class="absolute top-3 right-3 p-1 bg-white rounded-md shadow-md cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
-                            stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-primary-earth_tone_4">
-                            <path stroke-linecap="round" stroke-linejoin="round" 
-                                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                        </svg>
-                        <div class="absolute top-[20%] left-[32.5%] text-xl text-primary-earth_tone_4 font-bold">+</div>
-                    </div>
-                    <div class="w-[15rem] md:w-[20rem]">
-                        <img class="w-full rounded-t-lg" src="{{ product.image.url }}" alt="image">
-                    </div>
-                    <div class="w-full p-2 text-center">
-                        {{ product.name }}
-                    </div>
-                    <div class="flex flex-row justify-evenly w-full">
-                        <div class="p-2">
-                            Stock: {{ product.stock }}
-                        </div>
-                        <div class="p-2">
-                            $ {{ product.price }}
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                
-                {% if products|products_in_category:category|length == 10 %}
-                <div class="relative flex flex-col items-center justify-center w-[15rem] md:w-[20rem] ">
-                    <div class="w-[15rem] md:w-[20rem]">
-                        <div class="p-5 bg-yellow-100 text-center text-3xl text-black cinzel-600 rounded-md shadow-xl
-                            transform transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer">
-                            <a href="{% url 'category' name=category.name|lower %}">
-                                Ver mas
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-
-            </div>
-            {% endif %}
-        {% endfor %}
+        </div>
+        {% endif %}
 
     </section>
-    {% endif %}
-
 </body>
 {% endblock content %}

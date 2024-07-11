@@ -44,7 +44,7 @@ class CategoryViewService():
             }
 
         else:
-            category = CategoryModel.objects.get(name=name.capitalize())
+            category = CategoryModel.objects.get(slug=name.lower())
             products_by_category = ProductModel.objects.filter(category=category)
             pagination = product_service.paginate_products(products_by_category, page, 12)
 

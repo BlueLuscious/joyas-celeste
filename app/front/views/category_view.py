@@ -2,7 +2,7 @@ import logging
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.views import View
-from front.services.category_view_service import CategoryViewService
+from front.services.views.category_view_service import CategoryViewService
 from typing import Optional
 
 category_view_service = CategoryViewService()

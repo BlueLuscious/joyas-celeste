@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.template import loader
 from django.views import View
-from front.services.index_view_service import IndexViewService
+from front.services.views.index_view_service import IndexViewService
 
 logger = logging.getLogger(__name__)
 

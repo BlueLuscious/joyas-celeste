@@ -210,3 +210,30 @@ class PaginatorService():
 
 
 
+from django.utils.translation import gettext_lazy as _
+
+class CategoryFilter(admin.SimpleListFilter):
+    title = _('category')
+    parameter_name = 'category'
+
+    def lookups(self, request, model_admin):
+        categories = set()
+        for category in CategoryModel.objects.all():
+            categories.add((category.name, category.name))
+        return tuple(sorted(categories))
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(
+                categories__name__in=[
+                    category.name
+                    for category in CategoryModel.objects.all()
+                    if category.name == self.value()
+                ]
+            )
+
+
+
+
+
+

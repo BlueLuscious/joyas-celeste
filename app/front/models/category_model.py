@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from front.models.subcategory_model import SubcategoryModel
 from uuid import uuid4
 
 
@@ -7,6 +8,7 @@ class CategoryModel(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False, unique=True)
     name = models.CharField(max_length=128)
     slug = models.SlugField(max_length=128, editable=False, blank=True)
+    subcategories = models.ManyToManyField(SubcategoryModel, related_name="categories")
     description = models.CharField(max_length=256, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

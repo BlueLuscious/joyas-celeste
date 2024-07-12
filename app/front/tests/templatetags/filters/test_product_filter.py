@@ -6,7 +6,7 @@ from django.test import TestCase
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 from front.services.product_service import ProductService
-from front.templatetags import product_filter
+from front.templatetags.filters import product_filter
 
 
 class ProductFilterTest(TestCase):

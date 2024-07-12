@@ -32,12 +32,20 @@
                 </div>
             </div>
 
-            <div class="sub_menu h-0 pb-0 transition-all duration-500 ease-in-out opacity-0 overflow-auto">
+            {% comment %} <div class="sub_menu h-0 pb-0 transition-all duration-500 ease-in-out opacity-0 overflow-auto"> {% endcomment %}
+            <div class="sub_menu pb-0 transition-all duration-500 ease-in-out opacity-1 overflow-auto">
                 <ul class="flex flex-col items-center gap-y-2">
                     {% for category in categories %}
                     <a href="{% url 'category' name=category.slug %}">
                         <li class="py-1 border-b-2">{{ category.name }}</li>
                     </a>
+                    <ul>
+                        {% for subcategory in category.subcategories.all %}
+                        <a href="{% url 'subcategory' name=category.slug sub_name=subcategory.slug %}">
+                            <li class="py-1 border-b-2">{{ subcategory.name }}</li>
+                        </a>
+                        {% endfor %}
+                    </ul>
                     {% endfor %}
                 </ul>
             </div>

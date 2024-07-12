@@ -33,8 +33,10 @@
 
                 {% if products|products_by_category:category %}
                 <div class="all_category_card inline-flex overflow-x-scroll w-full h-full py-12 px-10 sm:px-12 gap-12">
-                    {% product_card products dollar_blue category %}
-                    
+                    {% for product in products|products_by_category:category %}
+                    {% product_card_alt product dollar_blue %}
+                    {% endfor %}
+
                     {% if products|products_by_category:category|length == 10 %}
                     <div class="relative flex flex-col items-center justify-center w-[15rem] md:w-[20rem] ">
                         <div class="w-[15rem] md:w-[20rem]">

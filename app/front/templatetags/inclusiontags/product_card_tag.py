@@ -7,14 +7,22 @@ register = template.Library()
 
 
 @register.inclusion_tag("pages/components/product-card.html")
-def product_card(products: ProductModel, dollar_blue: int, category: str = None, subcategory: str = None) -> dict:
-    logger.info(f"products: {products} | dollar blue: {dollar_blue} | category: {category} | subcategory: {subcategory}")
+def product_card(product: ProductModel, dollar_blue: int) -> dict:
+    logger.info(f"product: {product} | dollar blue: {dollar_blue}")
     context = {
-        "products": products,
-        "category": category,
-        "subcategory": subcategory,
+        "product": product,
         "dollar_blue": dollar_blue,
     }
     logger.info(f"product card context: {context}")
+    return context
 
+
+@register.inclusion_tag("pages/components/product-card-alt.html")
+def product_card_alt(product: ProductModel, dollar_blue: int) -> dict:
+    logger.info(f"product: {product} | dollar blue: {dollar_blue}")
+    context = {
+        "product": product,
+        "dollar_blue": dollar_blue,
+    }
+    logger.info(f"product card context: {context}")
     return context

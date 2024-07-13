@@ -1,11 +1,11 @@
 {% load filters.product_filter %}
 
-<div class="relative flex flex-col items-center w-full bg-white text-lg mukta-light 
+<div class="relative flex flex-col items-center bg-white text-lg mukta-light
     rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
-    
+
     {% include "../../icons/shopping-bag-add.html" %}
 
-    <div class="w-full">
+    <div class="w-[15rem] md:w-[20rem]">
         <img class="w-full rounded-t-lg" src="{{ product.image|image_or_default }}" alt="image">
     </div>
     <div class="w-full p-2 text-center">

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-{% load product_card_tag %}
-{% load product_filter %}
+{% load inclusiontags.product_card_tag %}
+{% load filters.product_filter %}
 
 {% block content %}
 <head>
@@ -19,7 +19,6 @@
 
         <div class="flex flex-col gap-y-12 py-12">
         {% for category in categories %}
-            
             <div>
                 <div class="flex justify-center w-full">
                     <div class="p-5 bg-primary-earth_tone_4 text-center rounded-md">
@@ -32,7 +31,6 @@
                 </div>
 
                 {% for subcategory in category.subcategories.all %}
-
                     <div class="flex justify-center w-full">
                         <div class="p-5 bg-primary-earth_tone_4 text-center rounded-md">
                             <a href="{% url 'subcategory' name=category.slug sub_name=subcategory.slug %}">
@@ -45,8 +43,10 @@
 
                     {% if products|products_by_category:category|products_by_subcategory:subcategory %}
                     <div class="all_category_card inline-flex overflow-x-scroll w-full h-full py-12 px-10 sm:px-12 gap-12">
-                        {% product_card products dollar_blue category subcategory %}
-                        
+                        {% for product in products|products_by_category:category|products_by_subcategory:subcategory %}
+                        {% product_card_alt product dollar_blue %}
+                        {% endfor %}
+
                         {% if products|products_by_category:category|products_by_subcategory:subcategory|length == 10 %}
                         <div class="relative flex flex-col items-center justify-center w-[15rem] md:w-[20rem] ">
                             <div class="w-[15rem] md:w-[20rem]">
@@ -62,7 +62,7 @@
                         </div>
                         {% endif %}
                     </div>
-                
+
                     {% else %}
                     <div class="flex flex-wrap items-center justify-center py-48">
                         <div class="p-2 sm:p-4 text-center text-lg sm:text-2xl text-primary-earth_tone_4 mukta-light 

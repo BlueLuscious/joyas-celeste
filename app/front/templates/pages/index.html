@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-{% load category_card_tag %}
-{% load product_card_tag %}
-{% load product_filter %}
+{% load inclusiontags.category_card_tag %}
+{% load inclusiontags.product_card_tag %}
+{% load filters.product_filter %}
 
 {% block content %}
 <head>
@@ -23,9 +23,9 @@
     <section class="relative w-full">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center content-evenly 
             justify-items-center w-full h-full py-12 px-12 gap-12">
-            
-            {% product_card products dollar_blue %}
-            
+            {% for product in products %}
+            {% product_card product dollar_blue %}
+            {% endfor %}
         </div>
     </section>
 </body>

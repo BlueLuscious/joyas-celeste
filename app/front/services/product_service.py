@@ -37,6 +37,7 @@ class ProductService():
 
         logger.info(f"random products by category: {random_products_by_category}")
         return random_products_by_category
+    
 
     @staticmethod
     def get_random_products_for_each_subcategory(subcategories: Iterable[SubcategoryModel], quantity: int = 10) -> list[ProductModel]:

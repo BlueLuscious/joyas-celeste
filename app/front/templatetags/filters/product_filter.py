@@ -5,6 +5,7 @@ from django import template
 from django.db.models.fields.files import ImageFieldFile
 from django.templatetags.static import static
 from front.models.category_model import CategoryModel
+from front.models.subcategory_model import SubcategoryModel
 
 logger = logging.getLogger(__name__)
 register = template.Library()
@@ -46,3 +47,11 @@ def products_by_category(products: list, category: CategoryModel) -> list:
     products_by_category = [product for product in products if product.category.name == category.name]
     logger.info(f"products by category: {products_by_category}")
     return products_by_category
+
+
+@register.filter
+def products_by_subcategory(products: list, subcategory: SubcategoryModel) -> list:
+    logger.info(f"products: {products} | subcategory {subcategory}")
+    products_by_subcategory = [product for product in products if product.subcategory.name == subcategory.name]
+    logger.info(f"products by category: {products_by_subcategory}")
+    return products_by_subcategory

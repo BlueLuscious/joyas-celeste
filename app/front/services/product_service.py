@@ -4,6 +4,7 @@ from django.db.models.query import QuerySet
 from django.core.paginator import Paginator
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
+from front.models.subcategory_model import SubcategoryModel
 from front.services.paginator_service import PaginatorService
 from typing import Iterable
 
@@ -36,6 +37,32 @@ class ProductService():
 
         logger.info(f"random products by category: {random_products_by_category}")
         return random_products_by_category
+    
+
+    @staticmethod
+    def get_random_products_for_each_subcategory(subcategories: Iterable[SubcategoryModel], quantity: int = 10) -> list[ProductModel]:
+
+        """
+        Get a list of random products for each subcategory.
+
+        Args:
+            subcategories (Iterable[SubcategoryModel]): An iterable containing SubcategoryModel instances.
+            quantity (int): The number of random products to retrieve for each subcategory.
+
+        Returns:
+            list: A list containing random ProductModel instances for each subcategory.
+        """
+
+        random_products_by_subcategory = (lambda subcategories: [
+            product for subcategory in subcategories
+            for product in random.sample(
+                list(ProductModel.objects.filter(subcategory=subcategory)),
+                min(len(ProductModel.objects.filter(subcategory=subcategory)), quantity)
+            )
+        ])(subcategories)
+
+        logger.info(f"random products by subcategory: {random_products_by_subcategory}")
+        return random_products_by_subcategory
 
 
     @staticmethod

@@ -1,12 +1,10 @@
-{% load arrow_icon_tag %}
-
 {% if products.has_other_pages %}
 <div class="flex flex-row gap-x-6 items-center justify-center">
     {% if products.has_previous %}
     <div>
         <a href="?page={{ products.previous_page_number }}">
             <div class="transition-transform duration-300 ease-in-out hover:scale-110">
-                {% arrow_icon "rotate-90" %}
+                {% include "../../icons/arrow-down.html" with rotate="rotate-90" %}
             </div>
         </a>
     </div>
@@ -35,7 +33,7 @@
     <div>
         <a href="?page={{ products.next_page_number }}">
             <div class="transition-transform duration-300 ease-in-out hover:scale-110">
-                {% arrow_icon "-rotate-90" %}
+                {% include "../../icons/arrow-down.html" with rotate="-rotate-90" %}
             </div>
         </a>
     </div>

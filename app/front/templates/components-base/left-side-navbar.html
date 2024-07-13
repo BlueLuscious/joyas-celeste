@@ -18,9 +18,9 @@
                 </a>
             </div>
             
-            <div class="relative p-2 text-center border border-2 rounded-sm">
+            <div class="relative p-2 text-left border border-2 rounded-sm">
                 <div class="w-full text-lg">
-                    <a class="cursor-pointer" href="{% url 'categories' %}">Categorias</a>
+                    <a class="font-medium cursor-pointer" href="{% url 'categories' %}">Categorias</a>
                 </div>
                 <div class="absolute right-2 bottom-3">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
@@ -32,20 +32,45 @@
                 </div>
             </div>
 
-            {% comment %} <div class="sub_menu h-0 pb-0 transition-all duration-500 ease-in-out opacity-0 overflow-auto"> {% endcomment %}
-            <div class="sub_menu pb-0 transition-all duration-500 ease-in-out opacity-1 overflow-auto">
-                <ul class="flex flex-col items-center gap-y-2">
+            <div class="sub_menu h-0 pb-0 transition-all duration-500 ease-in-out opacity-0 overflow-auto">
+                <ul class="flex flex-col items-left gap-y-2">
                     {% for category in categories %}
-                    <a href="{% url 'category' name=category.slug %}">
-                        <li class="py-1 border-b-2">{{ category.name }}</li>
-                    </a>
-                    <ul>
-                        {% for subcategory in category.subcategories.all %}
-                        <a href="{% url 'subcategory' name=category.slug sub_name=subcategory.slug %}">
-                            <li class="py-1 border-b-2">{{ subcategory.name }}</li>
-                        </a>
-                        {% endfor %}
-                    </ul>
+                    <div class="flex flex-row w-full pl-3">
+                        <div class="w-fit">
+                            <a href="{% url 'category' name=category.slug %}">
+                                <li class="w-fit py-1 border-b-2">{{ category.name }}</li>
+                            </a>
+                        </div>
+                        <div class="relative w-full p-2 text-left">
+                            <div class="absolute right-2 bottom-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                                    stroke-width="1.5" stroke="currentColor" 
+                                    class="card_arrow w-5 h-5 rotate-0 transition-transform duration-300 ease-in-out
+                                    cursor-pointer">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>                  
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-left w-full pl-6">
+                        <div class="flex flex-col gap-y-2 w-full">
+
+                            <div class="sub_menu h-0 pb-0 transition-all duration-500 ease-in-out opacity-0 overflow-auto">
+                                <ul class="flex flex-col items-left gap-y-2">
+                                    {% for subcategory in category.subcategories.all %}
+                                    <div class="w-fit pl-3">
+                                        <a href="{% url 'subcategory' name=category.slug sub_name=subcategory.slug %}">
+                                            <li class="w-fit py-1 border-b-2">{{ subcategory.name }}</li>
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
                     {% endfor %}
                 </ul>
             </div>

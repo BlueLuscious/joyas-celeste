@@ -12,7 +12,7 @@
         <div class="flex justify-center w-full">
             <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
                 <span class="text-3xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
-                    {{ subcategory.name }}
+                    {{ category.name }} {{ subcategory.name }}
                 </span>
             </div>
             <!-- add search input and filters -->
@@ -21,7 +21,9 @@
         {% if products %}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center content-evenly 
             justify-items-center w-full h-full py-12 px-12 gap-12">
-            {% product_card products dollar_blue %}
+            {% for product in products %}
+            {% product_card product dollar_blue %}
+            {% endfor %}
         </div>
 
         <div>

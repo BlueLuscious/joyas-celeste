@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load product_filter %}
+{% load filters.product_filter %}
 
 {% block content %}
 <head>
@@ -24,6 +24,15 @@
                 </div>
                 <div class="p-2 font-semibold">
                     $ {{ product.price|convert_price_to_ARS:dollar_blue|format_number_AR }}
+                </div>
+                <div class="flex flex-row items-center justify-center gap-x-2 w-full p-2 text-center">
+                    <div>Talles:</div>
+                    <select id="product_size" name="product_size" class="w-1/3 text-center text-primary-earth_tone_4 
+                        border border-2 border-primary-earth_tone_4 rounded-md outline-none cursor-pointer">
+                        {% for measure in product.measures.all %}
+                        <option value="{{ measure.size }}"> {{ measure.size }} </option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="p-2">
                     Stock: {{ product.stock }}

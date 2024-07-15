@@ -9,12 +9,14 @@ class FrontConfig(AppConfig):
         
         from .admins import (
             category_admin,
+            measure_admin,
             product_admin,
             subcategory_admin,
         )
 
         from .models import (
             category_model,
+            measure_model,
             product_model,
             subcategory_model,
         )

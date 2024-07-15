@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from front.models.category_model import CategoryModel
+from front.models.measure_model import MeasureModel
 from front.models.subcategory_model import SubcategoryModel
 from uuid import uuid4
 
@@ -11,6 +12,7 @@ class ProductModel(models.Model):
     slug = models.SlugField(max_length=128, editable=False, blank=True)
     category = models.ForeignKey(CategoryModel, on_delete=models.DO_NOTHING)
     subcategory = models.ForeignKey(SubcategoryModel, on_delete=models.DO_NOTHING)
+    measures = models.ManyToManyField(MeasureModel, related_name="products")
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     stock = models.IntegerField(default=0)
     image = models.ImageField(upload_to="products", default=None, null=True, blank=True)

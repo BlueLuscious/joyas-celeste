@@ -3,17 +3,16 @@ from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.template import loader
 from django.views import View
-from front.services.views.index_view_service import IndexViewService
+from front.services.views.categories_view_service import CategoriesViewService
 
 logger = logging.getLogger(__name__)
 
 
-class IndexView(View):
+class CategoriesView(View):
     def get(self, request: HttpRequest) -> HttpResponse:
-        template = loader.get_template("pages/index.html")
-        logger.info(f"get template: {template.template.name}")
+        template = loader.get_template("pages/categories.html")
 
-        index_view_service = IndexViewService()
-        context = index_view_service.get_context()
+        categories_view_service = CategoriesViewService()
+        context = categories_view_service.get_context()
 
         return HttpResponse(template.render(context, request))

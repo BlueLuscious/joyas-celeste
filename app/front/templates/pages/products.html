@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% load inclusiontags.pagination_controls_tag %}
+{% load inclusiontags.product_card_tag %}
+
+{% block content %}
+<head>
+
+</head>
+<body>
+    <section class="relative w-full pt-36 pb-12 {% if not products %} h-[100vh] {% endif %}">
+        <div class="flex justify-center w-full">
+            <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
+                <span class="text-3xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
+                    Productos
+                </span>
+            </div>
+            <!-- add search input and filters -->
+        </div>
+
+        {% if products %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center content-evenly 
+            justify-items-center w-full h-full py-12 px-12 gap-12">
+            {% for product in products %}
+            {% product_card product dollar_blue %}
+            {% endfor %}
+        </div>
+
+        <div>
+            {% pagination_controls products page_numbers %}
+        </div>
+        {% else %}
+        <div class="flex flex-wrap items-center justify-center h-4/5">
+            <div class="p-2 sm:p-4 text-center text-lg sm:text-2xl text-primary-earth_tone_4 mukta-light 
+                border-b-2 border-primary-earth_tone_4 rounded-sm">
+                Aún no hay productos
+            </div>
+        </div>
+        {% endif %}
+
+    </section>
+</body>
+{% endblock content %}

@@ -1,3 +1,5 @@
+{% load static %}
+
 <div id="right_side_navbar" class="fixed z-20 right-0 bottom-0 flex flex-col items-center 
     gap-y-10 h-full w-full sm:w-2/4 lg:w-1/4 p-2 bg-white
     transform translate-x-full transition-transform duration-300 ease-in-out">
@@ -13,5 +15,22 @@
         <div class="cursor-pointer">
             Productos
         </div>
+        <div>
+            <div id="cart_items">
+
+                {% if request.session.cart %}
+                {% for item_id, item_details in request.session.cart.items %}
+                <div id="item_{{ item_id }}">
+                    <div id="data_{{ item_id }}">Cantidad: {{ item_details.quantity }}</div>
+                    <div>Precio: {{ item_details.price }}</div>
+                    <button class="delete_item" data-id="{{ item_id }}">Eliminar</button>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
     </div>
 </div>
+
+<script type="module" src="{% static 'js//cart.js' %}"></script>

@@ -1,64 +1,59 @@
+import { Helpers } from "../helpers/helpers.js"
+import { cartItemTemplate } from "../components/cart-item.js"
+
 export class CartService {
 
     constructor() {
-        
+        this.helpers = new Helpers
+        this.toolbox = new Toolbox
     }
-
 
     
     addProduct(buttons) {
         buttons.forEach(button => {
-            button.addEventListener('click', event => {
-                event.preventDefault()
+            button.addEventListener("click", () => {
                 
-                const productId = button.getAttribute('data-id')
-                const form = document.getElementById(`product_form_${productId}`)
+                const productUuid = button.getAttribute("data-id")
+                const url = `/cart/${productUuid}/`
+                const form = document.getElementById(`product_form_${productUuid}`)
                 const formData = new FormData(form)
-                formData.append('quantity', 1)
-    
-                fetch(`/cart/add/${productId}/`, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json()
-                    } else {
-                        throw new Error('Network response was not ok.')
-                    }
-                })
-                .then(data => {
-                    console.log(data)
-                    const cartItemsContainer = document.getElementById('cart_items')
+                const myHeaders = {
+                    "X-CSRFToken": form.querySelector("[name=csrfmiddlewaretoken]").value,
+                    "X-Requested-With": "XMLHttpRequest"
+                }
 
-                    for (const [productId, productDetails] of Object.entries(data.cart.items)) {
-                        let itemElement = document.querySelector(`[id^="data_${productId}"]`)
+                const response = this.helpers.customRequest(url, "POST", myHeaders, formData)
+                response.then(data => {
+                    console.log("Data: ", data)
+                    const cartItemsContainer = document.getElementById("cart_items")
+
+                    for (const [uuid, item] of Object.entries(data.cart.items)) {
+                        let itemElement = document.querySelector(`[id^="item_${uuid}"]`)
                         
                         if (itemElement) {
-                            itemElement.innerHTML = `Cantidad: ${productDetails.quantity}`
+                            itemElement.innerHTML = cartItemTemplate(uuid, item, "update")
                         } else {
-                            const itemElement = document.createElement('div')
-                            itemElement.id = `item_${productId}`
-                            itemElement.innerHTML = `
-                                <div id="data_${productId}">Cantidad: ${productDetails.quantity}</div>
-                                <div>Precio: ${productDetails.price}</div>
-                                <button class="delete_item" data-id="${productId}">Eliminar</button>
-                            `
+                            const itemElement = document.createElement("div")
+                            itemElement.id = `item_${uuid}`
+                            itemElement.classList = "relative flex flex-col w-full"
+                            itemElement.innerHTML = cartItemTemplate(uuid, item, "add")
                             cartItemsContainer.appendChild(itemElement)
-                            const newDeleteButtons = document.querySelectorAll('.delete_item')
-                            this.removeProduct(newDeleteButtons)
                         }
-                        
+
+                        const newSubtractButtons = document.querySelectorAll(`[id^="subtract_quantity_${uuid}"]`)
+                        const newAddButtons = document.querySelectorAll(`[id^="add_quantity_${uuid}"]`)
+                        this.updateQuantityProduct(newSubtractButtons, "subtract")
+                        this.updateQuantityProduct(newAddButtons, "add")
+
+                        const newRemoveButtons = document.querySelectorAll(`[id^="remove_${uuid}"]`)
+                        this.removeProduct(newRemoveButtons)
                     }
+                    
+                    this.toolbox.updateBubbleCounter(data.cart.items)
                     
                 })
                 .catch(error => {
-                    console.error('Error:', error)
-                    alert("Hubo un error al procesar la solicitud.")
+                    console.error("Error: ", error)
                 })
             })
         })
@@ -67,40 +62,82 @@ export class CartService {
 
     removeProduct(buttons) {
         buttons.forEach(button => {
-            button.addEventListener('click', event => {
-                event.preventDefault()
-    
-                const productId = button.getAttribute('data-id')
-    
-                fetch(`/cart/remove/${productId}/`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json()
-                    } else {
-                        throw new Error('Network response was not ok.')
-                    }
-                })
-                .then(data => {
-                    console.log(data)
-                    const itemElement = document.getElementById(`item_${productId}`)
+            button.addEventListener("click", () => {
+
+                const productUuid = button.getAttribute("data-id")
+                const url = `/cart/${productUuid}/`
+                const myHeaders = {
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+
+                const response = this.helpers.customRequest(url, "DELETE", myHeaders)
+                response.then(data => {
+                    console.log("Data: ", data)
+                    const itemElement = document.getElementById(`item_${productUuid}`)
+
                     if (itemElement) {
                         itemElement.remove()
+
+                        this.toolbox.updateBubbleCounter(data.cart.items)
                     }
-                    // Actualiza el total del carrito si es necesario
-                })
-                .catch(error => {
-                    console.error('Error:', error)
-                    alert("Hubo un error al procesar la solicitud.")
+
+                }).catch(error => {
+                    console.error("Error:", error)
                 })
             })
         })
     }
 
+
+    updateQuantityProduct(buttons, action) {
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+    
+                const productUuid = button.getAttribute("data-id")
+                const url = `/cart/${action}/${productUuid}/`
+                const myHeaders = {
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+
+                const response = this.helpers.customRequest(url, "POST", myHeaders)
+                response.then(data => {
+                    console.log("Data: ", data)
+                    
+                    for (const [uuid, item] of Object.entries(data.cart.items)) {
+                        let itemElement = document.querySelector(`[id^="item_${uuid}"]`)
+                        
+                        if (itemElement) {
+                            itemElement.innerHTML = cartItemTemplate(uuid, item, "update")
+                        }
+
+                        const newSubtractButtons = document.querySelectorAll(`[id^="subtract_quantity_${uuid}"]`)
+                        const newAddButtons = document.querySelectorAll(`[id^="add_quantity_${uuid}"]`)
+                        this.updateQuantityProduct(newSubtractButtons, "subtract")
+                        this.updateQuantityProduct(newAddButtons, "add")
+
+                        const newRemoveButtons = document.querySelectorAll(`[id^="remove_${uuid}"]`)
+                        this.removeProduct(newRemoveButtons)
+                    }
+
+                }).catch(error => {
+                    console.error("Error:", error)
+                })
+            })
+        })
+    }
+
+
+}
+
+
+class Toolbox {
+
+    updateBubbleCounter(items) {
+        const bubbleCounter = document.getElementById("bubble_counter")
+        const itemCount = Object.keys(items).length
+        bubbleCounter.textContent = itemCount
+    }
 
 }

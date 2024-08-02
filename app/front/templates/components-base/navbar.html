@@ -11,7 +11,12 @@
     <div class="w-32 h-20">
         <img class="w-32 h-20" src="{% static 'images/cj-logo.png' %}" alt="">
     </div>
-    <div id="cart" class="pr-5">
+    <div id="cart" class="relative pr-5">
+        <div id="bubble_counter" 
+            class="absolute -top-1 right-3 w-6 h-6 bg-primary-earth_tone_4 text-center text-white 
+                rounded-full shadow-md cursor-pointer scale-90">
+            {{ request.session.cart.items|length }}
+        </div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
             stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-primary-earth_tone_4 cursor-pointer">
             <path stroke-linecap="round" stroke-linejoin="round" 

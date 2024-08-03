@@ -2,6 +2,13 @@ import { Helpers } from "../helpers/helpers.js"
 const helpers = new Helpers
 
 
+/**
+ * Get Cart Item Template:
+ * @param {string} uuid Product UUID.
+ * @param {json} item Product data.
+ * @param {string} action Action to perform (add or update).
+ * @returns {string} HTML Template.
+ */
 export function cartItemTemplate(uuid, item, action) {
 
     if (action == "update") {

@@ -8,7 +8,11 @@ export class CartService {
         this.toolbox = new Toolbox
     }
 
-    
+    /**
+     * Add Product To Cart Dynamically:
+     * @param {Array.<HTMLElement>} buttons Buttons.
+     * @returns {void} None.
+     */
     addProduct(buttons) {
         buttons.forEach(button => {
             button.addEventListener("click", () => {
@@ -60,6 +64,11 @@ export class CartService {
     }
 
 
+    /**
+    * Remove Product To Cart Dynamically:
+    * @param {Array.<HTMLElement>} buttons Buttons.
+    * @returns {void} None.
+    */
     removeProduct(buttons) {
         buttons.forEach(button => {
             button.addEventListener("click", () => {
@@ -90,6 +99,12 @@ export class CartService {
     }
 
 
+    /**
+    * Update Quantity Product To Card Dynamically:
+    * @param {Array.<HTMLElement>} buttons Buttons.
+    * @param {string} action Action to perform (add or subtract).
+    * @returns {void} None.
+    */
     updateQuantityProduct(buttons, action) {
         buttons.forEach(button => {
             button.addEventListener("click", () => {
@@ -134,6 +149,11 @@ export class CartService {
 
 class Toolbox {
 
+    /**
+    * Update Bubble Counter Dynamically:
+    * @param {json} items Product Data.
+    * @returns {void} None.
+    */
     updateBubbleCounter(items) {
         const bubbleCounter = document.getElementById("bubble_counter")
         const itemCount = Object.keys(items).length

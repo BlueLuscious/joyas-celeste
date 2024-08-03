@@ -6,10 +6,9 @@ class ShoppingCart:
 
     def __init__(self, request: HttpRequest) -> None:
         self.session = request.session
-        cart = self.session.get("cart")
-        if not cart:
-            cart = self.session["cart"] = {}
-        self.cart = cart
+        self.cart = self.session.get("cart")
+        if not self.cart:
+            self.cart = self.session["cart"] = {}
         self.price = request.POST.get("product_price")
         self.size = request.POST.get("product_size")
 

@@ -14,8 +14,7 @@ class ShoppingCartView(View):
                 cart.add_to_cart(product)
             if action == "remove":
                 key = uuid.split("_")
-                product = ProductModel.objects.get(uuid=key[0])
-                cart.remove_from_cart(product, key[1])
+                cart.remove_from_cart(key[0], key[1])
 
             return JsonResponse({
                 "cart": {

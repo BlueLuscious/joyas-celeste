@@ -31,25 +31,25 @@ class ShoppingCart:
         if key not in self.cart:
             self.cart[key] = self.create_item(product, quantity)
         else:
-            self.increment_quantity(str(product.uuid), quantity, self.size)
+            self.increment_quantity(str(product.uuid), self.size)
         self.save_cart()
 
 
-    def remove_from_cart(self, product: ProductModel, size: str = None) -> None:
-        key = f"{str(product.uuid)}_{size}"
+    def remove_from_cart(self, uuid: str, size: str) -> None:
+        key = f"{str(uuid)}_{size}"
         if key in self.cart:
             del self.cart[key]
         self.save_cart()
 
 
-    def increment_quantity(self, uuid: str, quantity: int, size: str = None) -> None:
+    def increment_quantity(self, uuid: str, size: str, quantity: int = 1) -> None:
         key = f"{str(uuid)}_{size}"
         if self.cart[key]["quantity"] < self.cart[key]["stock"]:
             self.cart[key]["quantity"] += quantity
             self.cart[key]["price"] = self.cart[key]["base_price"] * self.cart[key]["quantity"]
 
 
-    def decrement_quantity(self, uuid: str, quantity: int, size: str = None) -> None:
+    def decrement_quantity(self, uuid: str, size: str, quantity: int = 1) -> None:
         key = f"{str(uuid)}_{size}"
         if self.cart[key]["quantity"] > 1:
             self.cart[key]["quantity"] -= quantity

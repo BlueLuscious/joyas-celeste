@@ -9,10 +9,10 @@ class ShoppingCartItemView(View):
         key = uuid.split("_")
         if action == "add":
             cart = ShoppingCart(request)
-            cart.increment_quantity(key[0], 1, key[1])
+            cart.increment_quantity(key[0], key[1])
         if action == "subtract":
             cart = ShoppingCart(request)
-            cart.decrement_quantity(key[0], 1, key[1])
+            cart.decrement_quantity(key[0], key[1])
             
         cart.save_cart()
         return JsonResponse({

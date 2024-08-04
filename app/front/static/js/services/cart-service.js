@@ -18,7 +18,7 @@ export class CartService {
             button.addEventListener("click", () => {
                 
                 const productUuid = button.getAttribute("data-id")
-                const url = `/cart/${productUuid}/`
+                const url = `/cart/add/${productUuid}/`
                 const form = document.getElementById(`product_form_${productUuid}`)
                 const formData = new FormData(form)
                 const myHeaders = {
@@ -74,13 +74,13 @@ export class CartService {
             button.addEventListener("click", () => {
 
                 const productUuid = button.getAttribute("data-id")
-                const url = `/cart/${productUuid}/`
+                const url = `/cart/remove/${productUuid}/`
                 const myHeaders = {
                     "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
                     "X-Requested-With": "XMLHttpRequest"
                 }
 
-                const response = this.helpers.customRequest(url, "DELETE", myHeaders)
+                const response = this.helpers.customRequest(url, "POST", myHeaders)
                 response.then(data => {
                     console.log("Data: ", data)
                     const itemElement = document.getElementById(`item_${productUuid}`)
@@ -110,7 +110,7 @@ export class CartService {
             button.addEventListener("click", () => {
     
                 const productUuid = button.getAttribute("data-id")
-                const url = `/cart/${action}/${productUuid}/`
+                const url = `/cart-item/${action}/${productUuid}/`
                 const myHeaders = {
                     "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
                     "X-Requested-With": "XMLHttpRequest"

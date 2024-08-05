@@ -2,12 +2,12 @@ from django.http import HttpRequest, JsonResponse
 from django.shortcuts import redirect
 from django.views import View
 from front.models.product_model import ProductModel
-from front.services.cart.shopping_cart import ShoppingCart
+from front.services.cart.shopping_cart_service import ShoppingCartService
 
 class ShoppingCartView(View):
 
     def post(self, request: HttpRequest, action: str, uuid: str) -> JsonResponse:
-        cart = ShoppingCart(request)
+        cart = ShoppingCartService(request)
         if action == "add":
             product = ProductModel.objects.get(uuid=uuid)
             cart.add_to_cart(product)

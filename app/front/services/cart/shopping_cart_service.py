@@ -2,7 +2,7 @@ from django.http import HttpRequest
 from front.models.product_model import ProductModel
 
 
-class ShoppingCart:
+class ShoppingCartService:
 
     def __init__(self, request: HttpRequest) -> None:
         self.session = request.session

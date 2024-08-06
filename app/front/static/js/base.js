@@ -10,10 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     /* Expand Menu */
     const menu = document.getElementById("menu")
     const closeMenu = document.getElementById("close_menu")
+    const backgroundLSN = document.getElementById("background_lsn")
     const leftSideNavbar = document.getElementById("left_side_navbar")
     const leftSideNavbarButtons = [menu, closeMenu]
 
-    Helper.openSideNavbarByClick(leftSideNavbarButtons, leftSideNavbar, "-translate-x-full")
+    Helper.openSideNavbarByClick(leftSideNavbarButtons, leftSideNavbar, backgroundLSN, "-translate-x-full")
 
     /* Expand Sub-Menus */
     const cardArrows = Array.from(document.getElementsByClassName("card_arrow"))
@@ -31,10 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
     /* RIGHT SIDE NAVBAR */
     const cart = document.getElementById("cart")
     const closeCart = document.getElementById("close_cart")
+    const backgroundRSN = document.getElementById("background_rsn")
     const rightSideNavbar = document.getElementById("right_side_navbar")
     const rightSideNavbarButtons = [cart, closeCart]
 
-    Helper.openSideNavbarByClick(rightSideNavbarButtons, rightSideNavbar, "translate-x-full")
+    Helper.openSideNavbarByClick(rightSideNavbarButtons, rightSideNavbar, backgroundRSN, "translate-x-full")
 
     /* FOOTER */
     const instagramRedirect = document.getElementById("instagram")

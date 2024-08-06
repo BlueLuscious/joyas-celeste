@@ -1,6 +1,7 @@
 import { Helpers } from "../helpers/helpers.js"
 import { cartItemTemplate } from "../components/cart-item.js"
 
+
 export class CartService {
 
     constructor() {
@@ -36,12 +37,20 @@ export class CartService {
                         
                         if (itemElement) {
                             itemElement.innerHTML = cartItemTemplate(uuid, item, "update")
+
+                            if (!item.no_stock) {
+                                const message = "Producto actualizado exitosamente"
+                                this.helpers.displayNotificationMessage(message, "success")
+                            }
                         } else {
                             const itemElement = document.createElement("div")
                             itemElement.id = `item_${uuid}`
                             itemElement.classList = "relative flex flex-col w-full"
                             itemElement.innerHTML = cartItemTemplate(uuid, item, "add")
                             cartItemsContainer.appendChild(itemElement)
+
+                            const message = "Producto agregado exitosamente"
+                            this.helpers.displayNotificationMessage(message, "success")
                         }
 
                         const newSubtractButtons = document.querySelectorAll(`[id^="subtract_quantity_${uuid}"]`)
@@ -52,7 +61,7 @@ export class CartService {
                         const newRemoveButtons = document.querySelectorAll(`[id^="remove_${uuid}"]`)
                         this.removeProduct(newRemoveButtons)
                     }
-                    
+
                     this.toolbox.updateBubbleCounter(data.cart.items)
                     
                 })
@@ -87,6 +96,9 @@ export class CartService {
 
                     if (itemElement) {
                         itemElement.remove()
+
+                        const message = "Producto removido exitosamente"
+                        this.helpers.displayNotificationMessage(message, "success")
 
                         this.toolbox.updateBubbleCounter(data.cart.items)
                     }

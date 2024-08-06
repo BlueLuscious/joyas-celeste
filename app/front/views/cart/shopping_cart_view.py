@@ -1,5 +1,4 @@
 from django.http import HttpRequest, JsonResponse
-from django.shortcuts import redirect
 from django.views import View
 from front.models.product_model import ProductModel
 from front.services.cart.shopping_cart_service import ShoppingCartService
@@ -20,4 +19,3 @@ class ShoppingCartView(View):
                 "items": cart.cart
             }
         }, status=201)
-

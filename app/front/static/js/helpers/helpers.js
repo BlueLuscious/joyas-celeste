@@ -1,3 +1,6 @@
+import { messageTemplate } from "../components/message.js"
+
+
 export class Helpers {
 
     /**
@@ -15,6 +18,33 @@ export class Helpers {
             headers: _headers
         })
         .then(response => response.json())
+    }
+
+
+    /**
+    * Display Notification:
+    * @param {string} message Message.
+    * @param {string} type Message type.
+    * @returns {void} None.
+    */
+    displayNotificationMessage(message, type) {
+        const messageContainer = document.getElementById("message_container")
+
+        const msg = document.createElement("div")
+        msg.id = "message"
+        msg.classList = "z-10 fixed top-24 flex justify-end w-full p-4 transform translate-x-full transition-transform duration-300 ease-in-out"
+        msg.innerHTML = messageTemplate(message, type)
+        messageContainer.appendChild(msg)
+
+        setTimeout(() => {
+            msg.classList.toggle("translate-x-full")
+            setTimeout(() => {
+                msg.classList.toggle("translate-x-full")
+                setTimeout(() => {
+                    msg.remove()
+                }, 2300)
+            }, 2200)
+        }, 300)
     }
 
 

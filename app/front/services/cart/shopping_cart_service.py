@@ -21,6 +21,7 @@ class ShoppingCartService:
             "base_price": float(self.price),
             "size": self.size,
             "stock": product.stock,
+            "no_stock": False,
             "image": product.image.url,
             "quantity": quantity,
         }
@@ -45,12 +46,15 @@ class ShoppingCartService:
         if self.cart[key]["quantity"] < self.cart[key]["stock"]:
             self.cart[key]["quantity"] += quantity
             self.cart[key]["price"] = self.cart[key]["base_price"] * self.cart[key]["quantity"]
+        else:
+            self.cart[key]["no_stock"] = True
 
 
     def decrement_quantity(self, key: str, quantity: int = 1) -> None:
         if self.cart[key]["quantity"] > 1:
             self.cart[key]["quantity"] -= quantity
             self.cart[key]["price"] = self.cart[key]["base_price"] * self.cart[key]["quantity"]
+            self.cart[key]["no_stock"] = False
 
 
     def clean_cart(self) -> None:

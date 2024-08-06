@@ -45,7 +45,7 @@ export class CartService {
                         } else {
                             const itemElement = document.createElement("div")
                             itemElement.id = `item_${uuid}`
-                            itemElement.classList = "relative flex flex-col w-full"
+                            itemElement.classList = "relative flex flex-col w-full border border-primary-earth_tone_3_light rounded-sm shadow-md"
                             itemElement.innerHTML = cartItemTemplate(uuid, item, "add")
                             cartItemsContainer.appendChild(itemElement)
 

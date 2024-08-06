@@ -14,8 +14,8 @@ class ShoppingCartItemView(View):
             
         cart.save_cart()
         return JsonResponse({
-                "cart": {
-                    "total": cart.total(),
-                    "items": cart.cart
-                }
+            "cart": {
+                "total": cart.total(),
+                "items": cart.cart
+            }
         }, status=200)

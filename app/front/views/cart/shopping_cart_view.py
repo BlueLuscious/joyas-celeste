@@ -3,6 +3,7 @@ from django.views import View
 from front.models.product_model import ProductModel
 from front.services.cart.shopping_cart_service import ShoppingCartService
 
+
 class ShoppingCartView(View):
 
     def post(self, request: HttpRequest, action: str, uuid: str) -> JsonResponse:

@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftSideNavbar = document.getElementById("left_side_navbar")
     const leftSideNavbarButtons = [menu, closeMenu]
 
-    Helper.openSideNavbar(leftSideNavbarButtons, leftSideNavbar, "-translate-x-full")
+    Helper.openSideNavbarByClick(leftSideNavbarButtons, leftSideNavbar, "-translate-x-full")
 
     /* Expand Sub-Menus */
     const cardArrows = Array.from(document.getElementsByClassName("card_arrow"))
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const rightSideNavbar = document.getElementById("right_side_navbar")
     const rightSideNavbarButtons = [cart, closeCart]
 
-    Helper.openSideNavbar(rightSideNavbarButtons, rightSideNavbar, "translate-x-full")
+    Helper.openSideNavbarByClick(rightSideNavbarButtons, rightSideNavbar, "translate-x-full")
 
     /* FOOTER */
     const instagramRedirect = document.getElementById("instagram")

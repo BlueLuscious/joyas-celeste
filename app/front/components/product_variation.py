@@ -10,7 +10,7 @@ class ProductVariationView(UnicornView):
     def __init__(self, component_args: List | None = None, **kwargs):
         super().__init__(component_args, **kwargs)
 
-        self.variations = self.product.variations.filter(stock__gt=0).order_by("stock")
+        self.variations = self.product.variations.filter(stock__gt=0).order_by("measure__size")
         default_size = self.variations.first()
         if default_size:
             default_size = default_size.measure.size

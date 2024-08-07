@@ -37,7 +37,7 @@
                 <div>
                     <form id="product_form_{{ product.uuid }}" class="flex flex-col items-center w-full">
                         {% csrf_token %}
-                        {% unicorn "product-variation" product=product template_name="unicorn/product-variation.html" %}
+                        {% unicorn "product-variation" product=product %}
                         <input type="number" id="product_price" name="product_price" 
                             value="{{ product.price|convert_price_to_ARS:dollar_blue }}" hidden />
                     </form>

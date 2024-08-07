@@ -34,7 +34,7 @@
                     <div class="flex flex-col items-center justify-center gap-y-2 w-3/5">
                         <div>{{ item.name }}</div>
                         <div class="font-semibold">$ {{ item.price|format_number_AR }}</div>
-                        <div>Talle: {{ item.size }}</div>
+                        <div>Talle {{ item.size }}</div>
                     </div>
                 </div>
                 <div class="flex flex-row items-center justify-around p-2.5 bg-primary-earth_tone_3_light">
@@ -72,5 +72,3 @@
         </div>
     </div>
 </div>
-
-<script type="module" src="{% static 'js//cart.js' %}"></script>

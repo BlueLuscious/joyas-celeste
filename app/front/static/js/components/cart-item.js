@@ -23,7 +23,7 @@ export function cartItemTemplate(uuid, item, action) {
             <div class="flex flex-col items-center justify-center gap-y-2 w-3/5">
                 <div>${ item.name }</div>
                 <div class="font-semibold">$ ${ helpers.formatNumberAR(item.price) }</div>
-                <div>Talle: ${ item.size }</div>
+                <div>Talle ${ item.size }</div>
             </div>
         </div>
         <div class="flex flex-row items-center justify-around p-2.5 bg-primary-earth_tone_3_light">

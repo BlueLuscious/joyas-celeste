@@ -8,9 +8,23 @@
     gap-y-4 h-full w-full sm:w-2/4 lg:w-1/4 p-2 bg-white overflow-auto
     transform translate-x-full transition-transform duration-300 ease-in-out">
 
+    {% if request.session.cart %}
+    <div id="empty_shopping_cart" class="hidden absolute top-1/2">
+        <div class="text-lg mukta-light">
+            Tu carrito está vacío
+        </div>
+    </div>
+    {% else %}
+    <div id="empty_shopping_cart" class="absolute top-1/2">
+        <div class="text-lg mukta-light">
+            Tu carrito está vacío
+        </div>
+    </div>
+    {% endif %}
+
     <div class="flex flex-row items-center justify-between w-full border-b-2 border-secondary-gray_tone_1">
         <div class="pl-5 text-xl cinzel-semibold">
-            Mi carrito
+            Carrito
         </div>
         <div id="close_cart" class="flex items-center pr-5 ml-auto h-20">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 

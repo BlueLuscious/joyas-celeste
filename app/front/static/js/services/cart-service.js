@@ -51,6 +51,7 @@ export class CartService {
 
                             const message = "Producto agregado exitosamente"
                             this.helpers.displayNotificationMessage(message, "success")
+                            this.toolbox.displayCartMessage("hide")
                         }
 
                         const newSubtractButtons = document.querySelectorAll(`[id^="subtract_quantity_${uuid}"]`)
@@ -99,6 +100,11 @@ export class CartService {
 
                         const message = "Producto removido exitosamente"
                         this.helpers.displayNotificationMessage(message, "success")
+
+                        const itemCount = Object.keys(data.cart.items).length
+                        if (itemCount == 0) {
+                            this.toolbox.displayCartMessage("show", "Tu carrito está vacío")
+                        }
 
                         this.toolbox.updateBubbleCounter(data.cart.items)
                     }
@@ -170,6 +176,23 @@ class Toolbox {
         const bubbleCounter = document.getElementById("bubble_counter")
         const itemCount = Object.keys(items).length
         bubbleCounter.textContent = itemCount
+    }
+
+
+    /**
+    * Display Cart Message:
+    * @param {string} action Action to perform (hide or show).
+    * @param {string} message Message to display.
+    * @returns {void} None.
+    */
+    displayCartMessage(action, message = "") {
+        const emptyCartMessage = document.getElementById("empty_shopping_cart")
+        if (action == "hide") {
+            emptyCartMessage.classList.add("hidden")
+        } else if (action == "show") {
+            emptyCartMessage.classList.remove("hidden")
+        }
+        emptyCartMessage.textContent = message
     }
 
 }

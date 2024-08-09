@@ -1,7 +1,6 @@
 import logging
 from back.services.cripto_ya_service import CriptoYaService
 from front.models.category_model import CategoryModel
-from front.models.product_model import ProductModel
 from front.services.product_service import ProductService
 
 logger = logging.getLogger(__name__)
@@ -34,7 +33,7 @@ class CategoryViewService():
         dollar_blue_ask = dollar_quotes.get("blue").get("ask")
 
         category = CategoryModel.objects.get(slug=name.lower())
-        products_by_category = ProductModel.objects.filter(category=category)
+        products_by_category = product_service.filter_products_by_stock().filter(category=category)
         pagination = product_service.paginate_products(products_by_category, page, 12)
 
         context = {

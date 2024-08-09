@@ -1,0 +1,21 @@
+{% load unicorn %}
+
+<div>
+    <div class="flex flex-row items-center justify-center gap-x-2 w-full p-2 text-center text-gray-500">
+        <div>Talle</div>
+        <select unicorn:change="update_stock($event.target.value.trim())" id="product_size" name="product_size" 
+            class="w-2/3 text-center text-primary-earth_tone_4 border border-2 border-primary-earth_tone_4 
+            rounded-md outline-none cursor-pointer">
+            {% for variation in variations %}
+            {% if variation.stock != 0 %}
+            <option value="{{ variation.measure.size }}"> {{ variation.measure.size }} </option>
+            {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+    <div class="p-2 text-primary-earth_tone_4">
+        {{ product_stock }} 
+        {% if product_stock == 1 %} Unidad disponible {% else %} Unidades disponibles {% endif %}
+        <input type="number" id="product_stock" name="product_stock" value="{{ product_stock }}" hidden />
+    </div>
+</div>

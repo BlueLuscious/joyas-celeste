@@ -9,6 +9,7 @@ class ShoppingCartService:
         self.cart = self.session.get("cart")
         if not self.cart:
             self.cart = self.session["cart"] = {}
+        self.stock = request.POST.get("product_stock")
         self.price = request.POST.get("product_price")
         self.size = request.POST.get("product_size")
 
@@ -20,7 +21,7 @@ class ShoppingCartService:
             "price": float(self.price),
             "base_price": float(self.price),
             "size": self.size,
-            "stock": product.stock,
+            "stock": int(self.stock),
             "no_stock": False,
             "image": product.image.url,
             "quantity": quantity,

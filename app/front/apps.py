@@ -11,6 +11,7 @@ class FrontConfig(AppConfig):
             category_admin,
             measure_admin,
             product_admin,
+            product_variation_admin,
             subcategory_admin,
         )
 
@@ -18,5 +19,6 @@ class FrontConfig(AppConfig):
             category_model,
             measure_model,
             product_model,
+            product_variation_model,
             subcategory_model,
         )

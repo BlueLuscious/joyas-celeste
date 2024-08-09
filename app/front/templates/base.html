@@ -1,8 +1,10 @@
 {% load static %}
+{% load unicorn %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% unicorn_scripts %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joyas Celeste</title>
@@ -11,6 +13,7 @@
     {% include "tailwind/cdn-tailwind.html" %}
 </head>
 <body>
+    {% csrf_token %}
     <!-- NAVBAR -->
     <section>
         {% include "components-base/navbar.html" %}

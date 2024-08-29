@@ -14,15 +14,11 @@
 </head>
 <body>
     {% csrf_token %}
-    <!-- NAVBAR -->
+    
     <section>
-        {% include "components-base/navbar.html" %}
-
-        <!-- LEFT SIDE NAVBAR -->
-        {% include "components-base/left-side-navbar.html" %}
-
-        <!-- RIGHT SIDE NAVBAR -->
-        {% include "components-base/right-side-navbar.html" %}
+        {% include "components-base/navbar.html" %} <!-- NAVBAR -->
+        {% include "components-base/left-side-navbar.html" %} <!-- LEFT SIDE NAVBAR -->
+        {% include "components-base/right-side-navbar.html" %} <!-- RIGHT SIDE NAVBAR -->
     </section>    
 
     <section class="bg-primary-earth_tone_3_light">
@@ -30,13 +26,12 @@
         {% endblock content %}
     </section>
 
-    <!-- FOOTER -->
     <section>
-        {% include "components-base/footer.html" %}
+        {% include "components-base/footer.html" %} <!-- FOOTER -->
     </section>
 
     <!-- messages -->
-    <div id="message_container"></div>
+
 
     <!-- whatsapp button -->
     <div id="whatsapp_button" 
@@ -49,6 +44,6 @@
 
 </body>
 <script type="module" src="{% static 'js/base.js' %}"></script>
-<script type="module" src="{% static 'js/cart.js' %}"></script>
+<script type="module" src="{% static 'js/shopping-cart.js' %}"></script>
 <script src="{% static 'js/tailwind/tailwind.config.js' %}"></script>
 </html>

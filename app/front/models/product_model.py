@@ -21,7 +21,7 @@ class ProductModel(models.Model):
     def __str__(self) -> str:
         return self.name
     
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         if not self.slug:
             slug = slugify(self.name)
             if ProductModel.objects.filter(slug=slug).exists():

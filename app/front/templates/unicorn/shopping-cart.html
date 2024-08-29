@@ -1,0 +1,60 @@
+{% load static %}
+{% load unicorn %}
+{% load filters.product_filter %}
+
+<div>
+    {% if not cart_items %}
+    <div id="empty_shopping_cart" class="absolute flex justify-center w-full top-1/2">
+        <div class="text-lg mukta-light">
+            Tu carrito está vacío
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="flex flex-row items-center justify-between w-full h-20 border-b-2 border-secondary-gray_tone_1">
+        <div class="ml-5 text-xl cinzel-semibold">
+            Carrito
+        </div>
+        <div id="close_cart" class="flex items-center mr-5 ml-auto">
+            {% include "../icons/x-mark.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 transition-transform duration-300 ease-in-out cursor-pointer hover:-rotate-90" %}
+        </div>
+    </div>
+
+    <div id="cart_items" class="flex flex-col gap-y-4 px-2 py-4">
+        {% if cart_items %}
+        {% for item in cart_items %}
+        <div class="relative flex flex-col w-full border 
+            border-primary-earth_tone_3_light rounded-sm shadow-md">
+            <div class="flex flex-row w-full">
+                <div class="w-2/5">
+                    <img class="w-full rounded-tl-sm" src="{{ item.product.image.url }}" alt="image">
+                </div>
+                <div class="flex flex-col items-center justify-center gap-y-2 w-3/5">
+                    <div>{{ item.product.name }}</div>
+                    <div class="font-semibold">$ {{ item.price|convert_price_to_ARS:dollar_blue|format_number_AR }}</div>
+                    <div>Talle {{ item.size }}</div>
+                </div>
+            </div>
+            <div class="flex flex-row items-center justify-around p-2.5 bg-primary-earth_tone_3_light">
+                <button unicorn:click="decrement_quantity('{{ item.product.uuid }}', '{{ item.key }}')"
+                    class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
+                    {% include "../icons/minus-sign.html" with tailwind_class="size-4" %}
+                </button>
+                <div class="w-1/4 p-0.5 text-center text-primary-earth_tone_4 bg-white border-2
+                    border-primary-earth_tone_4 rounded-md">
+                    {{ item.quantity }}
+                </div>
+                <button unicorn:click="increment_quantity('{{ item.product.uuid }}', '{{ item.key }}')"
+                    class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
+                    {% include "../icons/plus-sign.html" with tailwind_class="size-4" %}                              
+                </button>
+            </div>
+            <button type="button" class="absolute top-1 right-1"
+                onclick="removeFromCart('{{ item.key }}')">
+                {% include "../icons/trash.html" with tailwind_class="size-6 text-red-700" %}
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>

@@ -9,6 +9,6 @@ class SubcategoryAdmin(admin.ModelAdmin):
     search_fields = ("uuid", "name", "slug", "categories__uuid", "categories__name", )
     list_filter = ("categories__name", )
 
-    def get_categories(self, obj):
+    def get_categories(self, obj) -> str:
         return ", ".join([categories.name for categories in obj.categories.all()])
     get_categories.short_description = "Categories"

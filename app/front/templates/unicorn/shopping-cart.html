@@ -38,10 +38,7 @@
             <div class="flex flex-row items-center justify-around p-2.5 bg-primary-earth_tone_3_light">
                 <button unicorn:click="decrement_quantity('{{ item.product.uuid }}', '{{ item.key }}')"
                     class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
-                        stroke-width="1.75" stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                    </svg>
+                    {% include "../icons/minus-sign.html" with tailwind_class="size-4" %}
                 </button>
                 <div class="w-1/4 p-0.5 text-center text-primary-earth_tone_4 bg-white border-2
                     border-primary-earth_tone_4 rounded-md">
@@ -49,10 +46,7 @@
                 </div>
                 <button unicorn:click="increment_quantity('{{ item.product.uuid }}', '{{ item.key }}')"
                     class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
-                        stroke-width="1.75" stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>                              
+                    {% include "../icons/plus-sign.html" with tailwind_class="size-4" %}                              
                 </button>
             </div>
             <button type="button" class="absolute top-1 right-1"

@@ -16,6 +16,7 @@ class FrontConfig(AppConfig):
         )
 
         from .models import (
+            cart_item_model,
             category_model,
             measure_model,
             product_model,

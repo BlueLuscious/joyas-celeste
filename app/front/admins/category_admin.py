@@ -8,6 +8,6 @@ class CategoryAdmin(admin.ModelAdmin):
     ordering = ("-created_at", )
     search_fields = ("uuid", "name", "slug", )
 
-    def get_subcategories(self, obj):
+    def get_subcategories(self, obj) -> str:
         return ", ".join([subcategory.name for subcategory in obj.subcategories.all()])
     get_subcategories.short_description = "Subcategories"

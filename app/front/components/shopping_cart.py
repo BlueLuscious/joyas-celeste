@@ -7,7 +7,7 @@ from front.models.product_model import ProductModel
 class ShoppingCartView(UnicornView):
     cart_items: CartItemModel
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.update_cart_items()
 
@@ -63,7 +63,7 @@ class ShoppingCartView(UnicornView):
         self.update_cart_items()
 
 
-    def update_cart_items(self):
+    def update_cart_items(self) -> None:
         self.cart_items = CartItemModel.objects.all()
 
 

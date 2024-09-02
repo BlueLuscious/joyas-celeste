@@ -15,11 +15,6 @@ class ProductServiceTest(TestCase):
         self.products_by_category = ProductModel.objects.filter(category=self.category)
 
 
-    def test_get_random_products_for_each_category(self):
-        random_products = ProductService.get_random_products_for_each_category(self.categories, 10)
-        self.assertLessEqual(len(random_products), len(self.categories) * 10)
-
-
     def test_paginate_products(self):
         default_page = 1
         default_products_by_page = 12

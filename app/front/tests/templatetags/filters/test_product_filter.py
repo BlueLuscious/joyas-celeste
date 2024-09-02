@@ -5,7 +5,6 @@ from django.templatetags.static import static
 from django.test import TestCase
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
-from front.services.product_service import ProductService
 from front.templatetags.filters import product_filter
 
 
@@ -39,10 +38,3 @@ class ProductFilterTest(TestCase):
             self.assertEqual(url, self.product.image.url)
         else:
             self.assertEqual(url, static("images/default-no-image.png"))
-
-
-    def test_products_by_category(self):
-        products = ProductService.get_random_products_for_each_category(self.categories, 10)
-        filtered_products = product_filter.products_by_category(products, self.category)
-        self.assertLessEqual(len(filtered_products), 10)
-        self.assertTrue(all(product.category == self.category for product in filtered_products))

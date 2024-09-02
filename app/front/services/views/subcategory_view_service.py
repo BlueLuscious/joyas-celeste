@@ -1,7 +1,6 @@
 import logging
 from back.services.cripto_ya_service import CriptoYaService
 from front.models.category_model import CategoryModel
-from front.models.product_model import ProductModel
 from front.models.subcategory_model import SubcategoryModel
 from front.services.product_service import ProductService
 
@@ -37,8 +36,10 @@ class SubcategoryViewService():
 
         category = CategoryModel.objects.get(slug=name.lower())
         subcategory = SubcategoryModel.objects.get(slug=sub_name.lower())
-        products_by_category = ProductModel.objects.filter(category=category, subcategory=subcategory)
-        pagination = product_service.paginate_products(products_by_category, page, 12)
+        products_by_subcategory = product_service.filter_products_by_stock().filter(
+            category=category, subcategory=subcategory
+        )
+        pagination = product_service.paginate_products(products_by_subcategory, page, 12)
 
         context = {
             "categories": categories,

@@ -1,12 +1,10 @@
 import logging
-import random
+from django.db.models import Exists, OuterRef
 from django.db.models.query import QuerySet
 from django.core.paginator import Paginator
-from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
-from front.models.subcategory_model import SubcategoryModel
+from front.models.product_variation_model import ProductVariationModel
 from front.services.paginator_service import PaginatorService
-from typing import Iterable
 
 logger = logging.getLogger(__name__)
 
@@ -14,55 +12,25 @@ logger = logging.getLogger(__name__)
 class ProductService():
 
     @staticmethod
-    def get_random_products_for_each_category(categories: Iterable[CategoryModel], quantity: int = 10) -> list[ProductModel]:
+    def filter_products_by_stock() -> list[ProductModel]:
 
         """
-        Get a list of random products for each category.
-
-        Args:
-            categories (Iterable[CategoryModel]): An iterable containing CategoryModel instances.
-            quantity (int): The number of random products to retrieve for each category.
-
+        Get products with at least one variation having stock greater than 0.
+        
         Returns:
-            list: A list containing random ProductModel instances for each category.
+            list: ProductModel instances with stock available.
         """
+            
+        variations_with_stock = ProductVariationModel.objects.filter(
+            product=OuterRef("pk")
+        ).exclude(stock=0)
 
-        random_products_by_category = (lambda categories: [
-            product for category in categories
-            for product in random.sample(
-                list(ProductModel.objects.filter(category=category)),
-                min(len(ProductModel.objects.filter(category=category)), quantity)
-            )
-        ])(categories)
+        products = ProductModel.objects.annotate(
+            has_stock=Exists(variations_with_stock)
+        ).filter(has_stock=True)
+        logger.info(f"products with stock: {products}")
 
-        logger.info(f"random products by category: {random_products_by_category}")
-        return random_products_by_category
-    
-
-    @staticmethod
-    def get_random_products_for_each_subcategory(subcategories: Iterable[SubcategoryModel], quantity: int = 10) -> list[ProductModel]:
-
-        """
-        Get a list of random products for each subcategory.
-
-        Args:
-            subcategories (Iterable[SubcategoryModel]): An iterable containing SubcategoryModel instances.
-            quantity (int): The number of random products to retrieve for each subcategory.
-
-        Returns:
-            list: A list containing random ProductModel instances for each subcategory.
-        """
-
-        random_products_by_subcategory = (lambda subcategories: [
-            product for subcategory in subcategories
-            for product in random.sample(
-                list(ProductModel.objects.filter(subcategory=subcategory)),
-                min(len(ProductModel.objects.filter(subcategory=subcategory)), quantity)
-            )
-        ])(subcategories)
-
-        logger.info(f"random products by subcategory: {random_products_by_subcategory}")
-        return random_products_by_subcategory
+        return products
 
 
     @staticmethod
@@ -90,6 +58,6 @@ class ProductService():
             "products_page": products_page, 
             "page_numbers": page_numbers, 
         }
-
         logger.info(f"pagination data: {data}")
+
         return data

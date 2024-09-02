@@ -1,6 +1,7 @@
 {% load unicorn %}
 
 <div class="w-full">
+    {% if variations %}
     <div class="flex flex-row items-center justify-center gap-x-2 w-full p-2 text-center text-gray-500">
         <div>Talle</div>
         <select unicorn:change="update_stock($event.target.value.trim())" id="product_size" name="product_size" 
@@ -13,8 +14,16 @@
             {% endfor %}
         </select>
     </div>
+    {% endif %}
+
+    {% if product_stock %}
     <div class="p-2 text-center text-primary-earth_tone_4">
         {{ product_stock }} 
         {% if product_stock == 1 %} disponible {% else %} disponibles {% endif %}
     </div>
+    {% else %}
+    <div class="p-2 text-center text-primary-earth_tone_4">
+        No disponible
+    </div>
+    {% endif %}
 </div>

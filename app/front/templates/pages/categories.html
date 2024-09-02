@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load inclusiontags.product_card_tag %}
-{% load filters.product_filter %}
+{% load inclusiontags.category_card_tag %}
 
 {% block content %}
 <head>
@@ -10,60 +9,33 @@
 <body>
 
     <section class="relative w-full">
-        <div class="banner_categories flex items-center justify-center w-full h-[100vh] pt-24 bg-primary-earth_tone_4">
+        <div class="banner_categories flex items-center justify-center w-full h-screen pt-24 bg-primary-earth_tone_4">
             <div class="z-10 text-center text-3xl lg:text-5xl text-primary-earth_tone_3 cinzel-semibold">
                 Categorias
             </div>
             <!-- add search input and filters -->
         </div>
+    </section>
+    <section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 items-center content-evenly justify-items-center
+            w-full h-full p-12 gap-12">
 
-        <div class="flex flex-col gap-y-12 py-12">
-        {% for category in categories %}
-            
-            <div>
-                <div class="flex justify-center w-full">
-                    <div class="p-5 bg-primary-earth_tone_4 text-center rounded-md">
-                        <a href="{% url 'category' name=category.slug %}">
-                            <span class="text-3xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
-                                {{ category.name }}
-                            </span>
-                        </a>
-                    </div>
+            {% for category in categories %}
+            <a href="{% url 'category' name=category.slug %}"
+                class="flex flex-col items-center justify-center w-full lg:w-3/4 h-fit p-4 
+                bg-white text-center shadow rounded-lg transform transition-transform duration-300 
+                ease-in-out hover:scale-105">
+                <div class="w-full m-5">
+                    <span class="text-2xl sm:text-3xl text-primary-earth_tone_4 cinzel-semibold">
+                        {{ category.name }}
+                    </span>
                 </div>
+                <img class="w-3/4 md:w-1/2 m-5" 
+                    src="{% static 'images/category-icon/' %}{{ category.slug }}.png" alt="{{ category.slug }}">
+            </a>
+            {% endfor %}
 
-                {% if products|products_by_category:category %}
-                <div class="all_category_card inline-flex overflow-x-scroll w-full h-full py-12 px-10 sm:px-12 gap-12">
-                    {% for product in products|products_by_category:category %}
-                    {% product_card_alt product dollar_blue %}
-                    {% endfor %}
-
-                    {% if products|products_by_category:category|length == 10 %}
-                    <div class="relative flex flex-col items-center justify-center w-[15rem] md:w-[20rem] ">
-                        <div class="w-[15rem] md:w-[20rem]">
-                            <div class="p-5 bg-primary-earth_tone_4 text-center text-3xl text-primary-earth_tone_3 
-                                cinzel-semibold rounded-md shadow-xl transform transition-all duration-300 
-                                ease-in-out hover:bg-primary-earth_tone_3 hover:text-primary-earth_tone_4 hover:scale-105
-                                cursor-pointer">
-                                <a href="{% url 'category' name=category.slug %}">
-                                    Ver mas
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            {% else %}
-            <div class="flex flex-wrap items-center justify-center py-48">
-                <div class="p-2 sm:p-4 text-center text-lg sm:text-2xl text-primary-earth_tone_4 mukta-light 
-                    border-b-2 border-primary-earth_tone_4 rounded-sm">
-                    Aún no hay productos en esta categoria
-                </div>
-            </div>
-            {% endif %}
-        {% endfor %}
         </div>
-
     </section>
 
 </body>

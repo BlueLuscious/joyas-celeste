@@ -9,7 +9,7 @@ from front.views.subcategory_view import SubcategoryView
 
 
 urlpatterns = [
-    path("index/", IndexView.as_view(), name="index"),
+    path("", IndexView.as_view(), name="index"),
     path("categories/", CategoriesView.as_view(), name="categories"),
     path("category/<str:name>/", CategoryView.as_view(), name="category"),
     path("subcategories/", SubcategoriesView.as_view(), name="subcategories"),

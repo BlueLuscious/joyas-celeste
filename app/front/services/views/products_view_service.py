@@ -1,7 +1,6 @@
 import logging
 from back.services.cripto_ya_service import CriptoYaService
 from front.models.category_model import CategoryModel
-from front.models.product_model import ProductModel
 from front.services.product_service import ProductService
 
 logger = logging.getLogger(__name__)
@@ -27,9 +26,8 @@ class ProductsViewService():
         """
 
         categories = CategoryModel.objects.all()
-        products = ProductModel.objects.all()
         product_service = ProductService()
-        # .exclude(stock=0)
+        products = product_service.filter_products_by_stock()
 
         cripto_ya_service = CriptoYaService()
         dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")

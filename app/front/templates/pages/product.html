@@ -18,10 +18,13 @@
                     <img class="w-full transition-transform duration-500 ease-in-out transform" 
                         id="zoom_image" src="{{ product.image|image_or_default }}" alt="image">
                 </div>
+
+                {% if request.user.is_authenticated %}
                 <button type="button" onclick="addToCart('{{ product.uuid }}')"
                     class="absolute top-2 right-2 p-1 bg-white rounded-md shadow-md cursor-pointer">
                     {% include "../icons/shopping-bag-add.html" %}
                 </button>
+                {% endif %}
             </div>
 
             <div class="relative flex flex-col gap-y-6 w-full h-fit p-4 bg-white text-xl mukta-light 

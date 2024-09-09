@@ -1,0 +1,69 @@
+{% load static %}
+<html lang="en">
+<head>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" id="form">
+        {% csrf_token %}
+        <!-- Step 1 -->
+        <div class="step" id="step1">
+            <div class="go_login_button">
+                <button type="button" id="go_to_login"><div id="arrow_left" class="bi bi-arrow-left-circle-fill"></div></button>
+                <div class="go_login_popup_text" id="go_login_popup">Go to Login</div>
+            </div>
+            <h1 class="title">Personal Data</h1>
+            <table>
+                <tr>
+                    <td> {{ form.first_name }} </td>
+                </tr>
+                <tr>
+                    <td><div class="warning" id="warning_first_name"></div></td>
+                </tr>
+                <tr>
+                    <td> {{ form.last_name }} </td>
+                </tr>
+                <tr>
+                    <td><div class="warning" id="warning_last_name"></div></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step" id="step2">
+            <h1 class="title">Account Data</h1>
+            <table>
+                <tr>
+                    <td> {{ form.email }} </td>
+                </tr>
+                <tr>
+                    <td><div class="warning" id="warning_email"></div></td>
+                </tr>
+                <tr>
+                    <td> {{ form.username }} </td>
+                </tr>
+                <tr>
+                    <td><div class="warning" id="warning_username"></div></td>
+                </tr>
+                <tr>
+                    <td> {{ form.password }} </td>
+                </tr>
+                <tr>
+                    <td><div class="warning" id="warning_password"></div></td>
+                </tr>
+                <tr>
+                    <td> {{ form.repeat_password }} </td>
+                </tr>
+                <tr>
+                    <td><div class="warning" id="warning_repeat_password"></div></td>
+                </tr>
+                <tr>
+                    <td><button id="prev2" class="buttonStep">Previous Step</button></td>
+                </tr>
+                <tr>
+                    <td><button type="submit" id="next2" class="buttonStep">Next Step</button></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>

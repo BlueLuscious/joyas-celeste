@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" id="form">
+        {% csrf_token %}
+        <div class="login_form">
+            <h1 class="title">Welcome <br> to Lucio Store!</h1>
+            <table>
+                <tr>
+                    <td><input type="text" id="id_username" name="username" class="input" placeholder="Username"></td>
+                </tr>
+                <tr>
+                    <td><div class="warning" id="warning_username"></div></td>
+                </tr>
+                <tr>
+                    <td><input type="password" id="id_password" name="password" class="input" placeholder="Password"></td>
+                    <td>
+                        <button type="button" id="show_password_button"><div id="eyeIcon" class="bi bi-eye-fill icon"></div></button>
+                        <div class="show_password_popup_text" id="show_password_popup">Show Password</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div class="warning" id="warning_password"></div></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="warning" id="warning_userdata">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div id="message" class="{{ message.tags }}">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button type="button" id="go_to_signup">Sign Up</button></td>
+                </tr>
+                <tr>
+                    <td><button type="submit" id="log_in_button" >Log In</button></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>

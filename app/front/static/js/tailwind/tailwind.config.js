@@ -12,6 +12,7 @@ tailwind.config = {
                     earth_tone_3: "#D9BD9C",
                     earth_tone_3_light: "#FCF2E6",
                     earth_tone_4: "#8C694B",
+                    earth_tone_4_0750: "#8C694BCE",
                 },
                 secondary: {
                     gray_tone_1: "#F2F2F2",

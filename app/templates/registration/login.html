@@ -1,47 +1,82 @@
+{% load static %}
+
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyas Celeste</title>
+    <link rel="icon" href="{% static 'images/favicon_v2.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% include "tailwind/cdn-tailwind.html" %}
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data" id="form">
-        {% csrf_token %}
-        <div class="login_form">
-            <h1 class="title">Welcome <br> to Lucio Store!</h1>
-            <table>
-                <tr>
-                    <td><input type="text" id="id_username" name="username" class="input" placeholder="Username"></td>
-                </tr>
-                <tr>
-                    <td><div class="warning" id="warning_username"></div></td>
-                </tr>
-                <tr>
-                    <td><input type="password" id="id_password" name="password" class="input" placeholder="Password"></td>
-                    <td>
-                        <button type="button" id="show_password_button"><div id="eyeIcon" class="bi bi-eye-fill icon"></div></button>
-                        <div class="show_password_popup_text" id="show_password_popup">Show Password</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><div class="warning" id="warning_password"></div></td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="warning" id="warning_userdata">
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <div id="message" class="{{ message.tags }}">{{ message }}</div>
-                                {% endfor %}
-                            {% endif %}
+    <section class="flex items-center justify-center w-full h-full bg-primary-earth_tone_3_light">
+        <div class="flex flex-col w-full h-full sm:w-4/5 md:w-3/5 lg:w-2/5 sm:h-fit justify-between 
+            sm:justify-center gap-y-12 p-6 sm:p-12 bg-white sm:rounded-lg sm:shadow-lg">
+            <div class="flex justify-center w-full">
+                <img class="w-32 h-20" src="{% static 'images/cj-logo.png' %}" alt="">
+            </div>
+
+            <form method="post" enctype="multipart/form-data" id="login_form">
+                {% csrf_token %}
+                <div class="flex flex-col gap-y-6">
+                    <div class="flex flex-col gap-y-2">
+                        <label for="id_username" class="w-fit cursor-pointer cinzel-semibold">Usuario</label>
+                        <input type="text" id="id_username" name="username" required
+                            class="p-2 border-b border-b-1 border-primary-earth_tone_4 outline-primary-earth_tone_4">
+                    </div>
+                    <div class="flex flex-col gap-y-2">
+                        <label for="id_password" class="w-fit cursor-pointer cinzel-semibold">Contraseña</label>
+                        <div class="relative">
+                            <input type="password" id="id_password" name="password" required
+                                class="w-full p-2 border-b border-b-1 border-primary-earth_tone_4 
+                                outline-primary-earth_tone_4">
+                            <button type="button" id="toggle_password" class="absolute right-2 top-2 
+                                text-primary-earth_tone_4">
+                                <svg id="eye_icon" xmlns="http://www.w3.org/2000/svg" fill="none" 
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                </svg>
+                                <svg id="eye_slash_icon" xmlns="http://www.w3.org/2000/svg" fill="none" 
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hidden">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                </svg>
+                            </button>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><button type="button" id="go_to_signup">Sign Up</button></td>
-                </tr>
-                <tr>
-                    <td><button type="submit" id="log_in_button" >Log In</button></td>
-                </tr>
-            </table>
+                    </div>
+                    
+                </div>
+            </form>
+
+            {% if messages %}
+            <div class="warning" id="warning_userdata">
+                {% for message in messages %}
+                    <div id="message" class="{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="flex flex-col sm:flex-row gap-6 w-full">
+                <div class="flex justify-center w-full">
+                    <button type="submit" id="log_in_button" class="w-full p-2 bg-primary-earth_tone_4 text-lg
+                        text-white rounded-sm mukta-light hover:bg-primary-earth_tone_4_0750">
+                        Iniciar Sesión
+                    </button>
+                </div>
+                <div class="flex justify-center w-full">
+                    <a href="{% url 'sign-up' %}" class="w-full">
+                        <button type="button" id="go_to_signup" class="w-full p-2 bg-white text-lg 
+                            text-primary-earth_tone_4 border border-2 border-primary-earth_tone_4 rounded-sm 
+                            mukta-light hover:bg-zinc-50">
+                            Ir a registrarse
+                        </button>
+                    </a>
+                </div>
+            </div>
         </div>
-    </form>
+    </section>
 </body>
+<script type="module" src="{% static 'js/login.js' %}"></script>
+<script src="{% static 'js/tailwind/tailwind.config.js' %}"></script>
 </html>

@@ -57,4 +57,10 @@
         {% endfor %}
         {% endif %}
     </div>
+    {% comment %} <div>
+        {% if cart_items %}
+        {{ total_cart|convert_price_to_ARS:dollar_blue|format_number_AR }}
+        {% endif %}
+    </div> {% endcomment %}
+    {% comment %} PONER LINDO {% endcomment %}
 </div>

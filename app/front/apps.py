@@ -8,6 +8,7 @@ class FrontConfig(AppConfig):
     def ready(self) -> None:
         
         from .admins import (
+            cart_item_admin,
             category_admin,
             measure_admin,
             product_admin,

@@ -3,7 +3,7 @@ from front.models.cart_item_model import CartItemModel
 
 
 class ShoppingCartCounterView(UnicornView):
-    cart_items_count: CartItemModel
+    cart_items_count: int
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -11,4 +11,5 @@ class ShoppingCartCounterView(UnicornView):
 
 
     def update_cart_counter(self) -> None:
-        self.cart_items_count = CartItemModel.objects.count()
+        self.cart_items_count = CartItemModel.objects.filter(user=self.request.user).count()
+        

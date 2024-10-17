@@ -1,10 +1,16 @@
+from back.models.client_model import ClientModel
 from django.db import models
 from front.models.product_model import ProductModel
 
 
 class CartItemModel(models.Model):
     key = models.CharField(primary_key=True, max_length=128)
-    product = models.ForeignKey(ProductModel, on_delete=models.DO_NOTHING, related_name="cart_item")
+    user = models.ForeignKey(
+        ClientModel, on_delete=models.DO_NOTHING, related_name="cart_item_user", default=None
+    )
+    product = models.ForeignKey(
+        ProductModel, on_delete=models.DO_NOTHING, related_name="cart_item"
+    )
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     size = models.CharField(max_length=128)
     stock = models.IntegerField(default=0)

@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
 from front.models.category_model import CategoryModel
-from front.models.measure_model import MeasureModel
 from front.models.subcategory_model import SubcategoryModel
 from uuid import uuid4
 

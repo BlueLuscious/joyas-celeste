@@ -5,10 +5,12 @@
 <div class="relative flex flex-col items-center w-full bg-white text-lg mukta-light 
     rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
     
+    {% if request.user.is_authenticated %}
     <button type="button" onclick="addToCart('{{ product.uuid }}')"
         class="absolute top-2 right-2 p-1 bg-white rounded-md shadow-md cursor-pointer">
         {% include "../../icons/shopping-bag-add.html" %}
     </button>
+    {% endif %}
 
     <div class="w-full">
         <a href="{% url 'product' name=product.slug %}">

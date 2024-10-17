@@ -2,7 +2,7 @@
 {% load unicorn %}
 {% load filters.product_filter %}
 
-<div>
+<div class="flex flex-col h-screen">
     {% if not cart_items %}
     <div id="empty_shopping_cart" class="absolute flex justify-center w-full top-1/2">
         <div class="text-lg mukta-light">
@@ -11,7 +11,7 @@
     </div>
     {% endif %}
 
-    <div class="flex flex-row items-center justify-between w-full h-20 border-b-2 border-secondary-gray_tone_1">
+    <div class="flex flex-row items-center justify-between w-full h-20 mt-2 px-2">
         <div class="ml-5 text-xl cinzel-semibold">
             Carrito
         </div>
@@ -20,7 +20,8 @@
         </div>
     </div>
 
-    <div id="cart_items" class="flex flex-col gap-y-4 px-2 py-4">
+    <div id="cart_items" class="overflow-y-auto flex flex-grow flex-col h-[32rem] gap-y-4 mx-2 px-2 py-4
+        border-y-2 border-secondary-gray_tone_1">
         {% if cart_items %}
         {% for item in cart_items %}
         <div class="relative flex flex-col w-full border 
@@ -57,10 +58,35 @@
         {% endfor %}
         {% endif %}
     </div>
-    {% comment %} <div>
-        {% if cart_items %}
-        {{ total_cart|convert_price_to_ARS:dollar_blue|format_number_AR }}
-        {% endif %}
-    </div> {% endcomment %}
-    {% comment %} PONER LINDO {% endcomment %}
+
+    {% if cart_items %}
+    <div class="flex-shrink-0 bg-white">
+        <div class="flex flex-col gap-y-2 p-3">
+            <div class="flex flex-row justify-between">
+                <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">
+                    Subtotal:
+                </div>
+                <div class="text-md font-semibold">
+                    $ {{ total_cart|convert_price_to_ARS:dollar_blue|format_number_AR }}
+                </div>
+            </div>
+            <div class="flex flex-row justify-between">
+                <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">
+                    Envio:
+                </div>
+                <div class="text-md font-semibold">
+                    $ {{ 0|format_number_AR }} <!-- Agregar boton de añadir costo de Envio -->
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row justify-between p-3 bg-primary-earth_tone_4">
+            <div class="text-lg text-primary-earth_tone_3_light cinzel-semibold">
+                Total:
+            </div>
+            <div class="text-lg text-white font-semibold">
+                $ {{ total_cart|convert_price_to_ARS:dollar_blue|format_number_AR }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>

@@ -23,17 +23,17 @@ class SignUpExceptionHandler:
         """
 
         if isinstance(exception, PasswordMismatchError):
-            logger.error(request, f"Mismatching Passwords: {exception.message}")
+            logger.error(f"Mismatching Passwords: {exception.message}")
             messages.error(request, exception.message)
         elif isinstance(exception, PasswordLengthError):
-            logger.error(request, f"Invalid Password Length: {exception.message}")
+            logger.error(f"Invalid Password Length: {exception.message}")
             messages.error(request, exception.message)
         elif isinstance(exception, UserAlreadyExistsError):
-            logger.error(request, f"Existing User: {exception.message}")
+            logger.error(f"Existing User: {exception.message}")
             messages.error(request, exception.message)
         elif isinstance(exception, SignUpError):
-            logger.error(request, f"Sign Up Error: {exception.message}")
+            logger.error(f"Sign Up Error: {exception.message}")
             messages.error(request, exception.message)
         else:
-            logger.error(request, "Unexpected Error")
+            logger.error("Unexpected Error")
             messages.error(request, "Ocurrió un error inesperado. Por favor, intenta nuevamente")

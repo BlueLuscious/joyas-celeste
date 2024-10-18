@@ -30,19 +30,23 @@ class ShoppingCartView(UnicornView):
         key = f"{str(product.uuid)}_{size}"
         if not CartItemModel.objects.filter(key=key).exists():
             self.create_item(product, size, quantity)
-            messages.success(self.request, "Producto agregado al carrito exitosamente")
+            messages.success(self.request, "Producto agregado al carrito")
         else:
             self.increment_quantity(product, key)
-            messages.success(self.request, "Producto actualizado del carrito exitosamente")
+            messages.success(self.request, "Producto actualizado en el carrito")
         self.update_cart_items()
         self.update_total_cart()
+        self.call("updateCartCounter")
+        self.call("displayMessages")
 
 
     def remove_from_cart(self, key: str) -> None:
         CartItemModel.objects.get(key=key).delete()
-        messages.success(self.request, "Producto removido del carrito exitosamente")
+        messages.success(self.request, "Producto removido del carrito")
         self.update_cart_items()
         self.update_total_cart()
+        self.call("updateCartCounter")
+        self.call("displayMessages")
 
 
     def increment_quantity(self, product: ProductModel, key: str, quantity: int = 1) -> None:

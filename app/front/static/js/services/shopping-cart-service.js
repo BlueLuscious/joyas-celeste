@@ -14,9 +14,6 @@ export class ShoppingCartService {
 
         if (product_size) {
             Unicorn.call("shopping-cart", "add_to_cart", product_uuid, product_size)
-            setTimeout(() => {
-                Unicorn.call("shopping-cart-counter", "update_cart_counter")
-            }, 100)
         }
     }
 
@@ -30,9 +27,30 @@ export class ShoppingCartService {
     */
     static removeFromCart(key) {
         Unicorn.call("shopping-cart", "remove_from_cart", key)
-        setTimeout(() => {
-            Unicorn.call("shopping-cart-counter", "update_cart_counter")
-        }, 100)
+    }
+
+
+    /**
+    * Update shopping cart counter:
+    * 
+    * Use Unicorn to call methods, update shopping cart counter.
+    * @returns {void} None.
+    */
+    static updateCartCounter() {
+        Unicorn.call("shopping-cart-counter", "update_cart_counter")
+    }
+
+
+
+
+    /**
+    * Display Messages:
+    * 
+    * Use Unicorn to call methods, display django messages.
+    * @returns {void} None.
+    */
+    static displayMessages() {
+        Unicorn.call("django-messages", "display_messages")
     }
 
 }

@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django_unicorn.components import UnicornView
 
 
@@ -8,9 +7,5 @@ class DjangoMessagesView(UnicornView):
         super().__init__(*args, **kwargs)
 
 
-    def display_messages(self, message: str, level: str) -> None:
-        if level == "success":
-            messages.success(self.request, message)
-        if level == "error":
-            messages.error(self.request, message)
-            
+    def display_messages(self) -> None:
+        pass

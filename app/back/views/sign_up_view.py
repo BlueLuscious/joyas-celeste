@@ -6,7 +6,6 @@ from back.services.client_service import ClientService
 from back.services.sign_up_service import SignUpService
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect
 from django.template import loader
 from django.views import View
 
@@ -31,8 +30,8 @@ class SignUpView(View):
             validated_form: dict = sign_up_service.validate_form()
             user: ClientModel = client_service.create_client(validated_form)
             messages.success(request, "Registro exitoso")
-            return redirect("login")
+            return HttpResponseRedirect("/login/")
         except Exception as e:
             SignUpExceptionHandler.handle_exception(request, e)
-            return redirect("sign-up")
+            return HttpResponseRedirect("/sign-up/")
         

@@ -25,5 +25,5 @@ class ClientService:
             logger.info(f"User {user.username} was created")
             return user
         except Exception as e:
-            raise SignUpError("Ocurrió un error inesperado") from e
+            raise SignUpError("Ocurrió un error inesperado") from e # Cambiar Exception
         

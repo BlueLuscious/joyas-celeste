@@ -1,10 +1,12 @@
 import logging
 from back.models.client_model import ClientModel
 from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.views import LoginView
 from django.http import HttpRequest, HttpResponse
 from django.template import loader
+from django.template.response import TemplateResponse
 
 logger = logging.getLogger(__name__)
 
@@ -15,11 +17,11 @@ class LogInView(LoginView):
         template = loader.get_template("registration/login.html")
         return HttpResponse(template.render(None, request))
     
-    def form_valid(self, form):
+    def form_valid(self, form: AuthenticationForm) -> TemplateResponse:
         messages.success(self.request, "Inicio de sesión exitoso")
         return super().form_valid(form)
         
-    def form_invalid(self, form):
+    def form_invalid(self, form: AuthenticationForm) -> TemplateResponse:
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
 
@@ -33,6 +35,5 @@ class LogInView(LoginView):
         else:
             logger.info(f"User doesn't exist")
             messages.error(self.request, "El usuario es incorrecto")
-        response = super().form_invalid(form)
-        return response
+        return super().form_invalid(form)
     

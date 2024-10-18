@@ -37,7 +37,7 @@ class SignUpService:
         if self.form.is_valid():
             validated_data: dict = self.form.cleaned_data
             validated_data.pop("repeat_password")
-            logger.error(f"Validated form data successfully: {validated_data}")
+            logger.info(f"Validated form data successfully: {validated_data}")
         return validated_data
 
 
@@ -56,7 +56,7 @@ class SignUpService:
         if ClientModel.objects.filter(username=username).exists():
             raise UserAlreadyExistsError("Un usuario con este nombre ya existe")
         
-        logger.error(f"Validated username successfully: {username}")
+        logger.info(f"Validated username successfully: {username}")
         return username
 
 
@@ -78,6 +78,6 @@ class SignUpService:
         if password != repeat_password:
             raise PasswordMismatchError("Las contraseñas no coinciden")
         
-        logger.error(f"Validated password successfully: {password}")
+        logger.info(f"Validated password successfully: {password}")
         return password
     

@@ -31,7 +31,9 @@
     </section>
 
     <!-- messages -->
-    {% include "components-base/django-messages.html" %}
+    <div id="message_container">
+        {% include "components-base/django-messages.html" with tailwind_class="z-30 top-28 md:top-28 left-3 md:left-4 right-3 md:right-4" %}
+    </div>
 
     <!-- whatsapp button -->
     <div id="whatsapp_button" 

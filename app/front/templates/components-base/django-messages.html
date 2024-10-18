@@ -1,6 +1,6 @@
 {% if messages %}
-<div class="warning fixed top-2 md:top-5 left-2 md:left-5 right-2 md:right-5" id="warning_userdata">
-    <div class="flex flex-col items-center md:items-end w-full">
+<div class="fixed {{ tailwind_class }}">
+    <div class="flex flex-col items-center md:items-end gap-y-4 w-full">
         {% for message in messages %}
         <div id="message" class="{{ message.tags }} w-full md:w-1/2 p-3 
             text-lg md:text-xl text-white text-center rounded-sm md:rounded-md mukta-light

@@ -1,5 +1,4 @@
 import logging
-
 from back.exceptions.sign_up_exception import (
     PasswordLengthError, PasswordMismatchError, UserAlreadyExistsError
 )
@@ -44,17 +43,17 @@ class SignUpService:
     def validate_username(self, username: str) -> str:
 
         """ 
-        Validate email.
+        Validate username.
 
         Args:
-            email (str): Email.
+            username (str): Username.
         
         Returns:
-            str: Validated email.
+            str: Validated username.
         """
 
         if ClientModel.objects.filter(username=username).exists():
-            raise UserAlreadyExistsError("Un usuario con este nombre ya existe")
+            raise UserAlreadyExistsError()
         
         logger.info(f"Validated username successfully: {username}")
         return username
@@ -74,9 +73,9 @@ class SignUpService:
         """
 
         if not (6 < len(password) < 12):
-            raise PasswordLengthError("La contraseña debe tener en 6 y 12 caracteres")
+            raise PasswordLengthError()
         if password != repeat_password:
-            raise PasswordMismatchError("Las contraseñas no coinciden")
+            raise PasswordMismatchError()
         
         logger.info(f"Validated password successfully: {password}")
         return password

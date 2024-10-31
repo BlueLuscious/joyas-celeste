@@ -50,7 +50,11 @@ export class ShoppingCartService {
     * @returns {void} None.
     */
     static displayMessages() {
-        Unicorn.call("django-messages", "display_messages")
+        Unicorn.call("django-messages", "add_message")
+
+        setTimeout(() => {
+            Unicorn.call("django-messages", "remove_message")
+        }, 4000)
     }
 
 }

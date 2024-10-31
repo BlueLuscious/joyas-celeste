@@ -5,7 +5,7 @@ from front.models.product_model import ProductModel
 
 
 class ShoppingCartView(UnicornView):
-    cart_items: list[CartItemModel]
+    cart_items: list[CartItemModel] = None
     total_cart: float
 
     def __init__(self, *args, **kwargs) -> None:
@@ -31,12 +31,17 @@ class ShoppingCartView(UnicornView):
         if not CartItemModel.objects.filter(key=key).exists():
             self.create_item(product, size, quantity)
             messages.success(self.request, "Producto agregado al carrito")
+            self.update_cart_items()
+            self.update_total_cart()
+            self.call("updateCartCounter")
         else:
-            self.increment_quantity(product, key)
-            messages.success(self.request, "Producto actualizado en el carrito")
-        self.update_cart_items()
-        self.update_total_cart()
-        self.call("updateCartCounter")
+            cart_item = CartItemModel.objects.get(key=key)
+            if cart_item.quantity < cart_item.stock:
+                self.increment_quantity(product, key)
+                messages.success(self.request, "Producto actualizado en el carrito")
+            else:
+                messages.info(self.request, "Cantidad insuficiente")
+                self.update_cart_items()
         self.call("displayMessages")
 
 
@@ -76,9 +81,11 @@ class ShoppingCartView(UnicornView):
 
 
     def update_cart_items(self) -> None:
-        self.cart_items = CartItemModel.objects.filter(user=self.request.user)
+        if self.request.user.is_authenticated:
+            self.cart_items = CartItemModel.objects.filter(user=self.request.user)
 
 
     def update_total_cart(self) -> None:
-        self.total_cart = sum(cart_item.price for cart_item in self.cart_items)
+        if self.cart_items:
+            self.total_cart = sum(cart_item.price for cart_item in self.cart_items)
         

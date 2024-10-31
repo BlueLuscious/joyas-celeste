@@ -5,3 +5,7 @@ window.removeFromCart = ShoppingCartService.removeFromCart
 window.updateCartCounter = ShoppingCartService.updateCartCounter
 
 window.displayMessages = ShoppingCartService.displayMessages
+
+document.addEventListener("DOMContentLoaded", () => {
+    ShoppingCartService.displayMessages()
+})

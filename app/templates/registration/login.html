@@ -1,7 +1,9 @@
 {% load static %}
+{% load unicorn %}
 
 <html lang="en">
 <head>
+    {% unicorn_scripts %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joyas Celeste</title>
@@ -49,7 +51,7 @@
                 </div>
             </form>
 
-            {% include "components-base/django-messages.html" with tailwind_class="top-2 md:top-5 left-2 md:left-5 right-2 md:right-5" %}
+            {% unicorn "django-messages" tailwind_class="z-30 top-2 md:top-5 left-2 md:left-5 right-2 md:right-5" %}
 
             <div class="flex flex-col sm:flex-row gap-6 w-full">
                 <div class="flex justify-center w-full">
@@ -72,5 +74,6 @@
     </section>
 </body>
 <script type="module" src="{% static 'js/login.js' %}"></script>
+<script type="module" src="{% static 'js/message.js' %}"></script>
 <script src="{% static 'js/tailwind/tailwind.config.js' %}"></script>
 </html>

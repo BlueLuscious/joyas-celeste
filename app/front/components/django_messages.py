@@ -1,7 +1,10 @@
+import logging
 from django.contrib.messages import get_messages
 from django.contrib.messages.storage.base import Message
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django_unicorn.components import UnicornView
+
+logger = logging.getLogger(__name__)
 
 
 class DjangoMessagesView(UnicornView):
@@ -20,11 +23,13 @@ class DjangoMessagesView(UnicornView):
                 "level_tag": message.level_tag
             }
             self.messages_list.append(msg)
+            logger.info(f"Add message to list: {msg.get('text')}")
 
 
     def remove_message(self) -> None:
         if self.messages_list:
-            self.messages_list.pop(0)
+            msg: dict = self.messages_list.pop(0)
+            logger.info(f"Remove message to list: {msg.get('text')}")
             
 
     def clean_message_list(self) -> None:

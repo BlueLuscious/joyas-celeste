@@ -1,6 +1,5 @@
 import logging
 from back.forms.sign_up_form import SignUpForm
-from back.handlers.sign_up_exception_handler import SignUpExceptionHandler
 from back.models.client_model import ClientModel
 from back.services.client_service import ClientService
 from back.services.sign_up_service import SignUpService
@@ -27,12 +26,8 @@ class SignUpView(View):
         sign_up_service = SignUpService(form)
         client_service = ClientService()
 
-        try:
-            validated_form: dict = sign_up_service.validate_form()
-            user: ClientModel = client_service.create_client(validated_form)
-            messages.success(request, "Registro exitoso")
-            return redirect("login")
-        except Exception as e:
-            SignUpExceptionHandler.handle_exception(request, e)
-            return redirect("sign-up")
-        
+        validated_form: dict = sign_up_service.validate_form()
+        user: ClientModel = client_service.create_client(validated_form)
+        messages.success(request, "Registro exitoso")
+        return redirect("login")
+    

@@ -1,27 +1,48 @@
-class SignUpError(Exception):
-    """
-    Base exception for registration errors.
-    """
+from back.exceptions.custom_exception import CustomException
 
-    def __init__(self, message: str, code: str = None) -> None:
-        self.message = message
-        self.code = code
-        super().__init__(message)
+SIGN_UP_REDIRECT = "sign-up"
 
-class PasswordMismatchError(SignUpError):
-    """
-    Exception for mismatching passwords.
-    """
-    pass
 
-class PasswordLengthError(SignUpError):
-    """
-    Exception for invalid password length.
-    """
-    pass
+class SignUpError(CustomException):
+    
+    """ Base exception for registration errors. """
+    
+    def __init__(self):
+        super().__init__(
+            "Ocurrió un error inesperado",
+            "Sign Up Unexpected Error",
+            SIGN_UP_REDIRECT,
+        )
 
-class UserAlreadyExistsError(SignUpError):
-    """
-    Exception for existing user.
-    """
-    pass
+class PasswordMismatchError(CustomException):
+    
+    """ Exception for mismatching passwords. """
+
+    def __init__(self):
+        super().__init__(
+            "Las contraseñas no coinciden", 
+            "Mismatching Passwords",
+            SIGN_UP_REDIRECT,
+        )
+
+class PasswordLengthError(CustomException):
+    
+    """ Exception for invalid password length. """
+    
+    def __init__(self):
+        super().__init__(
+            "La contraseña debe tener en 6 y 12 caracteres",
+            "Invalid Password Length",
+            SIGN_UP_REDIRECT,
+        )
+
+class UserAlreadyExistsError(CustomException):
+
+    """ Exception for existing user. """
+    
+    def __init__(self):
+        super().__init__(
+            "Un usuario con este nombre ya existe",
+            "Existing User",
+            SIGN_UP_REDIRECT,
+        )

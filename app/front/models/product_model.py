@@ -1,8 +1,12 @@
+from typing import TYPE_CHECKING
 from django.db import models
 from django.utils.text import slugify
 from front.models.category_model import CategoryModel
 from front.models.subcategory_model import SubcategoryModel
 from uuid import uuid4
+if TYPE_CHECKING:
+    from django.db.models import QuerySet
+    from front.models.product_variation_model import ProductVariationModel
 
 
 class ProductModel(models.Model):
@@ -16,6 +20,8 @@ class ProductModel(models.Model):
     description = models.CharField(max_length=256, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    variations: "QuerySet[ProductVariationModel]"
 
     def __str__(self) -> str:
         return self.name

@@ -19,18 +19,6 @@ export class ShoppingCartService {
 
 
     /**
-    * Remove item from shopping cart:
-    * 
-    * Use Unicorn to call methods, remove an item from cart and update cart counter.
-    * @param {string} key Product UUID + Product size.
-    * @returns {void} None.
-    */
-    static removeFromCart(key) {
-        Unicorn.call("shopping-cart", "remove_from_cart", key)
-    }
-
-
-    /**
     * Update shopping cart counter:
     * 
     * Use Unicorn to call methods, update shopping cart counter.

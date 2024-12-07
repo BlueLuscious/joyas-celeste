@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="flex flex-row items-center justify-around p-2.5 bg-primary-earth_tone_3_light">
-                <button unicorn:click="decrement_quantity('{{ item.product.uuid }}', '{{ item.key }}')"
+                <button unicorn:click="decrement_quantity('{{ item.key }}')"
                     class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
                     {% include "../icons/minus-sign.html" with tailwind_class="size-4" %}
                 </button>
@@ -45,13 +45,13 @@
                     border-primary-earth_tone_4 rounded-md">
                     {{ item.quantity }}
                 </div>
-                <button unicorn:click="increment_quantity('{{ item.product.uuid }}', '{{ item.key }}')"
+                <button unicorn:click="increment_quantity('{{ item.key }}')"
                     class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
                     {% include "../icons/plus-sign.html" with tailwind_class="size-4" %}                              
                 </button>
             </div>
             <button type="button" class="absolute top-1 right-1"
-                onclick="removeFromCart('{{ item.key }}')">
+                unicorn:click="remove_from_cart('{{ item.key }}')">
                 {% include "../icons/trash.html" with tailwind_class="size-6 text-red-700" %}
             </button>
         </div>
@@ -67,7 +67,7 @@
                     Subtotal:
                 </div>
                 <div class="text-md font-semibold">
-                    $ {{ total_cart|convert_price_to_ARS:dollar_blue|format_number_AR }}
+                    $ {{ total_amount|convert_price_to_ARS:dollar_blue|format_number_AR }}
                 </div>
             </div>
             <div class="flex flex-row justify-between">
@@ -84,7 +84,7 @@
                 Total:
             </div>
             <div class="text-lg text-white font-semibold">
-                $ {{ total_cart|convert_price_to_ARS:dollar_blue|format_number_AR }}
+                $ {{ total_amount|convert_price_to_ARS:dollar_blue|format_number_AR }}
             </div>
         </div>
     </div>

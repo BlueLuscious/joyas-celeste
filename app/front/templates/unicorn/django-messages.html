@@ -1,21 +1,17 @@
 <div>
-    <div id="message">
-        {% if messages_list %}
-        <div class="fixed {{ tailwind_class }}">
-            <div class="flex flex-col items-center md:items-end gap-y-4 w-full">
-                {% for message in messages_list %}
-                <div class="messages {{ message.level_tag }} w-full md:w-1/2 p-3 
-                    text-lg md:text-xl text-white text-center rounded-sm md:rounded-md mukta-light
-                    opacity-100 transition-all duration-500 ease-in-out
-                    {% if message.level_tag == 'success' %} bg-green-600
-                    {% elif message.level_tag == 'error' %} bg-red-600
-                    {% elif message.level_tag == 'info' %} bg-blue-600
-                    {% endif %}">
-                    {{ message.text }}
-                </div>
-                {% endfor %}
-            </div>
+    {% if messages_list %}
+    <div class="fixed {{ tailwind_class }} flex flex-col items-center md:items-start gap-y-4 
+        w-full md:w-fit px-4 md:px-0">
+        {% for message in messages_list %}
+        <div class=" w-full md:w-[40rem] p-3 text-lg md:text-xl text-white text-center rounded-sm 
+            md:rounded-md mukta-light opacity-100 transition-all duration-500 ease-in-out
+            {% if message.level_tag == 'success' %} bg-green-600
+            {% elif message.level_tag == 'error' %} bg-red-600
+            {% elif message.level_tag == 'info' %} bg-blue-600
+            {% endif %}">
+            {{ message.text }}
         </div>
-        {% endif %}
+        {% endfor %}
     </div>
+    {% endif %}
 </div>

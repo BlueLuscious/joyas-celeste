@@ -12,6 +12,10 @@
     {% include "tailwind/cdn-tailwind.html" %}
 </head>
 <body>
+
+    <!-- messages -->
+    {% unicorn "django-messages" tailwind_class="z-30 top-4 md:left-4" %}
+
     <section class="flex items-center justify-center w-full sm:h-auto sm:py-2 bg-primary-earth_tone_3_light">
         <div class="flex flex-col w-full sm:w-4/5 md:w-3/5 lg:w-2/5 sm:h-full justify-between 
             sm:justify-center gap-y-12 p-6 sm:p-12 bg-white sm:rounded-lg sm:shadow-lg">
@@ -59,8 +63,6 @@
                     </div>
                 </div>
             </form>
-            
-            {% unicorn "django-messages" tailwind_class="z-30 top-2 md:top-5 left-2 md:left-5 right-2 md:right-5" %}
             
             <div class="flex flex-col sm:flex-row gap-6 w-full">
                 <div class="flex justify-center w-full">

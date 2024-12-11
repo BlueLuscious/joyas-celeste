@@ -1,7 +1,7 @@
 import logging
 from back.services.cripto_ya_service import CriptoYaService
 from front.models.category_model import CategoryModel
-from front.services.product_service import ProductService
+from front.utils.context import Context
 
 logger = logging.getLogger(__name__)
 
@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class ProductsViewService():
     
     @staticmethod
-    def get_context(page: int) -> dict:
+    def get_context() -> dict:
 
         """
         Get context: --> (ProductsView)
@@ -26,21 +26,15 @@ class ProductsViewService():
         """
 
         categories = CategoryModel.objects.all()
-        product_service = ProductService()
-        products = product_service.filter_products_by_stock()
 
         cripto_ya_service = CriptoYaService()
         dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")
         dollar_blue_ask = dollar_quotes.get("blue").get("ask")
 
-        pagination = product_service.paginate_products(products, page, 24)
+        context = Context(
+            categories=categories,
+            dollar_blue=dollar_blue_ask,
+        )
 
-        context = {
-            "categories": categories,
-            "products": pagination.get("products_page"),
-            "page_numbers": pagination.get("page_numbers"),
-            "dollar_blue": dollar_blue_ask,
-        }
-
-        logger.info(f"products_view context: {context}")
-        return context
+        logger.info(f"products_view context: {context.as_dict}")
+        return context.as_dict

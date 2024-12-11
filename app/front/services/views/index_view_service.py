@@ -1,7 +1,9 @@
 import logging
 from back.services.cripto_ya_service import CriptoYaService
 from front.models.category_model import CategoryModel
+from front.models.product_model import ProductModel
 from front.services.product_service import ProductService
+from front.utils.context import Context
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +22,7 @@ class IndexViewService():
             - dollar quotation
         """
 
-        product_service = ProductService()
+        product_service = ProductService(ProductModel.objects.all())
 
         categories = CategoryModel.objects.all()
         products = product_service.filter_products_by_stock()
@@ -29,11 +31,12 @@ class IndexViewService():
         dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")
         dollar_blue_ask = dollar_quotes.get("blue").get("ask")
 
-        context = {
-            "categories": categories,
-            "products": products.order_by("-created_at")[:12],
-            "dollar_blue": dollar_blue_ask,
-        }
+        context = Context(
+            categories=categories,
+            products=products.order_by("-created_at")[:12],
+            dollar_blue=dollar_blue_ask,
+        )
 
-        logger.info(f"index_view context: {context}")
-        return context
+        logger.info(f"index_view context: {context.as_dict}")
+        return context.as_dict
+    

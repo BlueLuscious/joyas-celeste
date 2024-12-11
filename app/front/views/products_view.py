@@ -9,12 +9,11 @@ logger = logging.getLogger(__name__)
 
 
 class ProductsView(View):
-    def get(self, request: HttpRequest, page: int = 1) -> HttpResponse:
+    def get(self, request: HttpRequest) -> HttpResponse:
         template = loader.get_template("pages/products.html")
         logger.info(f"get template: {template.template.name}")
 
-        page = request.GET.get("page")
         products_view_service = ProductsViewService()
-        context = products_view_service.get_context(page)
+        context = products_view_service.get_context()
 
         return HttpResponse(template.render(context, request))

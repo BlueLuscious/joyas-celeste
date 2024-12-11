@@ -4,6 +4,8 @@ import { WhatsappService } from "./services/whatsapp-service.js"
 const Helper = new Helpers()
 const WA_Service = new WhatsappService()
 
+window.toggleElementTranslateById = Helpers.toggleElementTranslateById
+
 document.addEventListener("DOMContentLoaded", () => {
 
     /* LEFT SIDE NAVBAR */

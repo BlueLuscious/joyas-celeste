@@ -13,7 +13,7 @@ register = template.Library()
 def convert_price_to_ARS(price: Decimal, dollar: int) -> Decimal:
     logger.info(f"price: {price} | dollar: {dollar}")
     try:
-        converted_price = price * dollar
+        converted_price = Decimal(price) * dollar
         logger.info(f"converted price: {converted_price}")
         return converted_price
     except TypeError:

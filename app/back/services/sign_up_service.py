@@ -1,17 +1,24 @@
 import logging
+from django.http import QueryDict
 from back.exceptions.sign_up_exception import (
-    PasswordLengthError, PasswordMismatchError, UserAlreadyExistsError
+    PasswordLengthError,
+    PasswordMismatchError,
+    UserAlreadyExistsError,
 )
 from back.forms.sign_up_form import SignUpForm
 from back.models.client_model import ClientModel
-from django.http import QueryDict
 
 logger = logging.getLogger(__name__)
 
 
 class SignUpService:
 
+    """ Service for sign up. """
+
     def __init__(self, form: SignUpForm) -> None:
+
+        """ SignUpService Initializer. """
+
         self.form = form
 
     
@@ -53,7 +60,7 @@ class SignUpService:
         """
 
         if ClientModel.objects.filter(username=username).exists():
-            raise UserAlreadyExistsError()
+            raise UserAlreadyExistsError(f"Username {username} already exists")
         
         logger.info(f"Validated username successfully: {username}")
         return username
@@ -73,9 +80,9 @@ class SignUpService:
         """
 
         if not (6 < len(password) < 12):
-            raise PasswordLengthError()
+            raise PasswordLengthError(f"Password length is {len(password)}, less than 6 or more than 12")
         if password != repeat_password:
-            raise PasswordMismatchError()
+            raise PasswordMismatchError(f"Passwords doesn't match")
         
         logger.info(f"Validated password successfully: {password}")
         return password

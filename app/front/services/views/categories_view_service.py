@@ -21,8 +21,8 @@ class CategoriesViewService():
         categories = CategoryModel.objects.all()
 
         cripto_ya_service = CriptoYaService()
-        dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")
-        dollar_blue_ask = dollar_quotes.get("blue").get("ask")
+        dollar_quotes: dict = cripto_ya_service.get_dollar_quotes()
+        dollar_blue_ask: float = dollar_quotes.get("blue").get("ask")
 
         context = {
             "categories": categories,

@@ -46,3 +46,21 @@ class SignUpForm(forms.ModelForm):
             if field_name in tailwind_extra_class:
                 field.widget.attrs["class"] += f" {tailwind_extra_class[field_name]}"
                 
+
+    def clean(self) -> dict:
+
+        """
+        Overwrite `clean` method.
+        
+        Actions:
+            - Set email equal to the username.
+        """
+
+        cleaned_data = super().clean()
+        username = cleaned_data.get("username")
+
+        if username:
+            cleaned_data["email"] = username
+
+        return cleaned_data
+    

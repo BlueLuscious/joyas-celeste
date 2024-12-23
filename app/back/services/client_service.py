@@ -7,8 +7,21 @@ logger = logging.getLogger(__name__)
 
 class ClientService:
 
-    @staticmethod
-    def create_client(data: dict) -> ClientModel:
+    """ Service for Client Model. """
+
+    def __init__(self, user: ClientModel = None) -> None:
+
+        """
+        ClientService Initializer.
+
+        Args:
+            user (ClientModel): ClientModel Instance.
+        """
+
+        self.user = user
+
+
+    def create_client(self, data: dict) -> ClientModel:
 
         """
         Create a ClientModel instance.
@@ -17,13 +30,13 @@ class ClientService:
             data (dict): Validated form data.
 
         Returns:
-            ClientModel: ClientModel instance.
+            ClientModel: ClientModel Instance.
         """
 
-        try:
+        if data:
             user = ClientModel.objects.create_user(**data)
             logger.info(f"User {user.username} was created")
             return user
-        except Exception as e:
-            raise SignUpError() from e # Cambiar Exception
+        else:
+            raise SignUpError("Failed to create client. Data is empty")
         

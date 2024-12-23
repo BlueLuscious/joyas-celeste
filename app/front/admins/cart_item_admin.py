@@ -4,6 +4,9 @@ from front.models.cart_item_model import CartItemModel
 
 @admin.register(CartItemModel)
 class CartItemAdmin(admin.ModelAdmin):
+
+    """ Admin for CartItemModel. """
+
     list_display = (
         "key",
         "user",

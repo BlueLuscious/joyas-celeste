@@ -1,46 +1,41 @@
 import logging
-from back.services.cripto_ya_service import CriptoYaService
 from front.models.category_model import CategoryModel
 from front.models.subcategory_model import SubcategoryModel
-from front.utils.context import Context
 
 logger = logging.getLogger(__name__)
 
 
-class SubcategoryViewService():
-    
-    @staticmethod
-    def get_context(name: str, sub_name: str) -> dict:
+class SubcategoryViewService:
+
+    """ Service for subcategory view. """
+
+    def __init__(self, name: str, sub_name: str) -> None:
 
         """
-        Get context for SubcategoryView.
-
-        Get conxtext by name and sub_name, and page for paginate products.
-
+        SubcategoryViewService Initializer.
+        
         Args:
-            name (str): Category name.
-            sub_name (str): Subcategory name.
+            name (str): Category name or slug.
+            sub_name (str): Subcategory name or slug.
+        """
+
+        self.name = name
+        self.sub_name = sub_name
+    
+
+    def get_context(self) -> dict:
+
+        """
+        Get CategoryModel by slug (name) and SubcategoryModel by slug (sub_name).
 
         Returns:
-            dict: Dictionary containing context data. 
-            - categories dollar.
+            dict: Dictionary containing a CategoryModel Instance and a Subcategory Instance.
         """
 
-        categories = CategoryModel.objects.all()
+        category = CategoryModel.objects.get(slug=self.name.lower())
+        subcategory = SubcategoryModel.objects.get(slug=self.sub_name.lower())
+        context = dict(category=category, subcategory=subcategory)
 
-        cripto_ya_service = CriptoYaService()
-        dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")
-        dollar_blue_ask = dollar_quotes.get("blue").get("ask")
-
-        category = CategoryModel.objects.get(slug=name.lower())
-        subcategory = SubcategoryModel.objects.get(slug=sub_name.lower())
-
-        context = Context(
-            categories=categories,
-            category=category,
-            subcategory=subcategory,
-            dollar_blue=dollar_blue_ask,
-        )
-
-        logger.info(f"subcategory_view context: {context.as_dict}")
-        return context.as_dict
+        logger.info(f"subcategory_view context: {context}")
+        return context
+    

@@ -519,3 +519,32 @@ displayNotificationMessage(message, type) {
 static removeFromCart(key) {
     Unicorn.call("shopping-cart", "remove_from_cart", key)
 }
+
+
+
+
+
+
+class CriptoYaDTO:
+
+    def __init__(self, data: dict):
+
+        """
+        CriptoYaDTO Initializer.
+
+        Actions:
+            - Converting all dictionary keys into attributes. 
+            If a value is a dictionary, it is recursively converted into another CriptoYaDTO.
+        """
+
+        if not hasattr(self, '__annotations__'):
+            self.__annotations__ = {}
+
+        for key, value in data.items():
+            if isinstance(value, dict):
+                setattr(self, key, CriptoYaDTO(value))
+                self.__annotations__[key] = CriptoYaDTO
+            else:
+                setattr(self, key, value)
+                self.__annotations__[key] = CriptoYaDTO
+                

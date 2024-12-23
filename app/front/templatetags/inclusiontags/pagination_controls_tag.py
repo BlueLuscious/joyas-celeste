@@ -1,6 +1,5 @@
 import logging
 from django import template
-from front.utils.context import Context
 
 logger = logging.getLogger(__name__)
 register = template.Library()
@@ -8,9 +7,18 @@ register = template.Library()
 
 @register.inclusion_tag("pages/components/pagination-controls.html")
 def pagination_controls(page_data: dict, page_numbers: list) -> dict:
-    context = Context(
-        page_data=page_data,
-        page_numbers=page_numbers,
-    )
-    logger.info(f"Pagination controls context: {context}")
-    return context.as_dict
+
+    """ 
+    Render pagination controls data.
+
+    Args:
+        page_data (dict): Page data.
+        page_numbers (str): Pagination controls range.
+
+    Returns:
+        dict: A dictionary with Args.
+    """
+    
+    data = dict(page_data=page_data, page_numbers=page_numbers)
+    logger.info(f"Pagination controls context: {data}")
+    return data

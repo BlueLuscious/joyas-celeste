@@ -1,42 +1,34 @@
 import logging
-from back.services.cripto_ya_service import CriptoYaService
-from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 from front.services.product_service import ProductService
-from front.utils.context import Context
 
 logger = logging.getLogger(__name__)
 
 
-class IndexViewService():
+class IndexViewService:
+
+    """ Service for index view. """
+
+    def __init__(self) -> None:
+
+        """ IndexViewService Initializer. """
+
+        pass
     
-    @staticmethod
-    def get_context() -> dict:
+
+    def get_context(self) -> dict:
 
         """
-        Get context: --> (IndexView)
+        Get context for index view.
 
         Returns:
-            dict: Dictionary containing context data.
-            - categories and products
-            - dollar quotation
+            dict: Dictionary containing products queryset.
         """
 
         product_service = ProductService(ProductModel.objects.all())
-
-        categories = CategoryModel.objects.all()
         products = product_service.filter_products_by_stock()
+        context = dict(products=products.order_by("-created_at")[:12])
 
-        cripto_ya_service = CriptoYaService()
-        dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")
-        dollar_blue_ask = dollar_quotes.get("blue").get("ask")
-
-        context = Context(
-            categories=categories,
-            products=products.order_by("-created_at")[:12],
-            dollar_blue=dollar_blue_ask,
-        )
-
-        logger.info(f"index_view context: {context.as_dict}")
-        return context.as_dict
+        logger.info(f"index_view context: {context}")
+        return context
     

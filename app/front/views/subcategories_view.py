@@ -1,18 +1,18 @@
 import logging
-from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.template import loader
+from django.template.backends.django import Template
 from django.views import View
-from front.services.views.subcategories_view_services import SubcategoriesViewService
 
 logger = logging.getLogger(__name__)
 
 
 class SubcategoriesView(View):
+
+    """ View for `subcategories.html` template. """
+
     def get(self, request: HttpRequest) -> HttpResponse:
-        template = loader.get_template("pages/subcategories.html")
-
-        subcategories_view_service = SubcategoriesViewService()
-        context = subcategories_view_service.get_context()
-
-        return HttpResponse(template.render(context, request))
+        template: Template = loader.get_template("pages/subcategories.html")
+        logger.info(f"Current template: {template.template.name}")
+        return HttpResponse(template.render(None, request))
+    

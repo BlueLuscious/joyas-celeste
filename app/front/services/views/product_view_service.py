@@ -1,41 +1,37 @@
 import logging
-from back.services.cripto_ya_service import CriptoYaService
-from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 
 logger = logging.getLogger(__name__)
 
 
-class ProductViewService():
-    
-    @staticmethod
-    def get_context(name: str = None) -> dict:
+class ProductViewService:
+
+    """ Service for product view. """
+
+    def __init__(self, name: str) -> None:
 
         """
-        Get context: --> (ProductView)
+        ProductViewService Initializer.
 
         Args:
-            name (str): Product name (slug)
-
-        Returns:
-            dict: Dictionary containing context data.
-            - categories
-            - one specific product
-            - dollar quotation
+            name (str): Product name or slug.
         """
 
-        categories = CategoryModel.objects.all()
-        product = ProductModel.objects.get(slug=name.lower())
+        self.name = name
 
-        cripto_ya_service = CriptoYaService()
-        dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")
-        dollar_blue_ask = dollar_quotes.get("blue").get("ask")
+    
+    def get_context(self) -> dict:
 
-        context = {
-            "categories": categories,
-            "product": product,
-            "dollar_blue": dollar_blue_ask,
-        }
+        """
+        Get ProductModel by slug (name).
+
+        Returns:
+            dict: Dictionary containing a specific product.
+        """
+
+        product = ProductModel.objects.get(slug=self.name.lower())
+        context = dict(product=product)
 
         logger.info(f"product_view context: {context}")
         return context
+    

@@ -1,80 +1,162 @@
+import logging
 from django.contrib import messages
+from django.db.models import QuerySet
 from django_unicorn.components import UnicornView
+from back.models.client_model import ClientModel
 from front.models.cart_item_model import CartItemModel
 from front.models.product_model import ProductModel
+from front.services.cart_item_service import CartItemService
+
+logger = logging.getLogger(__name__)
 
 
 class ShoppingCartView(UnicornView):
-    cart_items: list[CartItemModel]
-    total_cart: float
+    
+    """ 
+    Unicorn Component for Shopping Cart. 
+
+    **Bound Properties**:
+        **cart_items (list[CartItemModel])**: List of cart items.
+        **total_amount (float)**: Total amount to pay.
+    """
+
+    cart_items: QuerySet[CartItemModel] = CartItemModel.objects.none()
+    total_amount: float = 0.0
 
     def __init__(self, *args, **kwargs) -> None:
+
+        """ ShoppingCartView Initializer. """
+
         super().__init__(*args, **kwargs)
+        self.user: ClientModel = self.request.user
         self.update_cart_items()
-        self.update_total_cart()
+        self.update_total_amount()
 
 
-    def create_item(self, product: ProductModel, size: int, quantity: int) -> None:
-        CartItemModel.objects.create(
-            key = f"{str(product.uuid)}_{size}",
-            user = self.request.user,
-            product = product,
-            price = product.price,
-            size = size,
-            stock = product.variations.filter(measure__size=size).first().stock,
-            quantity = quantity
-        )
+    def after_action(self):
+
+        """
+        Update `Bound Properties` and call JS methods.
+
+        **Actions**:
+            - Update `cart_items` reactively.
+            - Update `total_amount` reactively.
+
+        **JS Methods**:
+            updateCartCounter: Update `cart_items_count` reactively. (ShoppingCartCounterView)
+            displayMessages: Show `message_list` reactively. (DjangoMessagesView)
+        """
+
+        self.update_cart_items()
+        self.update_total_amount()
+        self.call("updateCartCounter")
+        self.call("displayMessages")
 
 
     def add_to_cart(self, product: ProductModel, size: int, quantity: int = 1) -> None:
+
+        """ 
+        Add an item to cart reactively.
+        
+        Args:
+            product (ProductModel): Product Instance.
+            size (int): Product size.
+            quantity (int): Quantity to increase, default 1.
+        """
+
         key = f"{str(product.uuid)}_{size}"
-        if not CartItemModel.objects.filter(key=key).exists():
-            self.create_item(product, size, quantity)
-            messages.success(self.request, "Producto agregado al carrito exitosamente")
+        if not self.cart_items.filter(key=key).exists():
+            cart_item = CartItemService(self.user, product).create_cart_item(key, size, quantity)
+            messages.success(self.request, "Producto agregado al carrito")
+            logger.info(f"Add item to cart: {cart_item}")
+            self.after_action()
         else:
-            self.increment_quantity(product, key)
-            messages.success(self.request, "Producto actualizado del carrito exitosamente")
-        self.update_cart_items()
-        self.update_total_cart()
+            cart_item = self.cart_items.get(key=key)
+            if cart_item.quantity < cart_item.stock:
+                self.increment_quantity(key)
+                messages.success(self.request, "Producto actualizado en el carrito")
+            else:
+                messages.info(self.request, "Cantidad insuficiente")
+                logger.info(f"No more stock: {cart_item}")
+                self.after_action()
 
 
     def remove_from_cart(self, key: str) -> None:
-        CartItemModel.objects.get(key=key).delete()
-        messages.success(self.request, "Producto removido del carrito exitosamente")
-        self.update_cart_items()
-        self.update_total_cart()
+
+        """ 
+        Remove an item from cart reactively.
+        
+        Args:
+            key (str): Unique Identifier.
+        """
+                
+        cart_item = self.cart_items.get(key=key)
+        cart_item.delete()
+        messages.success(self.request, "Producto removido del carrito")
+        logger.info(f"Remove item from cart: {cart_item}")
+        self.after_action()
 
 
-    def increment_quantity(self, product: ProductModel, key: str, quantity: int = 1) -> None:
-        cart_item = CartItemModel.objects.get(key=key)
+    def increment_quantity(self, key: str, quantity: int = 1) -> None:
+
+        """ 
+        Increases the quantity of a cart item by one reactively.
+        
+        Args:
+            key (str): Unique Identifier.
+            quantity (int): Quantity to increase, default 1.
+        """
+                
+        cart_item = self.cart_items.get(key=key)
         if cart_item.quantity < cart_item.stock:
             cart_item.quantity += quantity
-            cart_item.price = product.price * cart_item.quantity
+            cart_item.price = cart_item.product.price * cart_item.quantity
         cart_item.save()
-        self.update_cart_items()
-        self.update_total_cart()
-        
+        logger.info(f"Increment quantity | Cart item: {cart_item}")
+        self.after_action()
 
-    def decrement_quantity(self, product: ProductModel, key: str, quantity: int = 1) -> None:
-        cart_item = CartItemModel.objects.get(key=key)
+
+    def decrement_quantity(self, key: str, quantity: int = 1) -> None:
+
+        """ 
+        Decreases the quantity of a cart item by one reactively.
+        
+        Args:
+            key (str): Unique Identifier.
+            quantity (int): Quantity to decrease, default 1.
+        """
+
+        cart_item = self.cart_items.get(key=key)
         if cart_item.quantity > 1:
             cart_item.quantity -= quantity
-            cart_item.price = product.price * cart_item.quantity
+            cart_item.price = cart_item.product.price * cart_item.quantity
         cart_item.save()
-        self.update_cart_items()
-        self.update_total_cart()
+        logger.info(f"Decrement quantity | Cart item: {cart_item}")
+        self.after_action()
         
 
-    def clean_cart(self) -> None:
-        CartItemModel.objects.all().delete()
-        self.update_cart_items()
-        self.update_total_cart()
+    def clear_cart(self) -> None:
+
+        """ Clear entire `cart_items` reactively. """
+
+        self.cart_items.delete()
+        self.after_action()
 
 
     def update_cart_items(self) -> None:
-        self.cart_items = CartItemModel.objects.filter(user=self.request.user)
+        
+        """ Update `cart_items` reactively. """
+
+        if self.user.is_authenticated:
+            self.cart_items = CartItemModel.objects.filter(user=self.user)
+        logger.info(f"Update cart items: {self.cart_items}")
 
 
-    def update_total_cart(self) -> None:
-        self.total_cart = sum(cart_item.price for cart_item in self.cart_items)
+    def update_total_amount(self) -> None:
+
+        """ Update `total_amount` reactively. """
+
+        if self.cart_items:
+            self.total_amount = sum(cart_item.price for cart_item in self.cart_items)
+        logger.info(f"Update total amount: {self.total_amount}")
         

@@ -14,25 +14,18 @@ export class ShoppingCartService {
 
         if (product_size) {
             Unicorn.call("shopping-cart", "add_to_cart", product_uuid, product_size)
-            setTimeout(() => {
-                Unicorn.call("shopping-cart-counter", "update_cart_counter")
-            }, 100)
         }
     }
 
 
     /**
-    * Remove item from shopping cart:
+    * Update shopping cart counter:
     * 
-    * Use Unicorn to call methods, remove an item from cart and update cart counter.
-    * @param {string} key Product UUID + Product size.
+    * Use Unicorn to call methods, update shopping cart counter.
     * @returns {void} None.
     */
-    static removeFromCart(key) {
-        Unicorn.call("shopping-cart", "remove_from_cart", key)
-        setTimeout(() => {
-            Unicorn.call("shopping-cart-counter", "update_cart_counter")
-        }, 100)
+    static updateCartCounter() {
+        Unicorn.call("shopping-cart-counter", "update_cart_counter")
     }
 
 }

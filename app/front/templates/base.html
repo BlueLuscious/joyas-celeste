@@ -31,7 +31,7 @@
     </section>
 
     <!-- messages -->
-
+    {% unicorn "django-messages" tailwind_class="z-30 top-28 md:left-4" %}
 
     <!-- whatsapp button -->
     <div id="whatsapp_button" 
@@ -44,6 +44,8 @@
 
 </body>
 <script type="module" src="{% static 'js/base.js' %}"></script>
+<script type="module" src="{% static 'js/product.js' %}"></script>
 <script type="module" src="{% static 'js/shopping-cart.js' %}"></script>
+<script type="module" src="{% static 'js/message.js' %}"></script>
 <script src="{% static 'js/tailwind/tailwind.config.js' %}"></script>
 </html>

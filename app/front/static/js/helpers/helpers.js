@@ -32,4 +32,15 @@ export class Helpers {
         eye_slash_icon.classList.toggle("hidden", !isPassword)
     }
 
+    /**
+     * Toggle the translate of an element:
+     * @param {string} element_id Element ID.
+     * @param {string} translate Tailwind Class.
+     * @returns {void} None.
+     */
+    static toggleElementTranslateById(element_id, translate) {
+        const element = document.getElementById(element_id)
+        element.classList.toggle(translate)
+    }
+
 }

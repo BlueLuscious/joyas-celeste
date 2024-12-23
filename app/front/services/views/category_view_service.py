@@ -1,48 +1,37 @@
 import logging
-from back.services.cripto_ya_service import CriptoYaService
 from front.models.category_model import CategoryModel
-from front.services.product_service import ProductService
 
 logger = logging.getLogger(__name__)
 
 
-class CategoryViewService():
+class CategoryViewService:
+
+    """ Service for category view. """
+
+    def __init__(self, name: str) -> None:
+        
+        """ 
+        CategoryViewService Initializer.
+        
+        Args:
+            name (str): Category name or slug.
+        """
+        
+        self.name = name
     
-    @staticmethod
-    def get_context(name: str, page: int) -> dict:
+
+    def get_context(self) -> dict:
 
         """
-        Get context for CategoryView.
-
-        Get conxtext by name, and page for paginate products.
-
-        Args:
-            name (str): Category name.
-            page (int): Page number.
+        Get CategoryModel by slug (name).
 
         Returns:
-            dict: Dictionary containing context data. 
-            - categories, product pagination, dollar.
+            dict: Dictionary containing a CategoryModel Instance. 
         """
 
-        categories = CategoryModel.objects.all()
-        product_service = ProductService()
-
-        cripto_ya_service = CriptoYaService()
-        dollar_quotes = cripto_ya_service.get_dollar_quotes().get("data")
-        dollar_blue_ask = dollar_quotes.get("blue").get("ask")
-
-        category = CategoryModel.objects.get(slug=name.lower())
-        products_by_category = product_service.filter_products_by_stock().filter(category=category)
-        pagination = product_service.paginate_products(products_by_category, page, 12)
-
-        context = {
-            "categories": categories,
-            "category": category,
-            "products": pagination.get("products_page"),
-            "page_numbers": pagination.get("page_numbers"),
-            "dollar_blue": dollar_blue_ask,
-        }
+        category = CategoryModel.objects.get(slug=self.name.lower())
+        context = dict(category=category)
 
         logger.info(f"category_view context: {context}")
         return context
+    

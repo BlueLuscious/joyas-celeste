@@ -1,8 +1,20 @@
-from back.models.client_model import ClientModel
 from django import forms
+from back.models.client_model import ClientModel
 
 
 class SignUpForm(forms.ModelForm):
+    
+    """
+    Form for ClientModel to sign up.
+    
+    Fields:
+        first_name: Client name.
+        last_name: Client last name.
+        username: Client username
+        password: Client password.
+        repeat_password: Client repeated password.
+    """
+
     first_name = forms.CharField(required=True, widget=forms.TextInput())
     last_name = forms.CharField(required=True, widget=forms.TextInput())
     username = forms.CharField(required=True, widget=forms.EmailInput())
@@ -15,9 +27,16 @@ class SignUpForm(forms.ModelForm):
         
 
     def __init__(self, *args, **kwargs) -> None:
+
+        """ SignUpForm Initializer. 
+        
+        Actions:
+            - Add Tailwind classes to fields.
+        """
+
         super().__init__(*args, **kwargs)
-        tailwind_common_class = "p-2 border-b border-b-1 border-primary-earth_tone_4 outline-primary-earth_tone_4"
-        tailwind_extra_class = {
+        tailwind_common_class: str = "p-2 border-b border-b-1 border-primary-earth_tone_4 outline-primary-earth_tone_4"
+        tailwind_extra_class: dict[str, str] = {
             "password": "w-full"
         }
         

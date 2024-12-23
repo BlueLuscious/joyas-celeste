@@ -46,11 +46,13 @@ class ProductsView(UnicornView):
             self.products_with_stock = self.products_with_stock.filter(subcategory=kwargs.get("subcategory"))
         self.get_paginated_products()
 
+
     def set_page(self, page_number: int = 1) -> None:
         
         """ Set page from pagination controls. """
 
         self.update_products(page_number)
+
 
     def get_paginated_products(self, page_number: int = 1) -> None:
 
@@ -62,6 +64,7 @@ class ProductsView(UnicornView):
         page_service = PageService(page)
         self.page_data = page_service.page_data_as_dict(pagination)
         self.page_numbers = page_service.get_pagination_controls_range(pagination.num_pages, 5)
+
 
     def update_products(self, page_number: int = 1) -> None:
         
@@ -79,23 +82,28 @@ class ProductsView(UnicornView):
         self.products_with_stock = queryset
         self.get_paginated_products(page_number)
 
+
     def filter_products(self) -> None:
         """  Filter products by criteria. """
         pass
 
+
     def order_products(self) -> None:
         """  Order products by criteria. """
         pass
+
 
     def set_category(self, category_id: str = "") -> None:
         """ Set category filter. """
         self.selected_category = category_id
         self.update_products()
 
+
     def set_subcategory(self, subcategory_id: str = "") -> None:
         """ Set subcategory filter. """
         self.selected_subcategory = subcategory_id
         self.update_products()
+
 
     def set_search_text(self, text: str = "") -> None:
         """ Set search engine filter. """

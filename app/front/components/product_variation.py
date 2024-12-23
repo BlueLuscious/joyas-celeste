@@ -1,7 +1,10 @@
+import logging
 from django_unicorn.components import UnicornView
 from django.db.models import QuerySet
 from front.models.product_model import ProductModel
 from front.models.product_variation_model import ProductVariationModel
+
+logger = logging.getLogger(__name__)
 
 
 class ProductVariationView(UnicornView):
@@ -43,4 +46,5 @@ class ProductVariationView(UnicornView):
 
         variation = self.product.variations.filter(measure__size=size).first()
         self.product_stock = variation.stock if variation else 0
+        logger.info(f"Product variation: {variation} | Variation stock: {self.product_stock}")
         

@@ -33,10 +33,10 @@ class ClientService:
             ClientModel: ClientModel Instance.
         """
 
-        try:
+        if data:
             user = ClientModel.objects.create_user(**data)
             logger.info(f"User {user.username} was created")
             return user
-        except Exception as e:
-            raise SignUpError(e) from e # Cambiar Exception
+        else:
+            raise SignUpError("Failed to create client. Data is empty")
         

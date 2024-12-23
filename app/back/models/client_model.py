@@ -37,7 +37,12 @@ class ClientModel(AbstractUser):
 
     def __str__(self) -> str:
 
-        """ Overwrite __str__ method. """
+        """
+        Overwrite __str__ method.
+        
+        Returns:
+            str: Client username.
+        """
 
         return self.username
     

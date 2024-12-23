@@ -1,11 +1,12 @@
+import logging
 from django.core.paginator import Page
 from django.db.models import QuerySet
 from django_unicorn.components import UnicornView
-from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
-from front.models.subcategory_model import SubcategoryModel
 from front.services.page_service import PageService
 from front.services.product_service import ProductService
+
+logger = logging.getLogger(__name__)
 
 
 class ProductsView(UnicornView):
@@ -16,9 +17,7 @@ class ProductsView(UnicornView):
     **Bound Properties**:
         **products (QuerySet[ProductModel])**: Product Instances.
         **page_data (dict)**: Page Data.
-        **page_numbers (list)**: Total number of pages.
-        **categories (QuerySet[CategoryModel])**: Category Instances.
-        **subcategories (QuerySet[SubcategoryModel])**: Subcategory Instances.
+        **page_numbers (list)**: Pagination controls range.
 
         **selected_category (str)**: Selected category.
         **selected_subcategory (str)**: Selected subcategory.
@@ -28,8 +27,6 @@ class ProductsView(UnicornView):
     products: QuerySet[ProductModel] = ProductModel.objects.none()
     page_data: dict = {}
     page_numbers: list = []
-    categories: QuerySet[CategoryModel] = CategoryModel.objects.all()
-    subcategories: QuerySet[SubcategoryModel] = SubcategoryModel.objects.all()
 
     selected_category: str = ""
     selected_subcategory: str = ""
@@ -48,10 +45,6 @@ class ProductsView(UnicornView):
         if kwargs.get("subcategory"):
             self.products_with_stock = self.products_with_stock.filter(subcategory=kwargs.get("subcategory"))
         self.get_paginated_products()
-
-    def hydrate(self) -> None:
-        self.categories = CategoryModel.objects.all()
-        self.subcategories = SubcategoryModel.objects.all()
 
     def set_page(self, page_number: int = 1) -> None:
         

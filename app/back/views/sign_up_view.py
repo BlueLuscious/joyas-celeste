@@ -18,9 +18,7 @@ class SignUpView(View):
 
     def get(self, request: HttpRequest) -> HttpResponse:
         template = loader.get_template("sign-up.html")
-        context = {
-            "form": SignUpForm
-        }
+        context = dict(form=SignUpForm)
         return HttpResponse(template.render(context, request))
     
     def post(self, request: HttpRequest) -> HttpResponseRedirect:

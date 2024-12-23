@@ -25,6 +25,8 @@ class CriptoYaService:
             dict: Dictionary containing different dollar quotes.
         """
 
+        # agregar exceptions.
+
         url = f"{self.base_url}/api/dolar"
         logger.info(f"url: {url}")
 

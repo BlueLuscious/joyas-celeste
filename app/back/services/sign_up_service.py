@@ -44,6 +44,8 @@ class SignUpService:
             validated_data: dict = self.form.cleaned_data
             validated_data.pop("repeat_password")
             logger.info(f"Validated form data successfully: {validated_data}")
+        else:
+            validated_data: dict = {}
         return validated_data
 
 

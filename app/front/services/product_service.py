@@ -30,7 +30,7 @@ class ProductService:
         self.products = self.products.annotate(
             has_stock=Exists(variations_with_stock)
         ).filter(has_stock=True)
-        logger.info(f"products with stock: {self.products}")
+        logger.info(f"Products with stock: {self.products}")
 
         return self.products
 
@@ -48,6 +48,6 @@ class ProductService:
         """
 
         pagination = Paginator(self.products, per_page)
-        logger.info(f"pagination data: {pagination}")
+        logger.info(f"Pagination data: {pagination}")
         return pagination
     

@@ -58,7 +58,7 @@ class ProductsView(UnicornView):
 
         """ Obtain the paginated products reactively. """
 
-        pagination = ProductService(self.products_with_stock).paginate_products(1) # setear en 12
+        pagination = ProductService(self.products_with_stock).paginate_products()
         page: Page = pagination.get_page(page_number)
         self.products = page.object_list
         page_service = PageService(page)

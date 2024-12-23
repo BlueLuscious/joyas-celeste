@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cardArrows[index].classList.toggle("rotate-180")
             subMenus[index].classList.toggle("h-full")
             subMenus[index].classList.toggle("opacity-100")
-            subMenus[index].classList.toggle("pb-4")
+            subMenus[index].classList.toggle("p-2")
         })
     })
 

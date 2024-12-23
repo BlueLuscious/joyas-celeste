@@ -1,5 +1,8 @@
+import logging
 from django_unicorn.components import UnicornView
 from front.models.cart_item_model import CartItemModel
+
+logger = logging.getLogger(__name__)
 
 
 class ShoppingCartCounterView(UnicornView):
@@ -27,4 +30,5 @@ class ShoppingCartCounterView(UnicornView):
 
         if self.request.user.is_authenticated:
             self.cart_items_count = CartItemModel.objects.filter(user=self.request.user).count()
+        logger.info(f"Quantity of items in cart: {self.cart_items_count}")
             

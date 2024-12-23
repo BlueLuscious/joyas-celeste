@@ -6,10 +6,32 @@ from front.models.subcategory_model import SubcategoryModel
 from uuid import uuid4
 if TYPE_CHECKING:
     from django.db.models import QuerySet
+    from front.models.cart_item_model import CartItemModel
     from front.models.product_variation_model import ProductVariationModel
 
 
 class ProductModel(models.Model):
+
+    """ 
+    Product Model.
+
+    Fields:
+        uuid (UUID): Unique Universal Identifier.
+        name (str): Product name.
+        slug (str): Product name slugify.
+        category (CategoryModel): CategoryModel Instance.
+        subcatecory (SubcategoryModel): SubcategoryModel Instance.
+        price (Decimal): Product price.
+        image (ImageFieldFile): Illustraive image
+        description (str): A description.
+        created_at (UUID): Creation date.
+        updated?at (UUID): Update date.
+
+    Related Fields:
+        cart_item (CartItemModel): CartItemModel Instance.
+        variations (ProductVariationModel): ProductVariationModel Instances.
+    """
+
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False, unique=True)
     name = models.CharField(max_length=128)
     slug = models.SlugField(max_length=128, editable=False, blank=True)
@@ -21,12 +43,31 @@ class ProductModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    cart_item: "CartItemModel"
     variations: "QuerySet[ProductVariationModel]"
 
+
     def __str__(self) -> str:
+
+        """
+        Overwrite __str__ method.
+        
+        Returns:
+            str: Product name.
+        """
+
         return self.name
     
+
     def save(self, *args, **kwargs) -> None:
+
+        """
+        Overwrite save method.
+
+        Actions:
+            - Create slug.
+        """
+                
         if not self.slug:
             slug = slugify(self.name)
             if ProductModel.objects.filter(slug=slug).exists():
@@ -34,6 +75,7 @@ class ProductModel(models.Model):
                 slug = f"{slug}-{unique_id}"
             self.slug = slug
         super(ProductModel, self).save(*args, **kwargs)
+        
         
     class Meta:
         constraints = [

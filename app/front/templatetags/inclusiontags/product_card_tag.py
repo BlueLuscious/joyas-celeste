@@ -8,12 +8,20 @@ register = template.Library()
 
 
 @register.inclusion_tag("pages/components/product-card.html")
-def product_card(request: HttpRequest, product: ProductModel, dollar_blue: int) -> dict:
-    logger.info(f"product: {product} | dollar blue: {dollar_blue}")
-    context = {
-        "request": request,
-        "product": product,
-        "dollar_blue": dollar_blue,
-    }
+def product_card(request: HttpRequest, product: ProductModel, dollar_blue: float) -> dict:
+
+    """ 
+    Create info content in footer.
+
+    Args:
+        request (HttpRequest): Request.
+        product (ProductModel): ProductModel Instance.
+        dollar_blue (float): Dollar quote.
+
+    Returns:
+        dict: A dictionary with Args.
+    """
+
+    context = dict(request=request, product=product, dollar_blue=dollar_blue)
     logger.info(f"product card context: {context}")
     return context

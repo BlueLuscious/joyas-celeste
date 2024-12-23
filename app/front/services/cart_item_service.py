@@ -1,6 +1,9 @@
+import logging
 from back.models.client_model import ClientModel
 from front.models.cart_item_model import CartItemModel
 from front.models.product_model import ProductModel
+
+logger = logging.getLogger(__name__)
 
 
 class CartItemService:
@@ -43,5 +46,7 @@ class CartItemService:
             stock=self.product.variations.filter(measure__size=size).first().stock,
             quantity=quantity
         )
+        
+        logger.info(f"Cart item created: {cart_item}")
         return cart_item
     

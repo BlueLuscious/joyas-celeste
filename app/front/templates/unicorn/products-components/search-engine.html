@@ -1,0 +1,30 @@
+<div class="relative">
+
+    <button onclick="toggleElementTranslateById('search_bar', 'translate-x-full')" class="z-10 fixed top-28 right-0 
+        px-2 py-4 bg-white text-primary-earth_tone_4 font-semibold rounded-l-lg shadow-lg focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+            class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+    </button>
+
+    <div id="search_bar" class="z-20 fixed top-28 right-0 w-full max-w-md p-2 bg-white rounded-l-lg shadow-lg 
+        transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="flex flex-row gap-x-2 items-center">
+            <button class="text-primary-earth_tone_4 focus:outline-none" onclick="setSearchText()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+                    class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>                      
+            </button>
+            <div class="w-full">
+                <input type="text" id="search_text" placeholder="Buscar..." unicorn:model.lazy="search_text"
+                    class="w-full p-2 border border-gray-300 rounded-md focus:outline-primary-earth_tone_4">
+            </div>
+            <button onclick="toggleElementTranslateById('search_bar', 'translate-x-full')"
+                class="text-primary-earth_tone_4 rounded-md focus:outline-none">
+                {% include "icons/x-mark.html" with tailwind_class="size-7 transition-transform duration-300 ease-in-out hover:-rotate-90" %}
+            </button>
+        </div>
+    </div>
+</div>

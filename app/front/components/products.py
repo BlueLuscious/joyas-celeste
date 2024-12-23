@@ -5,7 +5,6 @@ from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 from front.models.subcategory_model import SubcategoryModel
 from front.services.page_service import PageService
-from front.services.paginator_service import PaginatorService
 from front.services.product_service import ProductService
 
 
@@ -41,7 +40,6 @@ class ProductsView(UnicornView):
         """ ProductsView Initializer. """
 
         super().__init__(*args, **kwargs)
-        self.paginator_service = PaginatorService()
         self.products_with_stock: QuerySet[ProductModel] = ProductService(
             ProductModel.objects.all()
         ).filter_products_by_stock().order_by("-created_at")
@@ -65,12 +63,12 @@ class ProductsView(UnicornView):
 
         """ Obtain the paginated products reactively. """
 
-        pagination = ProductService(self.products_with_stock).paginate_products(1)
+        pagination = ProductService(self.products_with_stock).paginate_products(1) # setear en 12
         page: Page = pagination.get_page(page_number)
-        self.page_numbers = self.paginator_service.calculate_page_numbers(page.number, pagination.num_pages, 5)
         self.products = page.object_list
         page_service = PageService(page)
         self.page_data = page_service.page_data_as_dict(pagination)
+        self.page_numbers = page_service.get_pagination_controls_range(pagination.num_pages, 5)
 
     def update_products(self, page_number: int = 1) -> None:
         

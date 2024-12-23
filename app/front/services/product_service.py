@@ -8,7 +8,7 @@ from front.models.product_variation_model import ProductVariationModel
 logger = logging.getLogger(__name__)
 
 
-class ProductService():
+class ProductService:
 
     def __init__(self, product: ProductModel | QuerySet[ProductModel]) -> None:
         self.product = product if isinstance(product, ProductModel) else None
@@ -20,7 +20,7 @@ class ProductService():
         Get products with at least one variation having stock greater than 0.
         
         Returns:
-            list: ProductModel instances with stock available.
+            QuerySet[ProductModel]: ProductModel instances with stock available.
         """
             
         variations_with_stock = ProductVariationModel.objects.filter(

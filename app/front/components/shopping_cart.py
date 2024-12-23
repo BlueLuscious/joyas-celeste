@@ -20,7 +20,7 @@ class ShoppingCartView(UnicornView):
         **total_amount (float)**: Total amount to pay.
     """
 
-    cart_items: QuerySet[CartItemModel]
+    cart_items: QuerySet[CartItemModel] = CartItemModel.objects.none()
     total_amount: float = 0.0
 
     def __init__(self, *args, **kwargs) -> None:
@@ -38,7 +38,7 @@ class ShoppingCartView(UnicornView):
         """
         Update `Bound Properties` and call JS methods.
 
-        **JS Methods"":
+        **JS Methods**:
             updateCartCounter: Update `cart_items_count` reactively. (ShoppingCartCounterView)
             displayMessages: Show `message_list` reactively. (DjangoMessagesView)
         """

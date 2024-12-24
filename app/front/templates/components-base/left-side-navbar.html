@@ -20,9 +20,9 @@
     
                 {% if request.user.is_authenticated %}
                 <div class="p-2 text-center border border-2 border-primary-earth_tone_4 rounded-sm">
-                    {% comment %} <a href="{% url 'profile' %}"> {% endcomment %}
-                        <div class="w-full text-lg cursor-pointer">Perfil</div>
-                    {% comment %} </a> {% endcomment %}
+                    <a href="{% url 'profile' %}">
+                        <div class="w-full text-lg text-primary-earth_tone_4 cursor-pointer">Perfil</div>
+                    </a>
                 </div>
                 {% else %}
                 <div class="p-2 text-center border border-2 border-primary-earth_tone_4 rounded-sm">

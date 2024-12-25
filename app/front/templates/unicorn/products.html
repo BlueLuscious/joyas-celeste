@@ -8,7 +8,8 @@
     <!-- Filters -->
     {% include "unicorn/products-components/filters.html" %}
 
-    <section class="relative w-full pt-36 pb-12 {% if not products %} h-screen pb-24 {% endif %}" unicorn:loading.class="h-screen pb-24">
+    <section class="relative w-full pt-36 pb-12 {% if not products %} h-screen pb-24 {% endif %}" 
+        unicorn:loading.class="h-screen pb-24">
 
         <!-- Label -->
         <div class="flex justify-center w-full">
@@ -22,7 +23,7 @@
             </div>
         </div>
 
-        <!-- Loading screen -->
+        <!-- Loading Screen -->
         <div class="hidden flex items-center justify-center w-full h-full" unicorn:loading.class.remove="hidden">
             <div class="flex flex-row items-center justify-center gap-x-4 w-fit p-2 bg-white rounded-md">
                 <svg aria-hidden="true" class="w-8 md:w-10 h-8 md:h-10 text-primary-earth_tone_3 fill-primary-earth_tone_4 animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

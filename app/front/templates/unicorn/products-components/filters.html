@@ -1,5 +1,6 @@
 {% load inclusiontags.filter_tag %}
 
+{% if not category or not subcategory %}
 <div class="relative">
 
     <button onclick="toggleElementTranslateById('filters', 'translate-x-full')" class="z-10 fixed top-44 right-0 
@@ -12,13 +13,23 @@
     <div id="filters" class="z-20 fixed top-44 right-0 w-full max-w-md p-2 bg-white rounded-l-lg shadow-lg 
         transform translate-x-full transition-transform duration-300 ease-in-out">
         <div class="flex flex-row items-stretch gap-x-2">
-            <div class="flex flex-col gap-y-2 w-full text-primary-earth_tone_4">
-                {% if not category %}
-                <!-- Category Filter -->
-                {% select_filter "category" "selected_category" "set_category" "categoria" categories %}
-                <!-- Subcategory Filter -->
-                {% select_filter "subcategory" "selected_subcategory" "set_subcategory" "subcategoria" subcategories %}
-                {% endif %}
+            <div class="flex flex-col gap-y-2 w-full">
+                
+                <div class="w-full p-2 text-center cinzel-semibold">
+                    Filtros
+                </div>
+                <div class="flex flex-col gap-y-2 w-full text-primary-earth_tone_4">
+                    <!-- Category Filter -->
+                    {% if not category %}
+                    {% select_filter "category" "selected_category" "set_category" "categoria" categories %}
+                    {% endif %}
+                    <!-- Subcategory Filter -->
+                    {% if not subcategory %}
+                    {% select_filter "subcategory" "selected_subcategory" "set_subcategory" "subcategoria" subcategories %}
+                    {% endif %}
+                </div>
+                <!-- Add -> Remove filter button -->
+
             </div>
             <button onclick="toggleElementTranslateById('filters', 'translate-x-full')" 
                 class="self-start my-1 text-primary-earth_tone_4 rounded-md focus:outline-none">
@@ -26,4 +37,6 @@
             </button>
         </div>
     </div>
+
 </div>
+{% endif %}

@@ -36,9 +36,7 @@ class ProductsView(UnicornView):
     selected_subcategory: str = ""
     search_text: str = ""
 
-    def __init__(
-            self, category: CategoryModel = None, subcategory: SubcategoryModel = None, *args, **kwargs
-        ) -> None:
+    def __init__(self, *args, **kwargs) -> None:
 
         """
         ProductsView Initializer.
@@ -51,10 +49,12 @@ class ProductsView(UnicornView):
         super().__init__(*args, **kwargs)
         PRODUCTS: QuerySet[ProductModel] = ProductModel.objects.all()
         self.products_with_stock = ProductService(PRODUCTS).filter_products_by_stock()
-        if category:
-            self.selected_category = str(category.uuid)
-        if subcategory:
-            self.selected_subcategory = str(subcategory.uuid)
+        self.category: CategoryModel = kwargs.get("category")
+        self.subcategory: SubcategoryModel = kwargs.get("subcategory")
+        if self.category:
+            self.selected_category = str(self.category.uuid)
+        if self.subcategory:
+            self.selected_subcategory = str(self.subcategory.uuid)
         self.update_products()
 
 

@@ -30,7 +30,7 @@ class ProductFilterService:
             QuerySet[ProductModel]: Filtered queryset by category.
         """
 
-        if category_id:
+        if category_id != "":
             self.queryset = self.queryset.filter(category_id=category_id)
         return self.queryset
 
@@ -47,7 +47,7 @@ class ProductFilterService:
             QuerySet[ProductModel]: Filtered queryset by subcategory.
         """
 
-        if subcategory_id:
+        if subcategory_id != "":
             self.queryset = self.queryset.filter(subcategory_id=subcategory_id)
         return self.queryset
 
@@ -64,7 +64,7 @@ class ProductFilterService:
             QuerySet[ProductModel]: Filtered queryset by search text.
         """
 
-        if search_text:
+        if search_text != "":
             self.queryset = self.queryset.filter(name__icontains=search_text)
         return self.queryset
 

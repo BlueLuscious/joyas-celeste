@@ -38,13 +38,7 @@ class ProductsView(UnicornView):
 
     def __init__(self, *args, **kwargs) -> None:
 
-        """
-        ProductsView Initializer.
-        
-        Args:
-            category (CategoryModel): CategoryModel Instance.
-            subcategory (SubcategoryModel): SubcategoryModel Instance.
-        """
+        """ ProductsView Initializer. """
 
         super().__init__(*args, **kwargs)
         PRODUCTS: QuerySet[ProductModel] = ProductModel.objects.all()

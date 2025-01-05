@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 register = template.Library()
 
 
-@register.inclusion_tag("unicorn/products-components/filters/select-filter.html")
+@register.inclusion_tag("unicorn/components-products/filters/select-filter.html")
 def select_filter(select_id: str, selected_filter: str, filter_name: str, criterias: QuerySet) -> dict:
 
     """ 

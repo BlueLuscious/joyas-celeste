@@ -2,7 +2,7 @@ import logging
 from django.core.cache import cache
 from django.http import HttpRequest
 from back.services.cripto_ya_service import CriptoYaService
-from back.utils.models.query_field_service import QueryFieldService
+from back.services.query_field_service import QueryFieldService
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 from front.models.subcategory_model import SubcategoryModel

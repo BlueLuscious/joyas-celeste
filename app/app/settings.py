@@ -68,6 +68,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "front.context_processors.common_context", # My context
+                "front.context_processors.filters_and_orders_context", # My context
             ],
         },
     },

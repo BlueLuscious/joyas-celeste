@@ -21,11 +21,11 @@
                 <div class="flex flex-col gap-y-2 w-full text-primary-earth_tone_4">
                     <!-- Category Filter -->
                     {% if not category %}
-                    {% select_filter "category" "selected_category" "categoria" categories %}
+                    {% select_filter "category" "selected_category_filter" "categoria" categories %}
                     {% endif %}
                     <!-- Subcategory Filter -->
                     {% if not subcategory %}
-                    {% select_filter "subcategory" "selected_subcategory" "subcategoria" subcategories %}
+                    {% select_filter "subcategory" "selected_subcategory_filter" "subcategoria" subcategories %}
                     {% endif %}
                 </div>
                 <!-- Add -> Remove filter button -->

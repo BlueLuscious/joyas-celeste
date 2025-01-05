@@ -21,9 +21,13 @@ class ProductsView(UnicornView):
         **page_data (dict)**: Page Data.
         **page_numbers (list)**: Pagination controls range.
 
-        **selected_category (str)**: Selected category.
-        **selected_subcategory (str)**: Selected subcategory.
-        **selected_search_text (str)**: Selected search text.
+        **selected_category_filter (str)**: Category filter.
+        **selected_subcategory_filter (str)**: Subcategory filter.
+        **selected_search_text (str)**: Search text filter.
+
+        **selected_creation_date_order (str)**: = Creation date order"
+        **selected_price_order (str)**: = Price order.
+        **selected_name_order (str)**: = Name order.
     """
 
     products: QuerySet[ProductModel] = ProductModel.objects.none()
@@ -31,8 +35,8 @@ class ProductsView(UnicornView):
     page_numbers: list = []
 
     # Filters
-    selected_category: str = ""
-    selected_subcategory: str = ""
+    selected_category_filter: str = ""
+    selected_subcategory_filter: str = ""
     selected_search_text: str = ""
 
     # Orders
@@ -50,8 +54,8 @@ class ProductsView(UnicornView):
         self.products_with_stock = self.product_service(PRODUCTS).filter_products_by_stock()
         self.category: CategoryModel = kwargs.get("category")
         self.subcategory: SubcategoryModel = kwargs.get("subcategory")
-        self.selected_category = str(self.category.uuid) if self.category else self.selected_category
-        self.selected_subcategory = str(self.subcategory.uuid) if self.subcategory else self.selected_subcategory
+        self.selected_category_filter = str(self.category.uuid) if self.category else self.selected_category_filter
+        self.selected_subcategory_filter = str(self.subcategory.uuid) if self.subcategory else self.selected_subcategory_filter
         self.update_products()
 
 
@@ -97,8 +101,8 @@ class ProductsView(UnicornView):
         )
 
         self.products_with_stock = self.product_service(self.products_with_stock).apply_filters(
-            self.selected_category,
-            self.selected_subcategory,
+            self.selected_category_filter,
+            self.selected_subcategory_filter,
             self.selected_search_text
         )
 

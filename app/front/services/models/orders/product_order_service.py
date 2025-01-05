@@ -6,42 +6,60 @@ class ProductOrderService:
 
     """ Service to order ProductModel queryset. """
 
-    def __init__(self, queryset: QuerySet[ProductModel]) -> None:
+    def __init__(self, queryset: QuerySet[ProductModel], order_list: list) -> None:
 
         """
         ProductOrderService Initializer.
 
         Args:
             queryset (QuerySet[ProductModel]): ProductModel Instances.
+            order_list (list): List of orderable fields (Initialize empty).
         """
 
         self.queryset = queryset
+        self.order_list = order_list
 
 
-    def order_by_creation_date(self, descending: bool = True) -> QuerySet[ProductModel]:
+    def order_by_criteria(self, criteria: str = "") -> str:
 
         """
-        Order queryset by creation date. 
+        Add criteria to `order_list`.
 
         Args:
-            descending (bool): If it's `True` gets `-created_at` else `created_at`.
+            criteria (str): Criteria to order.
 
         Returns:
-            QuerySet[ProductModel]: Ordered queryset by creation date.
+            str: Criteria name.
         """
-        
-        return self.queryset.order_by("-created_at" if descending else "created_at")
-    
 
-    def apply_orders(self, descending: bool = True) -> QuerySet[ProductModel]:
+        if criteria != "":
+            self.order_list.append(criteria)
+        return criteria
+        
+    
+    def apply_orders(
+            self,
+            name_order: str = "",
+            price_order: str = "",
+            creation_date_order: str = ""
+        ) -> QuerySet[ProductModel]:
 
         """
         Apply the corresponding orders.
 
         Args:
+            name_order (str): Name order.
+            price_order (str): Price order.
+            creation_date_order (str): Creation date order.
+
+        Returns:
             queryset (QuerySet[ProductModel]): ProductModel Instances.
         """
 
-        queryset = self.order_by_creation_date(descending)
+        self.order_by_criteria(price_order)
+        self.order_by_criteria(name_order)
+        self.order_by_criteria(creation_date_order)
+
+        queryset = self.queryset.order_by(*self.order_list)
         return queryset
     

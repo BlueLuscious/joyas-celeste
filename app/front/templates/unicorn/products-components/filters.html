@@ -1,6 +1,5 @@
 {% load inclusiontags.filter_tag %}
 
-{% if not category or not subcategory %}
 <div class="relative">
 
     <button onclick="toggleElementTranslateById('filters', 'translate-x-full')" class="z-10 fixed top-44 right-0 
@@ -15,18 +14,33 @@
         <div class="flex flex-row items-stretch gap-x-2">
             <div class="flex flex-col gap-y-2 w-full">
                 
+                {% if not category or not subcategory %}
                 <div class="w-full p-2 text-center cinzel-semibold">
-                    Filtros
+                    Filtrar por
                 </div>
                 <div class="flex flex-col gap-y-2 w-full text-primary-earth_tone_4">
                     <!-- Category Filter -->
                     {% if not category %}
-                    {% select_filter "category" "selected_category" "set_category" "categoria" categories %}
+                    {% select_filter "category" "selected_category" "categoria" categories %}
                     {% endif %}
                     <!-- Subcategory Filter -->
                     {% if not subcategory %}
-                    {% select_filter "subcategory" "selected_subcategory" "set_subcategory" "subcategoria" subcategories %}
+                    {% select_filter "subcategory" "selected_subcategory" "subcategoria" subcategories %}
                     {% endif %}
+                </div>
+                <!-- Add -> Remove filter button -->
+                {% endif %}
+
+                <div class="w-full p-2 text-center cinzel-semibold">
+                    Ordenar por
+                </div>
+                <div class="flex flex-col gap-y-2 w-full text-primary-earth_tone_4">
+                    <!-- Created At Order -->
+                    {% select_filter "creation_date_order" "selected_creation_date_order" "novedad" created_at_orders %}
+                    <!-- Name Order -->
+                    {% select_filter "name_order" "selected_name_order" "nombre" name_orders %}
+                    <!-- Price Order -->
+                    {% select_filter "price_order" "selected_price_order" "precio" price_orders %}
                 </div>
                 <!-- Add -> Remove filter button -->
 
@@ -39,4 +53,3 @@
     </div>
 
 </div>
-{% endif %}

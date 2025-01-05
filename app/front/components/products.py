@@ -5,8 +5,6 @@ from django_unicorn.components import UnicornView
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 from front.models.subcategory_model import SubcategoryModel
-from front.services.models.filters.product_filter_service import ProductFilterService
-from front.services.models.orders.product_order_service import ProductOrderService
 from front.services.page_service import PageService
 from front.services.product_service import ProductService
 
@@ -25,16 +23,22 @@ class ProductsView(UnicornView):
 
         **selected_category (str)**: Selected category.
         **selected_subcategory (str)**: Selected subcategory.
-        **search_text (str)**: Search text.
+        **selected_search_text (str)**: Selected search text.
     """
 
     products: QuerySet[ProductModel] = ProductModel.objects.none()
     page_data: dict = {}
     page_numbers: list = []
 
+    # Filters
     selected_category: str = ""
     selected_subcategory: str = ""
-    search_text: str = ""
+    selected_search_text: str = ""
+
+    # Orders
+    selected_creation_date_order: str = f"-{ProductModel.created_at.field.name}"
+    selected_price_order: str = ""
+    selected_name_order: str = ""
 
     def __init__(self, *args, **kwargs) -> None:
 
@@ -42,13 +46,12 @@ class ProductsView(UnicornView):
 
         super().__init__(*args, **kwargs)
         PRODUCTS: QuerySet[ProductModel] = ProductModel.objects.all()
-        self.products_with_stock = ProductService(PRODUCTS).filter_products_by_stock()
+        self.product_service = ProductService
+        self.products_with_stock = self.product_service(PRODUCTS).filter_products_by_stock()
         self.category: CategoryModel = kwargs.get("category")
         self.subcategory: SubcategoryModel = kwargs.get("subcategory")
-        if self.category:
-            self.selected_category = str(self.category.uuid)
-        if self.subcategory:
-            self.selected_subcategory = str(self.subcategory.uuid)
+        self.selected_category = str(self.category.uuid) if self.category else self.selected_category
+        self.selected_subcategory = str(self.subcategory.uuid) if self.subcategory else self.selected_subcategory
         self.update_products()
 
 
@@ -63,43 +66,18 @@ class ProductsView(UnicornView):
 
         self.update_products(page_number)
 
-    
-    def set_category(self, category_id: str = "") -> None:
+
+    def set_selected_query(self, selected_criteria: str, criteria_query: str =  "") -> None:
 
         """
-        Set category filter.
+        Set selected filter, order, etc. reactively.
 
         Args:
-            category_id (str): Category UUID.
-        """
-
-        self.selected_category = category_id
-        self.update_products()
-
-
-    def set_subcategory(self, subcategory_id: str = "") -> None:
-
-        """
-        Set subcategory filter.
-
-        Args:
-            subcategory_id (str): Subcategory UUID.
-        """
-
-        self.selected_subcategory = subcategory_id
-        self.update_products()
-
-
-    def set_search_text(self, text: str = "") -> None:
-        
-        """
-        Set search engine filter.
-
-        Args:
-            search_text (str): Anything.
+            selected_criteria (str): Criteria name.
+            criteria_query (str): Query value.
         """
         
-        self.search_text = text
+        setattr(self, selected_criteria, criteria_query)
         self.update_products()
 
 
@@ -112,12 +90,16 @@ class ProductsView(UnicornView):
             page_number (int): Current page number, default `1`.
         """
 
-        order_service = ProductOrderService(self.products_with_stock)
-        self.products_with_stock = order_service.apply_orders()
+        self.products_with_stock = self.product_service(self.products_with_stock).apply_orders(
+            self.selected_name_order,
+            self.selected_price_order,
+            self.selected_creation_date_order
+        )
 
-        filter_service = ProductFilterService(self.products_with_stock)
-        self.products_with_stock = filter_service.apply_filters(
-            self.selected_category, self.selected_subcategory, self.search_text
+        self.products_with_stock = self.product_service(self.products_with_stock).apply_filters(
+            self.selected_category,
+            self.selected_subcategory,
+            self.selected_search_text
         )
 
         self.get_paginated_products(page_number)
@@ -132,7 +114,7 @@ class ProductsView(UnicornView):
             page_number (int): Current page number, default `1`.
         """
 
-        pagination = ProductService(self.products_with_stock).paginate_products()
+        pagination = self.product_service(self.products_with_stock).paginate_products()
         page: Page = pagination.get_page(page_number)
         self.products = page.object_list
         page_service = PageService(page)

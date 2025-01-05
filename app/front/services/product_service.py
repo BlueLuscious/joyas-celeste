@@ -1,18 +1,36 @@
 import logging
-from django.db.models import Exists, OuterRef
-from django.db.models.query import QuerySet
+from django.db.models import Exists, OuterRef, QuerySet
 from django.core.paginator import Paginator
 from front.models.product_model import ProductModel
 from front.models.product_variation_model import ProductVariationModel
+from front.services.models.filters.product_filter_service import ProductFilterService
+from front.services.models.orders.product_order_service import ProductOrderService
 
 logger = logging.getLogger(__name__)
 
 
-class ProductService:
+class ProductService(ProductFilterService, ProductOrderService):
 
-    def __init__(self, product: ProductModel | QuerySet[ProductModel]) -> None:
-        self.product = product if isinstance(product, ProductModel) else None
-        self.products = product if isinstance(product, QuerySet[ProductModel]) else None
+    """
+    Service for ProductModel queryset.
+
+    Inheritance:
+        ProductFilterService, ProductOrderService
+    """
+
+    def __init__(self, queryset: QuerySet[ProductModel]) -> None:
+
+        """
+        ProductService Initializer.
+
+        Args:
+            queryset QuerySet[ProductModel]: ProductModel Instances.
+        """
+
+        ProductFilterService.__init__(self, queryset)
+        ProductOrderService.__init__(self, queryset, list())
+        self.queryset = queryset
+        
 
     def filter_products_by_stock(self) -> QuerySet[ProductModel]:
 
@@ -27,12 +45,12 @@ class ProductService:
             product=OuterRef("pk")
         ).exclude(stock=0)
 
-        self.products = self.products.annotate(
+        self.queryset = self.queryset.annotate(
             has_stock=Exists(variations_with_stock)
         ).filter(has_stock=True)
-        logger.info(f"Products with stock: {self.products}")
+        logger.info(f"Products with stock: {self.queryset}")
 
-        return self.products
+        return self.queryset
 
 
     def paginate_products(self, per_page: int = 12) -> Paginator:
@@ -47,7 +65,7 @@ class ProductService:
             Paginator: A Paginator containing the paginated products.
         """
 
-        pagination = Paginator(self.products, per_page)
+        pagination = Paginator(self.queryset, per_page)
         logger.info(f"Pagination data: {pagination}")
         return pagination
     

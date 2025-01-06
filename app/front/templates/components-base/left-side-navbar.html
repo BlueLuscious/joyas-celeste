@@ -91,7 +91,7 @@
                 <div class="p-2 bg-primary-earth_tone_4 text-center text-white border-2 border-primary-earth_tone_4 rounded-sm">
                     <form id="logout_form" method="POST" action="{% url 'logout' %}">
                         {% csrf_token %}
-                        <button class="w-full text-lg cursor-pointer">Cerrar Sesion</button>
+                        <button type="submit" class="w-full text-lg cursor-pointer">Cerrar Sesion</button>
                     </form>
                 </div>
                 {% endif %}

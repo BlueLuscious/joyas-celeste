@@ -1,5 +1,4 @@
-<select id="{{ select_id }}" unicorn:model.lazy="{{ selected_filter }}" 
-    unicorn:change="set_selected_query('{{ selected_filter }}', $event.target.value.trim())"
+<select id="{{ select_id }}" name="{{ selected_filter }}" unicorn:model.lazy="{{ selected_filter }}" 
     class="p-2 border border-primary-earth_tone_4 rounded-lg cursor-pointer focus:outline-none">
     <option value="">Elige {{ filter_name }}</option>
     {% for criteria in criterias %}

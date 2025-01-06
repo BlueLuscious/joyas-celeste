@@ -1,7 +1,8 @@
-import logging
+import json, logging
 from django.core.paginator import Page
 from django.db.models import QuerySet
 from django_unicorn.components import UnicornView
+from app.services.json_service import JsonService
 from front.models.category_model import CategoryModel
 from front.models.product_model import ProductModel
 from front.models.subcategory_model import SubcategoryModel
@@ -70,18 +71,28 @@ class ProductsView(UnicornView):
 
         self.update_products(page_number)
 
+    
+    def set_selected_queries(self, selected_criterias: str, criteria_queries: str) -> None:
 
-    def set_selected_query(self, selected_criteria: str, criteria_query: str =  "") -> None:
-
-        """
-        Set selected filter, order, etc. reactively.
+        """ 
+        Set selected queries reactively (Filters, orders, etc.).
 
         Args:
-            selected_criteria (str): Criteria name.
-            criteria_query (str): Query value.
+            selected_criterias (str): JSON with selected criterias.
+            criteria_queries (str): JSON with criteria queries.
         """
-        
-        setattr(self, selected_criteria, criteria_query)
+
+        json_service = JsonService()
+
+        if (json_service.is_loadable_json(selected_criterias) and 
+            json_service.is_loadable_json(criteria_queries)
+        ):
+            key_dict: list[str] = json.loads(selected_criterias)
+            value_dict: list[str] = json.loads(criteria_queries)
+
+            for key, value in zip(key_dict, value_dict):
+                setattr(self, key, value)
+
         self.update_products()
 
 

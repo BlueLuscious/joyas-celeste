@@ -1,11 +1,11 @@
 {% if page_data.has_other_pages %}
 <div class="flex flex-row gap-x-6 items-center justify-center">
     {% if page_data.has_previous %}
-    <div unicorn:click="set_page('{{ page_data.previous_page_number }}')">
-        <div class="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110">
+    <button type="button" unicorn:click="set_page('{{ page_data.previous_page_number }}')">
+        <div class="outline-none transition-transform duration-300 ease-in-out hover:scale-110">
             {% include "../../icons/arrow-down.html" with rotate="rotate-90" tailwind_class="size-6 text-primary-earth_tone_4" %}
         </div>
-    </div>
+    </button>
     {% endif %}
 
     <div class="flex flex-row gap-x-2">
@@ -16,23 +16,23 @@
                 {{ num }}
             </div>
             {% else %}
-            <div unicorn:click="set_page('{{ num }}')">
+            <button type="button" unicorn:click="set_page('{{ num }}')">
                 <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2
-                    border-primary-earth_tone_4 rounded-sm cursor-pointer
+                    border-primary-earth_tone_4 rounded-sm outline-none
                     transition-transform duration-300 ease-in-out hover:scale-105">
                     {{ num }}
                 </div>
-            </div>
+            </button>
             {% endif %}
         {% endfor %}
     </div>
 
     {% if page_data.has_next %}
-    <div unicorn:click="set_page('{{ page_data.next_page_number }}')">
-        <div class="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110">
+    <button type="button" unicorn:click="set_page('{{ page_data.next_page_number }}')">
+        <div class="outline-none transition-transform duration-300 ease-in-out hover:scale-110">
             {% include "../../icons/arrow-down.html" with rotate="-rotate-90" tailwind_class="size-6 text-primary-earth_tone_4" %}
         </div>
-    </div>
+    </button>
     {% endif %}
 </div>
 {% endif %}

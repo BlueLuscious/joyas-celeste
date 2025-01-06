@@ -8,7 +8,7 @@ export class ProductService {
     */
     static setSearchText() {
         const search = document.getElementById("search_text").value.trim()
-        Unicorn.call("products", "set_search_text", search)
+        Unicorn.call("products", "set_selected_query", "selected_search_text", search)
     }
 
 }

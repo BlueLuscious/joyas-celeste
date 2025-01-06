@@ -6,8 +6,8 @@ logger = logging.getLogger(__name__)
 register = template.Library()
 
 
-@register.inclusion_tag("unicorn/products-components/filters/select-filter.html")
-def select_filter(select_id: str, selected_filter: str, unicorn_method: str, filter_name: str, criterias: QuerySet) -> dict:
+@register.inclusion_tag("unicorn/components-products/filters/select-filter.html")
+def select_filter(select_id: str, selected_filter: str, filter_name: str, criterias: QuerySet) -> dict:
 
     """ 
     Create select filter.
@@ -15,7 +15,6 @@ def select_filter(select_id: str, selected_filter: str, unicorn_method: str, fil
     Args:
         select_id (str): Element ID.
         selected_filter (str): Filter type.
-        unicorn_method (str): Method to execute.
         filter_name (str): Filter label.
         criterias (QuerySet): Criterias to filter.
 
@@ -26,7 +25,6 @@ def select_filter(select_id: str, selected_filter: str, unicorn_method: str, fil
     data = dict(
         select_id=select_id,
         selected_filter=selected_filter,
-        unicorn_method=unicorn_method,
         filter_name=filter_name,
         criterias=criterias,
     )

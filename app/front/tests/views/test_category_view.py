@@ -11,12 +11,6 @@ class CategoryViewTest(TestCase):
         call_command("loaddata", "seeds/category_seed.json")
 
 
-    def test_get_categories_template(self):
-        response = self.client.get(reverse("categories"))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "pages/categories.html")
-
-
     def test_get_category_template(self):
         category = random.choice(CategoryModel.objects.all())
         

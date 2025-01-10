@@ -8,13 +8,13 @@
     <!-- Settings -->
     {% include "unicorn/components-products/settings.html" %}
 
-    <section class="relative w-full pt-36 pb-12 {% if not products %} h-screen pb-24 {% endif %}" 
-        unicorn:loading.class="h-screen pb-24">
+    <section unicorn:loading.class="h-screen pb-24" 
+        class="relative w-full pt-32 sm:pt-36 pb-8 sm:pb-12 {% if not products %} h-screen pb-24 {% endif %}">
 
         <!-- Label -->
         <div class="flex justify-center w-full">
             <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
-                <span class="text-3xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
+                <span class="text-2xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
                     {% if category and subcategory %} {{ category }} {{ subcategory }}
                     {% elif category %} {{ category }}
                     {% else %} Productos
@@ -37,7 +37,7 @@
         <!-- Products -->
         {% if products %}
         <div unicorn:loading.class="hidden" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 
-            items-center content-evenly justify-items-center gap-12 w-full h-full p-12">
+            items-center content-evenly justify-items-center gap-12 w-full h-full p-8 sm:p-12">
             {% for product in products %}
             {% product_card request product dollar_blue %}
             {% endfor %}

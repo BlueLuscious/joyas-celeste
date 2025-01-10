@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -179,3 +182,7 @@ LOGGING = {
 
 # CriptoYa API
 CRIPTO_YA_BASE_URL = "https://criptoya.com"
+
+# MercadoPago Api
+MP_PUBLIC_KEY = "APP_USR-c04d1148-7838-44c7-ab85-08a8c017a0ed" # Seller MP # TODO: Change for production
+MP_ACCESS_TOKEN = os.getenv("MP_ACCESS_TOKEN", "") # TODO: Change for production

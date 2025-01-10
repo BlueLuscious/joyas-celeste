@@ -1,4 +1,4 @@
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
 from front.models.product_model import ProductModel
 
 
@@ -65,7 +65,9 @@ class ProductFilterService:
         """
 
         if search_text != "":
-            self.queryset = self.queryset.filter(name__icontains=search_text)
+            self.queryset = self.queryset.filter(
+                Q(name__icontains=search_text) | Q(description__icontains=search_text)
+            )
         return self.queryset
 
 
@@ -85,8 +87,8 @@ class ProductFilterService:
             QuerySet[ProductModel]: Filtered queryset.
         """
 
-        queryset = self.filter_by_category(category_id)
-        queryset = self.filter_by_subcategory(subcategory_id)
-        queryset = self.filter_by_search_text(search_text)
-        return queryset
+        self.filter_by_category(category_id)
+        self.filter_by_subcategory(subcategory_id)
+        self.filter_by_search_text(search_text)
+        return self.queryset
     

@@ -1,20 +1,17 @@
 export class Helpers {
    
     /**
-     * Open Hide Navbar By Click Event:
-     * @param {Array.<HTMLElement>} buttons Buttons.
-     * @param {HTMLElement} element Element.
-     * @param {HTMLElement} background Background element.
+     * Open/Hide Navbar By Click Event:
+     * @param {string} element_id Element ID.
+     * @param {string} background_id Background element ID.
      * @param {string} classlist Classlist.
      * @returns {void} None.
      */
-    openSideNavbarByClick(buttons, element, background, classlist) {
-        buttons.forEach(button => {
-            button.addEventListener("click", () => {
-                element.classList.toggle(classlist)
-                background.classList.toggle(classlist)
-            })
-        })
+    static openSideNavbar(element_id, background_id, classlist) {
+        const element = document.getElementById(element_id)
+        const background = document.getElementById(background_id)
+        element.classList.toggle(classlist)
+        background.classList.toggle(classlist)
     }
 
     /**
@@ -24,12 +21,16 @@ export class Helpers {
      * @param {Object} eye_slash_icon Eye Slash Icon.
      * @returns {void} None.
      */
-    toggleDisplayPassword(password_input, eye_icon, eye_slash_icon) {
-        const isPassword = password_input.type === "password"
-        password_input.type = isPassword ? "text" : "password"
+    static toggleDisplayPassword(password_input_id, eye_icon_id, eye_slash_icon_id) {
+        const passwordInput = document.getElementById(password_input_id)
+        const eyeIcon = document.getElementById(eye_icon_id)
+        const eyeSlashIcon = document.getElementById(eye_slash_icon_id)
 
-        eye_icon.classList.toggle("hidden", isPassword)
-        eye_slash_icon.classList.toggle("hidden", !isPassword)
+        const isPassword = passwordInput.type === "password"
+        passwordInput.type = isPassword ? "text" : "password"
+
+        eyeIcon.classList.toggle("hidden", isPassword)
+        eyeSlashIcon.classList.toggle("hidden", !isPassword)
     }
 
     /**

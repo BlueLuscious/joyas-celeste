@@ -3,7 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.views import LoginView
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect
 from django.template import loader
 from django.template.response import TemplateResponse
 from back.models.client_model import ClientModel
@@ -15,7 +16,9 @@ class LogInView(LoginView):
 
     """ View for login. """
 
-    def get(self, request: HttpRequest) -> HttpResponse:
+    def get(self, request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
+        if request.user.is_authenticated:
+            return redirect("index")
         template = loader.get_template("registration/login.html")
         return HttpResponse(template.render(None, request))
     

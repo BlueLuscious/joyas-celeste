@@ -1,32 +1,31 @@
 import logging
 from django import template
-from django.template import Context, Template
-from django.template.context import RequestContext
 
 logger = logging.getLogger(__name__)
 register = template.Library()
 
 
-@register.inclusion_tag("components-base/components-footer/footer-info-content.html", takes_context=True)
-def footer_info_content(context: RequestContext, id_: str, icon_inclusion: str, content: str) -> dict:
+@register.inclusion_tag("components-base/components-footer/footer-info-content.html")
+def footer_info_content(id_: str, content: str, event: str = "", icon_tailwind_class: str = "") -> dict:
 
     """ 
     Create info content in footer.
 
     Args:
-        context (RequestContext): Context.
-        id_ (str): Element ID.
-        icon_inclusion (str): Template to include.
+        id_ (str): Element ID and Icon name.
         content (str): Text content.
+        event (str): Method name.
+        icon_tailwind_class (str): Icon styles.
 
     Returns:
         dict: A dictionary with Args.
     """
 
-    template_string = f"{{% include {icon_inclusion} %}}"
-    icon_html = Template(template_string).render(Context(context.flatten()))
-
-    data = dict(id=id_, icon_html=icon_html, content=content)
+    data = dict(
+        id=id_,
+        content=content,
+        event=event,
+        icon_tailwind_class=icon_tailwind_class,
+    )
     logger.info(f"Footer info card data: {data}")
-
     return data

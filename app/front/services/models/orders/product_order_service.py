@@ -59,7 +59,5 @@ class ProductOrderService:
         self.order_by_criteria(price_order)
         self.order_by_criteria(name_order)
         self.order_by_criteria(creation_date_order)
-
-        queryset = self.queryset.order_by(*self.order_list)
-        return queryset
+        return self.queryset.order_by(*self.order_list)
     

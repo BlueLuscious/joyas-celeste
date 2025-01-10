@@ -87,8 +87,8 @@ class ProductFilterService:
             QuerySet[ProductModel]: Filtered queryset.
         """
 
-        queryset = self.filter_by_category(category_id)
-        queryset = self.filter_by_subcategory(subcategory_id)
-        queryset = self.filter_by_search_text(search_text)
-        return queryset
+        self.filter_by_category(category_id)
+        self.filter_by_subcategory(subcategory_id)
+        self.filter_by_search_text(search_text)
+        return self.queryset
     

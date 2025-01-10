@@ -19,18 +19,6 @@ class MercadoPagoService():
         self.public_key: str = MP_PUBLIC_KEY
         self.access_token: str = MP_ACCESS_TOKEN
 
-        buyer_email = "TESTUSER1196750206"
-        buyer_password = "pdwlwZAnin"
-        seller_email = "TESTUSER1810854595"
-        seller_password = "5RT5mT4AmO"
-
-        mastercard_no = "5031 7557 3453 0604"
-        mastercard_code = "123"
-        mastercard_expired = "11/25"
-        visacard_no = "4509 9535 6623 3704"
-        visacard_code = "123"
-        visacard_expired = "11/25"
-
 
     # Checkout Pro Integration
     def create_preference(self, cart_items: QuerySet[CartItemModel], dollar: float) -> dict:

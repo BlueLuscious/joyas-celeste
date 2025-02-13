@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
-from back.exceptions.custom_exception import CustomException
+from app.exceptions.custom_exception import CustomException
 
 logger = logging.getLogger(__name__)
 

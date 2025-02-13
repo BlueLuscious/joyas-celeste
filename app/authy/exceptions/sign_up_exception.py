@@ -1,4 +1,4 @@
-from back.exceptions.custom_exception import CustomException
+from app.exceptions.custom_exception import CustomException
 
 SIGN_UP_REDIRECT = "sign-up"
 

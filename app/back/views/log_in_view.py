@@ -7,7 +7,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template import loader
 from django.template.response import TemplateResponse
-from back.models.client_model import ClientModel
+from client.models.client_model import ClientModel
 
 logger = logging.getLogger(__name__)
 

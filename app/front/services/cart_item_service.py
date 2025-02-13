@@ -1,5 +1,5 @@
 import logging
-from back.models.client_model import ClientModel
+from client.models.client_model import ClientModel
 from front.models.cart_item_model import CartItemModel
 from front.models.product_model import ProductModel
 

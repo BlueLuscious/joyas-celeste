@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import admin
 from django.contrib.auth.hashers import make_password
 from django.core.handlers.wsgi import WSGIRequest
-from back.models.client_model import ClientModel
+from client.models.client_model import ClientModel
 
 
 @admin.register(ClientModel)

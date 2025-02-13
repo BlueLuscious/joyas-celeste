@@ -1,5 +1,5 @@
 from django.db import models
-from back.models.client_model import ClientModel
+from client.models.client_model import ClientModel
 from front.models.product_model import ProductModel
 
 

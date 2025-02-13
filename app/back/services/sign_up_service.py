@@ -6,7 +6,7 @@ from back.exceptions.sign_up_exception import (
     UserAlreadyExistsError,
 )
 from back.forms.sign_up_form import SignUpForm
-from back.models.client_model import ClientModel
+from client.models.client_model import ClientModel
 
 logger = logging.getLogger(__name__)
 

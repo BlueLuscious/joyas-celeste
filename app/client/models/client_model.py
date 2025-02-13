@@ -12,7 +12,7 @@ class ClientModel(AbstractUser):
     """
     Client Model.
 
-    Fields:
+    Abstract User Fields:
         username (str): Username.
         first_name (str): First name.
         last_name (str): Last name.
@@ -20,6 +20,8 @@ class ClientModel(AbstractUser):
         is_staff (bool): Is staff User.
         is_active (bool) Is active User.
         date_joined (DateTime): Joined date.
+    
+    Fields:
         uuid (UUID): Universal Unique Identifier.
         created_at (DateTime): Creation date.
         updated_at (DateTime): Update date.

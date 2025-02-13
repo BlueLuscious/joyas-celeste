@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "back",
+    "client",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_unicorn",
+    "back",
     "front",
 ]
 
@@ -141,7 +142,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Authenticate by my model
-AUTH_USER_MODEL = "back.ClientModel"
+AUTH_USER_MODEL = "client.ClientModel"
 
 # Set redirects
 LOGIN_REDIRECT_URL = "index"

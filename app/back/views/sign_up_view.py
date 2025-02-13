@@ -5,8 +5,8 @@ from django.shortcuts import redirect
 from django.template import loader
 from django.views import View
 from back.forms.sign_up_form import SignUpForm
-from back.models.client_model import ClientModel
-from back.services.client_service import ClientService
+from client.models.client_model import ClientModel
+from client.services.client_service import ClientService
 from back.services.sign_up_service import SignUpService
 
 logger = logging.getLogger(__name__)

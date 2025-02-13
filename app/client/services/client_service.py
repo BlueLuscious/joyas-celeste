@@ -1,6 +1,6 @@
 import logging
 from back.exceptions.sign_up_exception import SignUpError
-from back.models.client_model import ClientModel
+from client.models.client_model import ClientModel
 
 logger = logging.getLogger(__name__)
 

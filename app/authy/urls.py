@@ -1,7 +1,7 @@
 from django.urls import path
-from back.views.log_in_view import LogInView
-from back.views.log_out_view import LogOutView
-from back.views.sign_up_view import SignUpView
+from authy.views.log_in_view import LogInView
+from authy.views.log_out_view import LogOutView
+from authy.views.sign_up_view import SignUpView
 
 
 urlpatterns = [

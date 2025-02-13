@@ -1,11 +1,11 @@
 import logging
 from django.http import QueryDict
-from back.exceptions.sign_up_exception import (
+from authy.exceptions.sign_up_exception import (
     PasswordLengthError,
     PasswordMismatchError,
     UserAlreadyExistsError,
 )
-from back.forms.sign_up_form import SignUpForm
+from authy.forms.sign_up_form import SignUpForm
 from client.models.client_model import ClientModel
 
 logger = logging.getLogger(__name__)

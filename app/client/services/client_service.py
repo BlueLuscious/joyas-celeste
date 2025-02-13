@@ -1,5 +1,5 @@
 import logging
-from back.exceptions.sign_up_exception import SignUpError
+from authy.exceptions.sign_up_exception import SignUpError
 from client.models.client_model import ClientModel
 
 logger = logging.getLogger(__name__)
@@ -38,5 +38,5 @@ class ClientService:
             logger.info(f"User {user.username} was created")
             return user
         else:
-            raise SignUpError("Failed to create client. Data is empty")
+            raise SignUpError("Failed to create client. Data is empty") # Create new exception --> CreationClientError
         

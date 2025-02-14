@@ -25,7 +25,7 @@
                     {% endif %}
                     <!-- Subcategory Filter -->
                     {% if not subcategory %}
-                    {% select_filter "subcategory" "selected_subcategory_filter" "subcategoria" subcategories %}
+                    {% select_filter "subcategory" "selected_subcategory_filter" "subcategoria" category.subcategories.all %}
                     {% endif %}
                 </div>
                 <!-- Add -> Remove filter button -->

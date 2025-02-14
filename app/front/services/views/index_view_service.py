@@ -1,6 +1,6 @@
 import logging
-from front.models.product_model import ProductModel
-from front.services.product_service import ProductService
+from product.models.product_model import ProductModel
+from product.services.product_service import ProductService
 
 logger = logging.getLogger(__name__)
 

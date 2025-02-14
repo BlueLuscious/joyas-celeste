@@ -1,6 +1,6 @@
 from django.db import models
 from client.models.client_model import ClientModel
-from front.models.product_model import ProductModel
+from product.models.product_model import ProductModel
 
 
 class CartItemModel(models.Model):

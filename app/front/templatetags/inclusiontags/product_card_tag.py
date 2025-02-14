@@ -1,7 +1,7 @@
 import logging
 from django import template
 from django.http import HttpRequest
-from front.models.product_model import ProductModel
+from product.models.product_model import ProductModel
 
 logger = logging.getLogger(__name__)
 register = template.Library()

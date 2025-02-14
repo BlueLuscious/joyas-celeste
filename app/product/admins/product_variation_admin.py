@@ -1,5 +1,5 @@
 from django.contrib import admin
-from front.models.product_variation_model import ProductVariationModel
+from product.models.product_variation_model import ProductVariationModel
 
 
 @admin.register(ProductVariationModel)

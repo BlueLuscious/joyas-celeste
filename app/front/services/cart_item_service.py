@@ -1,7 +1,7 @@
 import logging
 from client.models.client_model import ClientModel
 from front.models.cart_item_model import CartItemModel
-from front.models.product_model import ProductModel
+from product.models.product_model import ProductModel
 
 logger = logging.getLogger(__name__)
 

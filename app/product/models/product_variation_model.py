@@ -1,6 +1,6 @@
 from django.db import models
-from front.models.measure_model import MeasureModel
-from front.models.product_model import ProductModel
+from product.models.measure_model import MeasureModel
+from product.models.product_model import ProductModel
 
 
 class ProductVariationModel(models.Model):
@@ -12,12 +12,12 @@ class ProductVariationModel(models.Model):
         product (ProductModel): ProductModel Instance.
         measure (MeasureModel): MeasureModel Instance.
         stock (int): Product stock.
-        created_at (DateTime): Creation date.
-        updated_at (DateTime): Update date.
+        created_at (datetime): Creation date.
+        updated_at (datetime): Update date.
     """
 
-    product = models.ForeignKey(ProductModel, on_delete=models.DO_NOTHING, related_name="variations")
-    measure = models.ForeignKey(MeasureModel, on_delete=models.DO_NOTHING, related_name="variations")
+    product = models.ForeignKey(ProductModel, on_delete=models.DO_NOTHING, related_name="variations") # Product Variations
+    measure = models.ForeignKey(MeasureModel, on_delete=models.DO_NOTHING, related_name="variations") # Measure Variations
     stock = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

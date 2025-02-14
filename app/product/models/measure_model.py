@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING
 from django.db import models
+from typing import TYPE_CHECKING
 from uuid import uuid4
 if TYPE_CHECKING:
     from django.db.models import QuerySet
-    from front.models.product_variation_model import ProductVariationModel
+    from product.models.product_variation_model import ProductVariationModel
 
 
 class MeasureModel(models.Model):
@@ -16,8 +16,8 @@ class MeasureModel(models.Model):
         size (str): Measure size.
         milimeters (str): Measure in milimeters.
         description (str): A description.
-        created_at (DateTime): Creation date.
-        updated_at (DateTime): Update date.
+        created_at (datetime): Creation date.
+        updated_at (datetime): Update date.
 
     Related Fields:
         variations (QuerySet[ProductVariationsModel]): ProductVariationModel Instances. 

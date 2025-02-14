@@ -1,5 +1,5 @@
 from django.db.models import Q, QuerySet
-from front.models.product_model import ProductModel
+from product.models.product_model import ProductModel
 
 
 class ProductFilterService:

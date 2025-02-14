@@ -1,5 +1,5 @@
 from django.contrib import admin
-from front.models.subcategory_model import SubcategoryModel
+from product.models.subcategory_model import SubcategoryModel
 
 
 @admin.register(SubcategoryModel)

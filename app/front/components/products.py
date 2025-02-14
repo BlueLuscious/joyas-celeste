@@ -2,11 +2,11 @@ import logging
 from django.core.paginator import Page
 from django.db.models import QuerySet
 from django_unicorn.components import UnicornView
-from front.models.category_model import CategoryModel
-from front.models.product_model import ProductModel
-from front.models.subcategory_model import SubcategoryModel
 from front.services.page_service import PageService
-from front.services.product_service import ProductService
+from product.models.category_model import CategoryModel
+from product.models.product_model import ProductModel
+from product.models.subcategory_model import SubcategoryModel
+from product.services.product_service import ProductService
 
 logger = logging.getLogger(__name__)
 

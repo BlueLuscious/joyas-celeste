@@ -3,9 +3,9 @@ from decimal import Decimal
 from django.core.management import call_command
 from django.templatetags.static import static
 from django.test import TestCase
-from front.models.category_model import CategoryModel
-from front.models.product_model import ProductModel
 from front.templatetags.filters import product_filter
+from product.models.category_model import CategoryModel
+from product.models.product_model import ProductModel
 
 
 class ProductFilterTest(TestCase):

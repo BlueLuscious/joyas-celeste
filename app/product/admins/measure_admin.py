@@ -1,5 +1,5 @@
 from django.contrib import admin
-from front.models.measure_model import MeasureModel
+from product.models.measure_model import MeasureModel
 
 
 @admin.register(MeasureModel)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from front.models.category_model import CategoryModel
+from product.models.category_model import CategoryModel
 
 
 @admin.register(CategoryModel)

@@ -1,8 +1,8 @@
 import logging
 from django_unicorn.components import UnicornView
 from django.db.models import QuerySet
-from front.models.product_model import ProductModel
-from front.models.product_variation_model import ProductVariationModel
+from product.models.product_model import ProductModel
+from product.models.product_variation_model import ProductVariationModel
 
 logger = logging.getLogger(__name__)
 

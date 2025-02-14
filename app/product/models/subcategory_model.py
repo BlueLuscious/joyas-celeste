@@ -1,10 +1,10 @@
-from typing import TYPE_CHECKING
 from django.db import models
 from django.utils.text import slugify
+from typing import TYPE_CHECKING
 from uuid import uuid4
 if TYPE_CHECKING:
     from django.db.models import QuerySet
-    from front.models.category_model import CategoryModel
+    from product.models.category_model import CategoryModel
 
 
 class SubcategoryModel(models.Model):
@@ -17,8 +17,8 @@ class SubcategoryModel(models.Model):
         name (str): Subcategory name.
         slug (str): Subcategory name slugify.
         description (str): A description.
-        created_at (DateTime): Creation date.
-        updated_at (DateTime): Update date.
+        created_at (datetime): Creation date.
+        updated_at (datetime): Update date.
 
     Related Fields:
         categories (QuerySet[CategoryModel]): CategoryModel Instances.

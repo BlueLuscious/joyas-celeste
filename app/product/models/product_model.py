@@ -1,13 +1,13 @@
-from typing import TYPE_CHECKING
 from django.db import models
 from django.utils.text import slugify
-from front.models.category_model import CategoryModel
-from front.models.subcategory_model import SubcategoryModel
+from typing import TYPE_CHECKING
 from uuid import uuid4
+from product.models.category_model import CategoryModel
+from product.models.subcategory_model import SubcategoryModel
 if TYPE_CHECKING:
     from django.db.models import QuerySet
     from front.models.cart_item_model import CartItemModel
-    from front.models.product_variation_model import ProductVariationModel
+    from product.models.product_variation_model import ProductVariationModel
 
 
 class ProductModel(models.Model):
@@ -24,8 +24,8 @@ class ProductModel(models.Model):
         price (Decimal): Product price.
         image (ImageFieldFile): Illustraive image
         description (str): A description.
-        created_at (UUID): Creation date.
-        updated?at (UUID): Update date.
+        created_at (datetime): Creation date.
+        updated_at (datetime): Update date.
 
     Related Fields:
         cart_item (CartItemModel): CartItemModel Instance.

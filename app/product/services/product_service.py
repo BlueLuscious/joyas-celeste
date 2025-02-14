@@ -1,10 +1,10 @@
 import logging
 from django.db.models import Exists, OuterRef, QuerySet
 from django.core.paginator import Paginator
-from front.models.product_model import ProductModel
-from front.models.product_variation_model import ProductVariationModel
-from front.services.models.filters.product_filter_service import ProductFilterService
-from front.services.models.orders.product_order_service import ProductOrderService
+from product.models.product_model import ProductModel
+from product.models.product_variation_model import ProductVariationModel
+from product.services.models.filters.product_filter_service import ProductFilterService
+from product.services.models.orders.product_order_service import ProductOrderService
 
 logger = logging.getLogger(__name__)
 

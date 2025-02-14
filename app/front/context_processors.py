@@ -3,9 +3,9 @@ from django.core.cache import cache
 from django.http import HttpRequest
 from back.services.cripto_ya_service import CriptoYaService
 from back.services.query_field_service import QueryFieldService
-from front.models.category_model import CategoryModel
-from front.models.product_model import ProductModel
-from front.models.subcategory_model import SubcategoryModel
+from product.models.category_model import CategoryModel
+from product.models.product_model import ProductModel
+from product.models.subcategory_model import SubcategoryModel
 
 logger = logging.getLogger(__name__)
 

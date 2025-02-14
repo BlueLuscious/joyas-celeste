@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django_unicorn",
     "authy",
     "back",
+    "cart",
     "product",
     "front",
 ]

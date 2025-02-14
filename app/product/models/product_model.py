@@ -6,7 +6,7 @@ from product.models.category_model import CategoryModel
 from product.models.subcategory_model import SubcategoryModel
 if TYPE_CHECKING:
     from django.db.models import QuerySet
-    from front.models.cart_item_model import CartItemModel
+    from cart.models.cart_item_model import CartItemModel
     from product.models.product_variation_model import ProductVariationModel
 
 

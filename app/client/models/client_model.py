@@ -4,7 +4,7 @@ from django.db.models import QuerySet
 from typing import TYPE_CHECKING
 from uuid import uuid4
 if TYPE_CHECKING:
-    from front.models.cart_item_model import CartItemModel
+    from cart.models.cart_item_model import CartItemModel
 
 
 class ClientModel(AbstractUser):

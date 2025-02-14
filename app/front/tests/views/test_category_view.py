@@ -2,7 +2,7 @@ import random
 from django.core.management import call_command
 from django.test import TestCase, Client
 from django.urls import reverse
-from front.models.category_model import CategoryModel
+from product.models.category_model import CategoryModel
 
 
 class CategoryViewTest(TestCase):

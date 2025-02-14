@@ -1,11 +1,12 @@
 import logging
 from django.core.cache import cache
+from django.db.models.query_utils import DeferredAttribute
 from django.http import HttpRequest
 from back.services.cripto_ya_service import CriptoYaService
-from back.services.query_field_service import QueryFieldService
 from product.models.category_model import CategoryModel
 from product.models.product_model import ProductModel
 from product.models.subcategory_model import SubcategoryModel
+from product.services.query_field_service import QueryFieldService
 
 logger = logging.getLogger(__name__)
 
@@ -43,17 +44,17 @@ def filters_and_orders_context(request: HttpRequest) -> dict:
 
     query_field_service = QueryFieldService()
 
-    name_field = ProductModel.name.field.name
-    query_field_service.create_query_field_lookups(name_field, "A a Z")
-    name_orders = query_field_service.get_query_field_lookups(name_field)
+    name_field: DeferredAttribute = ProductModel.name
+    query_field_service.create_query_field_lookups(name_field.field.name, "A a Z")
+    name_orders = query_field_service.get_query_field_lookups(name_field.field.name)
 
-    price_field = ProductModel.price.field.name
-    query_field_service.create_query_field_lookups(price_field, "Menor a Mayor")
-    price_orders = query_field_service.get_query_field_lookups(price_field)
+    price_field: DeferredAttribute = ProductModel.price
+    query_field_service.create_query_field_lookups(price_field.field.name, "Menor a Mayor")
+    price_orders = query_field_service.get_query_field_lookups(price_field.field.name)
 
-    created_at_field = ProductModel.created_at.field.name
-    query_field_service.create_query_field_lookups(created_at_field, "Antiguo a Nuevo")
-    created_at_orders = query_field_service.get_query_field_lookups(created_at_field)
+    created_at_field: DeferredAttribute = ProductModel.created_at
+    query_field_service.create_query_field_lookups(created_at_field.field.name, "Antiguo a Nuevo")
+    created_at_orders = query_field_service.get_query_field_lookups(created_at_field.field.name)
 
     context = dict(
         name_orders=name_orders,

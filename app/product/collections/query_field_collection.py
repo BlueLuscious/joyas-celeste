@@ -1,5 +1,5 @@
 import logging
-from back.dtos.query_field_dto import QueryFieldDTO
+from product.dtos.query_field_dto import QueryFieldDTO
 
 logger = logging.getLogger(__name__)
 

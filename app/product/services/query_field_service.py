@@ -1,7 +1,6 @@
 import logging
-from django.db.models import Model
-from back.collections.query_field_collection import QueryFieldCollection
-from back.dtos.query_field_dto import QueryFieldDTO
+from product.collections.query_field_collection import QueryFieldCollection
+from product.dtos.query_field_dto import QueryFieldDTO
 
 logger = logging.getLogger(__name__)
 

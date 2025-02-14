@@ -6,7 +6,7 @@ from front.services.page_service import PageService
 from product.models.category_model import CategoryModel
 from product.models.product_model import ProductModel
 from product.models.subcategory_model import SubcategoryModel
-from product.services.product_service import ProductService
+from product.services.models.product_service import ProductService
 
 logger = logging.getLogger(__name__)
 

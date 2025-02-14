@@ -1,6 +1,6 @@
 import logging
 from product.models.product_model import ProductModel
-from product.services.product_service import ProductService
+from product.services.models.product_service import ProductService
 
 logger = logging.getLogger(__name__)
 

@@ -8,8 +8,8 @@
     <!-- Settings -->
     {% include "unicorn/components-products/settings.html" %}
 
-    <section unicorn:loading.class="h-screen pb-24" 
-        class="relative w-full pt-32 sm:pt-36 pb-8 sm:pb-12 {% if not products %} h-screen pb-24 {% endif %}">
+    <section unicorn:loading.class="h-screen" 
+        class="relative w-full pt-32 sm:pt-36 {% if not products %} flex flex-col items-center h-screen {% endif %}">
 
         <!-- Label -->
         <div class="flex justify-center w-full">

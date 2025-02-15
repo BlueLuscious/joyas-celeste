@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "back",
+    "client",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_unicorn",
+    "authy",
+    "back",
+    "cart",
+    "product",
     "front",
 ]
 
@@ -53,7 +57,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "back.middleware.exception_middleware.ExceptionMiddleware",
+    "app.middleware.exception_middleware.ExceptionMiddleware", # My Exception Middleware
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -144,7 +148,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Authenticate by my model
-AUTH_USER_MODEL = "back.ClientModel"
+AUTH_USER_MODEL = "client.ClientModel"
 
 # Set redirects
 LOGIN_REDIRECT_URL = "index"

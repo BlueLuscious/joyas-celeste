@@ -2,10 +2,10 @@ import logging
 from django.contrib import messages
 from django.db.models import QuerySet
 from django_unicorn.components import UnicornView
-from back.models.client_model import ClientModel
-from front.models.cart_item_model import CartItemModel
-from front.models.product_model import ProductModel
-from front.services.cart_item_service import CartItemService
+from client.models.client_model import ClientModel
+from cart.models.cart_item_model import CartItemModel
+from cart.services.models.cart_item_service import CartItemService
+from product.models.product_model import ProductModel
 
 logger = logging.getLogger(__name__)
 

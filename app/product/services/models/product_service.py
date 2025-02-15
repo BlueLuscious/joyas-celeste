@@ -18,20 +18,6 @@ class ProductService(ProductFilterService, ProductOrderService):
         ProductFilterService, ProductOrderService
     """
 
-    def __init__(self, queryset: QuerySet[ProductModel]) -> None:
-
-        """
-        ProductService Initializer.
-
-        Args:
-            queryset QuerySet[ProductModel]: ProductModel Instances.
-        """
-
-        ProductFilterService.__init__(self, queryset)
-        ProductOrderService.__init__(self, queryset, list())
-        self.queryset = queryset
-        
-
     def filter_products_by_stock(self) -> QuerySet[ProductModel]:
 
         """

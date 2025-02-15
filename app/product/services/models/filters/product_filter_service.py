@@ -1,23 +1,12 @@
 from django.db.models import Q, QuerySet
 from product.models.product_model import ProductModel
+from product.services.models.base_product_service import BaseProductService
 
 
-class ProductFilterService:
+class ProductFilterService(BaseProductService):
 
     """ Service to filter ProductModel queryset. """
     
-    def __init__(self, queryset: QuerySet[ProductModel]) -> None:
-
-        """
-        ProductFilterService Initializer.
-
-        Args:
-            queryset (QuerySet[ProductModel]): ProductModel Instances.
-        """
-
-        self.queryset = queryset
-
-
     def filter_by_category(self, category_id: str) -> QuerySet[ProductModel]:
 
         """

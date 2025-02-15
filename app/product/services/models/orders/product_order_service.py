@@ -1,23 +1,15 @@
 from django.db.models import QuerySet
 from product.models.product_model import ProductModel
+from product.services.models.base_product_service import BaseProductService
 
 
-class ProductOrderService:
+class ProductOrderService(BaseProductService):
 
     """ Service to order ProductModel queryset. """
 
-    def __init__(self, queryset: QuerySet[ProductModel], order_list: list) -> None:
-
-        """
-        ProductOrderService Initializer.
-
-        Args:
-            queryset (QuerySet[ProductModel]): ProductModel Instances.
-            order_list (list): List of orderable fields (Initialize empty).
-        """
-
-        self.queryset = queryset
-        self.order_list = order_list
+    def __init__(self, queryset: QuerySet[ProductModel]) -> None:
+        super().__init__(queryset)
+        self.order_list = []
 
 
     def order_by_criteria(self, criteria: str = "") -> str:
@@ -38,10 +30,7 @@ class ProductOrderService:
         
     
     def apply_orders(
-            self,
-            name_order: str = "",
-            price_order: str = "",
-            creation_date_order: str = ""
+            self, name_order: str = "", price_order: str = "", creation_date_order: str = ""
         ) -> QuerySet[ProductModel]:
 
         """

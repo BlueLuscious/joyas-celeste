@@ -1,5 +1,4 @@
 import logging
-from django.core.paginator import Page
 from django.db.models import QuerySet
 from django_unicorn.components import UnicornView
 from front.services.pagination_service import PaginatorService

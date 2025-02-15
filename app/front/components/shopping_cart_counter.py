@@ -1,6 +1,6 @@
 import logging
 from django_unicorn.components import UnicornView
-from front.models.cart_item_model import CartItemModel
+from cart.models.cart_item_model import CartItemModel
 
 logger = logging.getLogger(__name__)
 

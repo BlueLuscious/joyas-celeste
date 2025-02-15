@@ -1,5 +1,5 @@
 import logging
-from front.models.product_model import ProductModel
+from product.models.product_model import ProductModel
 
 logger = logging.getLogger(__name__)
 

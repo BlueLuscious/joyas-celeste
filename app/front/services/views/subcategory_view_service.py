@@ -1,6 +1,6 @@
 import logging
-from front.models.category_model import CategoryModel
-from front.models.subcategory_model import SubcategoryModel
+from product.models.category_model import CategoryModel
+from product.models.subcategory_model import SubcategoryModel
 
 logger = logging.getLogger(__name__)
 

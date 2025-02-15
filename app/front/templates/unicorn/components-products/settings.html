@@ -16,25 +16,37 @@
                 
                 <form id="queries_form">
                     {% if not category or not subcategory %}
-                    <div class="w-full p-2 text-center cinzel-semibold">
-                        Filtrar por
-                    </div>
+                    <div class="w-full p-2 text-center cinzel-semibold">Filtrar por</div>
                     <div class="flex flex-col gap-y-2 w-full text-primary-earth_tone_4">
                         <!-- Category Filter -->
                         {% if not category %}
-                        {% select_filter "category" "selected_category_filter" "categoria" categories %}
+                            {% if selected_subcategory_filter == "" %}
+                            {% select_filter "category" "selected_category_filter" "categoria" categories %}
+                            {% endif %}
+    
+                            {% if selected_subcategory %}
+                            {% select_filter "category" "selected_category_filter" "categoria" selected_subcategory.categories.all %}
+                            {% endif %}
                         {% endif %}
                         <!-- Subcategory Filter -->
-                        {% if not subcategory %}
-                        {% select_filter "subcategory" "selected_subcategory_filter" "subcategoria" subcategories %}
+                        {% if not subcategory %}                    
+                            {% if category %}
+                            {% select_filter "subcategory" "selected_subcategory_filter" "subcategoria" category.subcategories.all %}
+                            {% endif %}
+    
+                            {% if selected_category_filter == "" %}
+                            {% select_filter "subcategory" "selected_subcategory_filter" "subcategoria" subcategories %}
+                            {% endif %}
+    
+                            {% if not category and selected_category %}
+                            {% select_filter "subcategory" "selected_subcategory_filter" "subcategoria" selected_category.subcategories.all %}
+                            {% endif %}
                         {% endif %}
                     </div>
                     <!-- Add -> Remove filter button -->
                     {% endif %}
-
-                    <div class="w-full p-2 text-center cinzel-semibold">
-                        Ordenar por
-                    </div>
+    
+                    <div class="w-full p-2 text-center cinzel-semibold">Ordenar por</div>
                     <div class="flex flex-col gap-y-2 w-full text-primary-earth_tone_4">
                         <!-- Created At Order -->
                         {% select_filter "creation_date_order" "selected_creation_date_order" "novedad" created_at_orders %}

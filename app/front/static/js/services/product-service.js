@@ -11,8 +11,6 @@ export class ProductService {
         Unicorn.call("products", "set_selected_queries", "selected_search_text", search)
     }
 
-
-
     /**
     * Set selected queries (Filters, orders, etc.).
     * 
@@ -32,8 +30,5 @@ export class ProductService {
 
         Unicorn.call("products", "set_selected_queries", JSON.stringify(keyList), JSON.stringify(valueList))
     }
-
-
-
 
 }

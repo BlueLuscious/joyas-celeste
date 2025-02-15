@@ -1,0 +1,91 @@
+import logging
+from django.http import QueryDict
+from authy.exceptions.sign_up_exception import (
+    PasswordLengthError,
+    PasswordMismatchError,
+    UserAlreadyExistsError,
+)
+from authy.forms.sign_up_form import SignUpForm
+from client.models.client_model import ClientModel
+
+logger = logging.getLogger(__name__)
+
+
+class SignUpService:
+
+    """ Service for sign up. """
+
+    def __init__(self, form: SignUpForm) -> None:
+
+        """ SignUpService Initializer. """
+
+        self.form = form
+
+    
+    def validate_form(self) -> dict:
+
+        """ 
+        Validate registration form.
+        
+        Returns:
+            dict: Validated form data.
+        """
+
+        data: QueryDict = self.form.data
+
+        username: str = data.get("username")
+        username: str = self.validate_username(username)
+
+        password: str = data.get("password")
+        repeat_password: str = data.get("repeat_password")
+        password: str = self.validate_password(password, repeat_password)
+
+        if self.form.is_valid():
+            validated_data: dict = self.form.cleaned_data
+            validated_data.pop("repeat_password")
+            logger.info(f"Validated form data successfully: {validated_data}")
+        else:
+            validated_data: dict = {}
+        return validated_data
+
+
+    def validate_username(self, username: str) -> str:
+
+        """ 
+        Validate username.
+
+        Args:
+            username (str): Username.
+        
+        Returns:
+            str: Validated username.
+        """
+
+        if ClientModel.objects.filter(username=username).exists():
+            raise UserAlreadyExistsError(f"Username {username} already exists")
+        
+        logger.info(f"Validated username successfully: {username}")
+        return username
+
+
+    def validate_password(self, password: str, repeat_password: str) -> str:
+
+        """ 
+        Validate password.
+
+        Args:
+            password (str): Password.
+            repeat_password (str): Repeated password.
+        
+        Returns:
+            str: Validated password.
+        """
+
+        if not (6 < len(password) < 12):
+            raise PasswordLengthError(f"Password length is {len(password)}, less than 6 or more than 12")
+        if password != repeat_password:
+            raise PasswordMismatchError(f"Passwords doesn't match")
+        
+        logger.info(f"Validated password successfully: {password}")
+        return password
+    

@@ -2,13 +2,17 @@
 {% load unicorn %}
 
 <div class="fixed left-0 top-0 z-20 w-full flex flex-row items-center justify-between p-2 bg-white shadow-lg">
-    <div id="menu" class="pl-5">
+    <div id="menu" class="pl-5" 
+        onclick="openSideNavbar('background_lsn', 'left_side_navbar', '-translate-x-full')">
         {% include "../icons/menu.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 cursor-pointer" %}
     </div>
     <div class="w-32 h-20">
         <img class="w-32 h-20" src="{% static 'images/cj-logo.png' %}" alt="">
     </div>
-    <div id="cart" class="relative pr-5">
+    <div id="cart" class="relative pr-5" 
+        {% if request.path != "/checkout/" %}
+        onclick="openSideNavbar('background_rsn', 'right_side_navbar', 'translate-x-full')"
+        {% endif %}>
         {% unicorn "shopping-cart-counter" %}
         {% include "../icons/shopping-bag.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 cursor-pointer" %}
     </div>

@@ -1,6 +1,6 @@
 import { Helpers } from "./helpers/helpers.js"
 
-const Helper = new Helpers()
+window.toggleDisplayPassword = Helpers.toggleDisplayPassword
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -16,17 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             loginForm.reportValidity()
         }
-    })
-
-
-    /* Toggle Password */
-    const passwordToggle = document.getElementById("toggle_password")
-    const passwordInput = document.getElementById("id_password")
-    const eyeIcon = document.getElementById("eye_icon")
-    const eyeSlashIcon = document.getElementById("eye_slash_icon")
-
-    passwordToggle.addEventListener("click",  () => {
-        Helper.toggleDisplayPassword(passwordInput, eyeIcon, eyeSlashIcon)
     })
 
 })

@@ -1,4 +1,5 @@
-<select id="{{ select_id }}" name="{{ selected_filter }}" unicorn:model.lazy="{{ selected_filter }}" 
+<select id="{{ select_id }}" name="{{ selected_filter }}" 
+    unicorn:model="{{ selected_filter }}" unicorn:change="update_products" 
     class="p-2 border border-primary-earth_tone_4 rounded-lg cursor-pointer focus:outline-none">
     <option value="">Elige {{ filter_name }}</option>
     {% for criteria in criterias %}

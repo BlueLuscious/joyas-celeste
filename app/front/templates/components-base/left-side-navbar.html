@@ -7,7 +7,8 @@
 
     <div class="relative w-full h-full">
         <div class="flex flex-row items-center justify-between w-full h-20">
-            <div id="close_menu" class="flex items-center ml-5 mr-auto">
+            <div id="close_menu" class="flex items-center ml-5 mr-auto"
+                onclick="openSideNavbar('background_lsn', 'left_side_navbar', '-translate-x-full')">
                 {% include "../icons/x-mark.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 transition-transform duration-300 ease-in-out cursor-pointer hover:rotate-90" %}
             </div>
             <div class="mr-5 text-xl cinzel-semibold">
@@ -20,9 +21,9 @@
     
                 {% if request.user.is_authenticated %}
                 <div class="p-2 text-center border border-2 border-primary-earth_tone_4 rounded-sm">
-                    {% comment %} <a href="{% url 'profile' %}"> {% endcomment %}
-                        <div class="w-full text-lg cursor-pointer">Perfil</div>
-                    {% comment %} </a> {% endcomment %}
+                    <a href="{% url 'profile' %}">
+                        <div class="w-full text-lg text-primary-earth_tone_4 cursor-pointer">Perfil</div>
+                    </a>
                 </div>
                 {% else %}
                 <div class="p-2 text-center border border-2 border-primary-earth_tone_4 rounded-sm">
@@ -45,10 +46,8 @@
                 </div>
                 
                 <div>
-                    <div class="flex flex-row items-center justify-between p-2 text-left border border-2 rounded-sm">
-                        <div class="w-fit text-lg">
-                            <a class="font-medium cursor-pointer" href="{% url 'categories' %}">Categorias</a>
-                        </div>
+                    <div class="flex flex-row items-center justify-between p-2 text-center border border-2 rounded-sm">
+                        <div class="w-full text-lg">Categorias</div>
                         {% include "../icons/arrow-down.html" with rotate="rotate-0" tailwind_class="card_arrow w-5 h-5 transition-transform duration-300 ease-in-out cursor-pointer" %}                
                     </div>
         

@@ -1,11 +1,11 @@
 import logging
-from back.services.mercado_pago_service import MercadoPagoService
 from django.core.cache import cache
 from django.http import HttpRequest, HttpResponse
 from django.template import loader
 from django.template.backends.django import Template
 from django.views import View
-from front.models.cart_item_model import CartItemModel
+from back.services.mercado_pago_service import MercadoPagoService
+from cart.models.cart_item_model import CartItemModel
 
 logger = logging.getLogger(__name__)
 

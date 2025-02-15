@@ -2,7 +2,7 @@ import logging
 import mercadopago
 from django.db.models import QuerySet
 from app.settings import MP_PUBLIC_KEY, MP_ACCESS_TOKEN
-from front.models.cart_item_model import CartItemModel
+from cart.models.cart_item_model import CartItemModel
 from front.templatetags.filters.product_filter import convert_price_to_ARS
 
 logger = logging.getLogger(__name__)

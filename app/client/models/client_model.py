@@ -1,8 +1,8 @@
+from typing import TYPE_CHECKING
+from uuid import uuid4
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import QuerySet
-from typing import TYPE_CHECKING
-from uuid import uuid4
 if TYPE_CHECKING:
     from cart.models.cart_item_model import CartItemModel
 

@@ -1,7 +1,7 @@
-from django.db import models
-from django.utils.text import slugify
 from typing import TYPE_CHECKING
 from uuid import uuid4
+from django.db import models
+from django.utils.text import slugify
 from product.models.category_model import CategoryModel
 from product.models.subcategory_model import SubcategoryModel
 if TYPE_CHECKING:

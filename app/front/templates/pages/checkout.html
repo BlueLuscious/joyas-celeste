@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% load filters.product_filter %}
+
+{% block content %}
+<section class="w-full h-screen pt-32 px-4 sm:px-12">
+
+    <div class="flex flex-col md:flex-row gap-12 w-full h-full">
+        <div class="flex flex-col gap-y-2 w-full">
+
+            <div>Articulos en el carrito</div>
+
+            {% for cart_item in cart_items %}
+            <div class="flex flex-row items-center justify-center bg-white">
+                <div class="flex flex-col w-1/2">
+                    <div>
+                        <img class="w-1/2" 
+                            src="{{ cart_item.product.image.url }}" alt="">
+                    </div>
+                    <div>
+                        {{ cart_item.product.name }}
+                    </div>
+                </div>
+                <div class="flex flex-col text-right w-1/2">
+                    <div>
+                        $ {{ cart_item.price|convert_price_to_ARS:dollar_blue|format_number_AR }}
+                    </div>
+                    <div>
+                        Cantidad: {{ cart_item.quantity }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="w-full">
+            <div>Metodos de pago</div>
+            <div class="w-full" id="checkout_button"></div>
+        </div>
+    </div>
+    
+</section>
+
+<script>
+    const mp = new MercadoPago("{{ public_key }}", {
+        locale: "es-AR"
+    })
+    const bricksBuilder = mp.bricks()
+
+    bricksBuilder.create("wallet", "checkout_button", {
+        initialization: {
+            preferenceId: "{{ preference.id }}",
+        },
+        customization: {
+            texts: {
+                valueProp: 'smart_option',
+            },
+        },
+    })
+</script>
+{% endblock content %}

@@ -15,4 +15,8 @@ class ClientConfig(AppConfig):
         from .models import (
             client_model,
         )
+
+        from .signals import (
+            client_signal,
+        )
         

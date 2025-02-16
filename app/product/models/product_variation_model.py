@@ -16,8 +16,8 @@ class ProductVariationModel(models.Model):
         updated_at (datetime): Update date.
     """
 
-    product = models.ForeignKey(ProductModel, on_delete=models.DO_NOTHING, related_name="variations") # Product Variations
-    measure = models.ForeignKey(MeasureModel, on_delete=models.DO_NOTHING, related_name="variations") # Measure Variations
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name="variations") # Product Variations
+    measure = models.ForeignKey(MeasureModel, on_delete=models.CASCADE, related_name="variations") # Measure Variations
     stock = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

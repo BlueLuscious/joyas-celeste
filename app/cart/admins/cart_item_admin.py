@@ -9,7 +9,7 @@ class CartItemAdmin(admin.ModelAdmin):
 
     list_display = (
         "key",
-        "user",
+        "cart",
         "product",
         "price",
         "size",
@@ -20,6 +20,10 @@ class CartItemAdmin(admin.ModelAdmin):
     )
     search_fields = (
         "key",
+        "cart__user__first_name",
+        "cart__user__last_name",
+        "cart__user__username",
+        "cart__user__uuid",
         "product__name",
         "product__slug",
         "product__uuid",
@@ -30,10 +34,6 @@ class CartItemAdmin(admin.ModelAdmin):
         "product__subcategory__slug",
         "product__subcategory__uuid",
         "size",
-        "user__first_name",
-        "user__last_name",
-        "user__username",
-        "user__uuid",
     )
     list_filter = (
         "size",

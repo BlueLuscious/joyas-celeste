@@ -18,8 +18,8 @@ class CartItemModel(models.Model):
         size (str): Product size.
         stock (int): Product stock.
         quantity (int): Cart item quantity
-        created_at (DateTime): Creation date.
-        updated_at (DateTime): Update date.
+        created_at (datetime): Creation date.
+        updated_at (datetime): Update date.
     """
 
     id = models.BigAutoField(primary_key=True)

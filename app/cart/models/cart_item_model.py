@@ -1,5 +1,6 @@
+from decimal import Decimal
 from django.db import models
-from client.models.client_model import ClientModel
+from cart.models.cart_model import CartModel
 from product.models.product_model import ProductModel
 
 
@@ -9,8 +10,9 @@ class CartItemModel(models.Model):
     Cart Item Model.
 
     Fields:
+        id (int): Identifier, Primary Key.
         key (str): Mixing concatenation product uuid and product size.
-        user (ClientModel): ClientModel Instance.
+        cart (CartModel): CartModel Instance.
         product (ProductModel): Product Instance.
         price (Decimal): Cart item price.
         size (str): Product size.
@@ -20,12 +22,13 @@ class CartItemModel(models.Model):
         updated_at (DateTime): Update date.
     """
 
-    key = models.CharField(primary_key=True, max_length=128)
-    user = models.ForeignKey(
-        ClientModel, on_delete=models.DO_NOTHING, related_name="cart_item_user", default=None
+    id = models.BigAutoField(primary_key=True)
+    key = models.CharField(max_length=128)
+    cart = models.ForeignKey(
+        CartModel, on_delete=models.CASCADE, related_name="items"
     )
     product = models.ForeignKey(
-        ProductModel, on_delete=models.DO_NOTHING, related_name="cart_item"
+        ProductModel, on_delete=models.CASCADE, related_name="cart_item"
     )
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     size = models.CharField(max_length=128)
@@ -45,3 +48,21 @@ class CartItemModel(models.Model):
         """
 
         return self.product.name
+
+
+    def total_price(self) -> Decimal:
+
+        """
+        Calculate total price of the item (Product price * Item quantity).
+        
+        Returns:
+            Decimal: Total price of the item.
+        """
+
+        return self.product.price * self.quantity
+    
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["cart", "key"], name="unique_cart_key")
+        ]

@@ -1,6 +1,6 @@
 import logging
-from client.models.client_model import ClientModel
 from cart.models.cart_item_model import CartItemModel
+from cart.models.cart_model import CartModel
 from product.models.product_model import ProductModel
 
 logger = logging.getLogger(__name__)
@@ -10,18 +10,19 @@ class CartItemService:
 
     """ Services for CartItemModel. """
 
-    def __init__(self, user: ClientModel, product: ProductModel) -> None:
+    def __init__(self, cart: CartModel, product: ProductModel) -> None:
 
         """
         CartItemService Initializer.
 
         Args:
-            user (ClientModel): Client Instance.
+            cart (CartModel): Cart Instance.
             product (ProductModel): Product Instance.
         """
 
-        self.user = user
+        self.cart = cart
         self.product = product
+        
 
     def create_cart_item(self, key: str, size: int, quantity: int = 1) -> CartItemModel:
 
@@ -39,7 +40,7 @@ class CartItemService:
 
         cart_item = CartItemModel.objects.create(
             key=key,
-            user=self.user,
+            cart=self.cart,
             product=self.product,
             price=self.product.price,
             size=size,

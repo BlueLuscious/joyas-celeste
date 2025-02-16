@@ -1,6 +1,6 @@
 import logging
 from django_unicorn.components import UnicornView
-from cart.models.cart_item_model import CartItemModel
+from cart.models.cart_model import CartModel
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +21,7 @@ class ShoppingCartCounterView(UnicornView):
         """ ShoppingCartCounterView Initializer. """
 
         super().__init__(*args, **kwargs)
+        self.cart_model = CartModel.objects.filter(user=self.request.user).last()
         self.update_cart_counter()
 
 
@@ -28,7 +29,7 @@ class ShoppingCartCounterView(UnicornView):
 
         """ Update `cart_items_count` reactively. """
 
-        if self.request.user.is_authenticated:
-            self.cart_items_count = CartItemModel.objects.filter(user=self.request.user).count()
+        if self.request.user.is_authenticated and self.cart_model:
+            self.cart_items_count = self.cart_model.items.count()
         logger.info(f"Quantity of items in cart: {self.cart_items_count}")
-            
+        

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "authy",
     "back",
     "cart",
+    "order",
     "product",
     "front",
 ]

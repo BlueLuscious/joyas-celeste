@@ -18,12 +18,12 @@ class ClientModel(AbstractUser):
         email (str): Email.
         is_staff (bool): Is staff User.
         is_active (bool) Is active User.
-        date_joined (DateTime): Joined date.
+        date_joined (datetime): Joined date.
     
     Fields:
         uuid (UUID): Universal Unique Identifier.
-        created_at (DateTime): Creation date.
-        updated_at (DateTime): Update date.
+        created_at (datetime): Creation date.
+        updated_at (datetime): Update date.
 
     Related Fields:
         cart (CartModel): CartModel Instance.

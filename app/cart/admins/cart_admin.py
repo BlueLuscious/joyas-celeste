@@ -15,7 +15,6 @@ class CartAdmin(admin.ModelAdmin):
         "-created_at",
     )
     search_fields = (
-        "key",
         "user__first_name",
         "user__last_name",
         "user__username",
@@ -29,6 +28,7 @@ class CartAdmin(admin.ModelAdmin):
         "items__product__subcategory__name",
         "items__product__subcategory__slug",
         "items__product__subcategory__uuid",
+        "items__key",
         "items__size",
         "uuid",
     )

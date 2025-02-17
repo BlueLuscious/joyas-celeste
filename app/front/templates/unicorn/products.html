@@ -9,7 +9,7 @@
     {% include "unicorn/components-products/settings.html" %}
 
     <section unicorn:loading.class="h-screen" 
-        class="relative w-full pt-32 sm:pt-36 {% if not products %} flex flex-col items-center h-screen {% endif %}">
+        class="relative w-full min-h-screen pt-32 sm:pt-36 {% if not products %} flex flex-col items-center h-screen {% endif %}">
 
         <!-- Label -->
         <div class="flex justify-center w-full">
@@ -33,7 +33,7 @@
 
         <!-- Products -->
         {% if products %}
-        <div unicorn:loading.class="hidden" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 
+        <div unicorn:loading.class="hidden" class="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 
             items-center content-evenly justify-items-center gap-12 w-full h-full p-8 sm:p-12">
             {% for product in products %}
             {% product_card request product dollar_blue %}

@@ -1,7 +1,3 @@
-import { ProductService } from "./services/product-service.js"
-
-window.setSearchText = ProductService.setSearchText
-
 document.addEventListener("DOMContentLoaded", function() {
     const imageContainer = document.getElementById("image_container")
     const zoomImage = document.getElementById("zoom_image")

@@ -65,3 +65,7 @@ class MercadoPagoService:
         logger.info(f"preference: {preference}")
 
         return preference
+
+    
+    # TODO: Integrate Api Pagos/Ordenes from MercadoPago to keep up to date my orders.
+    

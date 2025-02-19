@@ -2,6 +2,7 @@ from django.urls import path
 from front.views.category_view import CategoryView
 from front.views.checkout_view import CheckoutView
 from front.views.index_view import IndexView
+from front.views.payment_view import PaymentView
 from front.views.product_view import ProductView
 from front.views.products_view import ProductsView
 from front.views.profile_view import ProfileView
@@ -16,4 +17,5 @@ urlpatterns = [
     path("product/<str:name>/", ProductView.as_view(), name="product"),
     path("profile/", ProfileView.as_view(), name="profile"),
     path("checkout/", CheckoutView.as_view(), name="checkout"),
+    path("payment/", PaymentView.as_view(), name="payment"),
 ]

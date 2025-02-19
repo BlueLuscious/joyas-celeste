@@ -2,6 +2,7 @@ import logging
 from django.core.cache import cache
 from django.db.models.query_utils import DeferredAttribute
 from django.http import HttpRequest
+from django.utils import timezone
 from back.services.cripto_ya_service import CriptoYaService
 from product.models.category_model import CategoryModel
 from product.models.product_model import ProductModel
@@ -30,10 +31,12 @@ def common_context(request: HttpRequest) -> dict:
         dollar_blue_ask: float = dollar_quotes.get("blue").get("ask")
         cache.set("dollar_blue_ask", dollar_blue_ask, timeout=3600)
 
+
     context = dict(
         categories=categories,
         subcategories=subcategories,
         dollar_blue=dollar_blue_ask,
+        current_year=timezone.now().year,
     )
 
     logger.info(f"Common context: {context}")

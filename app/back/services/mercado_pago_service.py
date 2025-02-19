@@ -8,7 +8,7 @@ from front.templatetags.filters.product_filter import convert_price_to_ARS
 logger = logging.getLogger(__name__)
 
 
-class MercadoPagoService():
+class MercadoPagoService:
 
     """ Service for MercadoPago. """
 
@@ -45,10 +45,16 @@ class MercadoPagoService():
                     "description": cart_item.product.description,
                     "title": cart_item.product.name,
                     "quantity": cart_item.quantity,
-                    "unit_price": float(convert_price_to_ARS(cart_item.price, dollar)),
+                    "unit_price": float(convert_price_to_ARS(cart_item.product.price, dollar)),
                 }
                 for cart_item in cart_items
             ],
+            # "back_urls": {
+            #     "success": "https://www.tu-sitio/success",
+            #     "failure": "https://www.tu-sitio/failure",
+            #     "pending": "https://www.tu-sitio/pendings"
+            # },
+            # "auto_return": "approved",
         }
 
         preference_response = sdk.preference().create(preference_data)

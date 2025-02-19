@@ -21,7 +21,8 @@ class ShoppingCartCounterView(UnicornView):
         """ ShoppingCartCounterView Initializer. """
 
         super().__init__(*args, **kwargs)
-        self.cart_model = CartModel.objects.filter(user=self.request.user).last()
+        if self.request.user.is_authenticated:
+            self.cart_model = CartModel.objects.filter(user=self.request.user).last()
         self.update_cart_counter()
 
 

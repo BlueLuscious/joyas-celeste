@@ -30,7 +30,8 @@ class ShoppingCartView(UnicornView):
 
         super().__init__(*args, **kwargs)
         self.user: ClientModel = self.request.user
-        self.cart_model = CartModel.objects.filter(user=self.request.user).last()
+        if self.user.is_authenticated:
+            self.cart_model = CartModel.objects.filter(user=self.user).last()
         self.update_cart_items()
         self.update_total_amount()
 

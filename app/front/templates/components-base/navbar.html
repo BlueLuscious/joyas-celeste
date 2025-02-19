@@ -10,7 +10,7 @@
         <img class="w-32 h-20" src="{% static 'images/cj-logo.png' %}" alt="">
     </div>
     <div id="cart" class="relative pr-5" 
-        {% if request.path != "/checkout/" %}
+        {% if request.path != "/checkout/" and request.path != "/payment/" %}
         onclick="openSideNavbar('background_rsn', 'right_side_navbar', 'translate-x-full')"
         {% endif %}>
         {% unicorn "shopping-cart-counter" %}

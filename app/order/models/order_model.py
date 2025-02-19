@@ -47,3 +47,20 @@ class OrderModel(models.Model):
                 
         return f"Order: {self.uuid} - {self.user}"
     
+
+    def create_order(cls, user: ClientModel) -> "OrderModel":
+        
+        """
+        Create a OrderModel.
+
+        Args:
+            user (ClientModel): ClientModel Instance.
+
+        Returns:
+            OrderModel: OrderModel Instance.
+        """
+
+        return cls(
+            user=user,
+        )
+    

@@ -54,7 +54,7 @@ class OrderItemModel(models.Model):
             order (OrderModel): OrderModel Instance.
 
         Returns:
-            OrderItemKModel: OrderItemModel Instance.
+            OrderItemModel: OrderItemModel Instance.
         """
 
         return cls(

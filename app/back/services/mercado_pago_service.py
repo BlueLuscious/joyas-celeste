@@ -49,6 +49,7 @@ class MercadoPagoService:
                 }
                 for cart_item in cart_items
             ],
+            # TODO: Set in Prod.
             # "back_urls": {
             #     "success": "https://www.tu-sitio/success",
             #     "failure": "https://www.tu-sitio/failure",

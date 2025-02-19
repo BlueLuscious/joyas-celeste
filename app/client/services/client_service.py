@@ -38,5 +38,5 @@ class ClientService:
             logger.info(f"User {user.username} was created")
             return user
         else:
-            raise SignUpError("Failed to create client. Data is empty") # Create new exception --> CreationClientError
+            raise SignUpError("Failed to create client. Data is empty") # TODO: Create new exception --> CreationClientError
         

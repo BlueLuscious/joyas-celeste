@@ -1,4 +1,3 @@
-# from typing import TYPE_CHECKING
 from uuid import uuid4
 from django.db import models
 from cart.models.cart_item_model import CartItemModel
@@ -24,7 +23,8 @@ class OrderItemModel(models.Model):
 
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False, unique=True)
     order = models.ForeignKey(OrderModel, on_delete=models.CASCADE, related_name="items")
-    product = models.ForeignKey(ProductModel, on_delete=models.DO_NOTHING) # TODO: Think what to do when it's on_delete.
+    product = models.ForeignKey(ProductModel, on_delete=models.DO_NOTHING)
+    # TODO: Think what to do when it's on_delete or remove product and create fields for each data in product.
     price = models.DecimalField(max_digits=10, decimal_places=2)
     size = models.CharField(max_length=128)
     quantity = models.IntegerField(default=1)

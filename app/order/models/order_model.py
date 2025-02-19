@@ -29,6 +29,7 @@ class OrderModel(models.Model):
     user = models.ForeignKey(ClientModel, on_delete=models.DO_NOTHING, related_name="orders")
     status = models.CharField(max_length=20, choices=StatusOrderChoices.choices, default=StatusOrderChoices.PENDING)
     paid = models.BooleanField(default=False)
+    # TODO: payment_day field
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -26,8 +26,13 @@ class PaymentView(View):
 
         cart_model = CartModel.objects.filter(user=request.user).last()
         cart_items = cart_model.items.all()
+
+
+        # TODO: Create order and order item.
+
+
         mp_service = MercadoPagoService()
-        preference = mp_service.create_preference(cart_items, dollar_blue_ask)
+        preference = mp_service.create_preference(cart_items, dollar_blue_ask) 
 
         context = {
             "preference": preference,

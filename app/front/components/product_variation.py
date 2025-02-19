@@ -44,7 +44,7 @@ class ProductVariationView(UnicornView):
             size (int): Product size.
         """
 
-        variation = self.product.variations.filter(measure__size=size).first() # Bug: Sometimes get None
+        variation = self.product.variations.filter(measure__size=size).first() # TODO: Bug: Sometimes get None
         self.product_stock = variation.stock if variation else 0
         logger.info(f"Product variation: {variation} | Variation stock: {self.product_stock}")
         

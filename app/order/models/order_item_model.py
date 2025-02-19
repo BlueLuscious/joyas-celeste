@@ -43,7 +43,7 @@ class OrderItemModel(models.Model):
 
         return self.product.name
     
-    
+    @classmethod
     def create_order_item(cls, cart_item: CartItemModel, order: OrderModel) -> "OrderItemModel":
         
         """

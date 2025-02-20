@@ -4,9 +4,6 @@
 {% load filters.product_filter %}
 
 {% block content %}
-<head>
-
-</head>
 <body>
     <section class="relative w-full min-h-screen pt-36 pb-12">
         <div class="relative flex-1 grid grid-cols-1 md:grid-cols-2 w-full gap-y-12 px-8 
@@ -15,8 +12,13 @@
             <div class="relative flex flex-col items-center w-full h-fit bg-white text-lg mukta-light 
                 rounded-lg shadow-xl">
                 <div class="w-full overflow-hidden rounded-lg" id="image_container">
-                    <img class="w-full transition-transform duration-500 ease-in-out transform" 
-                        id="zoom_image" src="{{ product.image|image_or_default }}" alt="image">
+                    {% if product.image %}
+                    <img class="w-full transition-transform duration-500 ease-in-out transform" id="zoom_image" 
+                        src="{% if product.image %}{{ product.image.url }}{% endif %}">
+                    {% else %}
+                    <img class="w-full transition-transform duration-500 ease-in-out transform" id="zoom_image" 
+                        src="{% static 'images/default-no-image.png' %}">
+                    {% endif %}
                 </div>
 
                 {% if request.user.is_authenticated %}
@@ -68,5 +70,4 @@
         </div>
     </section>
 </body>
-
 {% endblock content %}

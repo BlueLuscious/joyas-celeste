@@ -29,12 +29,4 @@ class ProductFilterTest(TestCase):
 
         pattern = r'^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$'
         self.assertRegex(formatted_number, pattern, "El formato del número no coincide con el formato esperado")
-
-
-    def test_image_or_default(self):
-        url = product_filter.image_or_default(self.product.image)
-
-        if self.product.image:
-            self.assertEqual(url, self.product.image.url)
-        else:
-            self.assertEqual(url, static("images/default-no-image.png"))
+        

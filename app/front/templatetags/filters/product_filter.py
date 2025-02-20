@@ -2,8 +2,6 @@ import locale
 import logging
 from decimal import Decimal
 from django import template
-from django.db.models.fields.files import ImageFieldFile
-from django.templatetags.static import static
 
 logger = logging.getLogger(__name__)
 register = template.Library()
@@ -51,23 +49,3 @@ def format_number_AR(number: Decimal) -> str:
     logger.info(f"original number: {number} | formatted number: {formatted_number}")
     return formatted_number
     
-
-@register.filter
-def image_or_default(image: ImageFieldFile) -> str:
-
-    """ 
-    Get product image or default.
-
-    Args:
-        image (ImageFieldFile): Product image.
-
-    Returns:
-        str: Image url/path.
-    """
-
-    if image:
-        url = image.url
-    else:
-        url = static("images/default-no-image.png")
-    logger.info(f"url/path: {url}")
-    return url

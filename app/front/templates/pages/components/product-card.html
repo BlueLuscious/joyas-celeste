@@ -14,7 +14,11 @@
 
     <div class="w-full">
         <a href="{% url 'product' name=product.slug %}">
-            <img class="w-full rounded-t-lg" src="{{ product.image|image_or_default }}" alt="image">
+            {% if product.image %}
+            <img class="w-full rounded-t-lg" src="{% if product.image %}{{ product.image.url }}{% endif %}">
+            {% else %}
+            <img class="w-full rounded-t-lg" src="{% static 'images/default-no-image.png' %}">
+            {% endif %}
         </a>
     </div>
     <div class="w-full p-2 text-center text-xl">

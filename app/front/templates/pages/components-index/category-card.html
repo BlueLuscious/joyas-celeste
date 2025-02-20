@@ -1,9 +1,11 @@
+{% load static %}
+
 <div class="relative flex items-center w-full h-full bg-cover bg-no-repeat bg-center  
     rounded-lg shadow-md transform transition-transform duration-300 ease-in-out hover:scale-105
-    {% if category_name|lower == 'anillos' %}bg-[url('static/images/ring-card.webp')]
-    {% elif category_name|lower == 'aros' %}bg-[url('static/images/earrings-card.webp')]
-    {% elif category_name|lower == 'colgantes' %}bg-[url('static/images/necklace-card.webp')]
-    {% elif category_name|lower == 'pulseras' %}bg-[url('static/images/bracelet-card.jpg')]
+    {% if category_name|lower == 'anillos' %}bg-[url('{% static 'images/ring-card.webp' %}')]
+    {% elif category_name|lower == 'aros' %}bg-[url('{% static 'images/earrings-card.webp' %}')]
+    {% elif category_name|lower == 'colgantes' %}bg-[url('{% static 'images/necklace-card.webp' %}')]
+    {% elif category_name|lower == 'pulseras' %}bg-[url('{% static 'images/bracelet-card.jpg' %}')]
     {% endif %}
     "
 >

@@ -117,13 +117,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -145,11 +141,12 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 # Authenticate by my model
 AUTH_USER_MODEL = "client.ClientModel"
+
 
 # Set redirects
 LOGIN_REDIRECT_URL = "index"
@@ -185,9 +182,11 @@ LOGGING = {
     },
 }
 
+
 # CriptoYa API
 CRIPTO_YA_BASE_URL = "https://criptoya.com"
 
-# MercadoPago Api
+
+# MercadoPago API
 MP_PUBLIC_KEY = "APP_USR-c04d1148-7838-44c7-ab85-08a8c017a0ed" # Seller MP # TODO: Change for production
 MP_ACCESS_TOKEN = os.getenv("MP_ACCESS_TOKEN", "") # TODO: Change for production

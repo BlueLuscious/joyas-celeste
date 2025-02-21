@@ -12,7 +12,7 @@ pip install -r requirements.txt
 cd app
 
 # Collect Static Files
-python manage.py collectstatic --no-input
+python manage.py collectstatic --no-input --clear
 
 # Migrate
 python manage.py migrate

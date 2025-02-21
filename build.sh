@@ -2,14 +2,14 @@
 # Exit on error
 set -o errexit
 
-# Move to App
-cd app
-
 # Upgrade PIP
 pip install --upgrade pip
 
 # Install Requirements
 pip install -r requirements.txt
+
+# Move to App
+cd app
 
 # Collect Static Files
 python manage.py collectstatic --no-input

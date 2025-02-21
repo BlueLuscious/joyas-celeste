@@ -1,5 +1,5 @@
-import locale
 import logging
+from babel import numbers
 from decimal import Decimal
 from django import template
 
@@ -8,14 +8,14 @@ register = template.Library()
 
 
 @register.filter
-def convert_price_to_ARS(price: Decimal, dollar: float) -> Decimal:
+def convert_price_to_ARS(price: Decimal, dollar: int) -> Decimal:
 
     """
     Convert price in USD to ARS.
     
     Args:
         price (Decimal): Product price.
-        dollar (float): Dollar quote.
+        dollar (int): Dollar quote.
 
     Returns:
         Decimal: Converted price.
@@ -44,8 +44,7 @@ def format_number_AR(number: Decimal) -> str:
         str: Formatted number.
     """
 
-    locale.setlocale(locale.LC_ALL, 'es_AR.UTF-8')
-    formatted_number = locale.format_string("%.2f", number, grouping=True)
+    formatted_number = numbers.format_decimal(number, locale='es_AR', format='#,##0.00')
     logger.info(f"original number: {number} | formatted number: {formatted_number}")
     return formatted_number
     

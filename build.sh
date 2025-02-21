@@ -2,6 +2,12 @@
 # Exit on error
 set -o errexit
 
+# Install Locale es_AR.UTF-8
+apt-get update
+apt-get install -y locales
+locale-gen es_AR.UTF-8
+update-locale LANG=es_AR.UTF-8
+
 # Upgrade PIP
 pip install --upgrade pip
 

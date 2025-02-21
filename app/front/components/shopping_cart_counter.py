@@ -16,11 +16,10 @@ class ShoppingCartCounterView(UnicornView):
 
     cart_items_count: int = 0
 
-    def __init__(self, *args, **kwargs) -> None:
+    def mount(self) -> None:
 
-        """ ShoppingCartCounterView Initializer. """
+        """ ShoppingCartCounterView First Creation. """
 
-        super().__init__(*args, **kwargs)
         if self.request.user.is_authenticated:
             self.cart_model = CartModel.objects.filter(user=self.request.user).last()
         self.update_cart_counter()

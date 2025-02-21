@@ -13,7 +13,6 @@ class ProductVariationView(UnicornView):
     Unicorn Component for Product Variation. 
 
     **Bound Properties**:
-        **product (ProductModel)**: Product Instance.
         **variations (QuerySet[ProductVariationModel])**: Product Variation Instances.
         **product_stock (int)**: Stock quantity of product variation.
     """
@@ -22,11 +21,10 @@ class ProductVariationView(UnicornView):
     variations: QuerySet[ProductVariationModel] = ProductVariationModel.objects.none()
     product_stock: int = 0
 
-    def __init__(self, *args, **kwargs) -> None:
+    def mount(self) -> None:
 
-        """ ProductVariationView Initializer. """
+        """ ProductVariationView First Creation. """
 
-        super().__init__(*args, **kwargs)
         if self.product:
             self.variations = self.product.variations.filter(stock__gt=0).order_by("measure__size")
 

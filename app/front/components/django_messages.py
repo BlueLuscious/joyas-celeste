@@ -18,11 +18,11 @@ class DjangoMessagesView(UnicornView):
 
     messages_list: list[dict] = []
 
-    def __init__(self, *args, **kwargs) -> None:
+    def mount(self) -> None:
 
-        """ DjangoMessagesView Initializer. """
+        """ DjangoMessagesView First Creation. """
 
-        super().__init__(*args, **kwargs)
+        self.messages_list = []
 
 
     def add_message(self) -> None:

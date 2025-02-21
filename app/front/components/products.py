@@ -61,6 +61,12 @@ class ProductsView(UnicornView):
         self.subcategory: SubcategoryModel = kwargs.get("subcategory")
         self.selected_category_filter = str(self.category.uuid) if self.category else self.selected_category_filter
         self.selected_subcategory_filter = str(self.subcategory.uuid) if self.subcategory else self.selected_subcategory_filter
+
+
+    def mount(self) -> None:
+
+        """ ProductsView First Creation. """
+
         self.update_products()
         
 

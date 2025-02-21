@@ -28,7 +28,11 @@
             border-primary-earth_tone_3_light rounded-sm shadow-md">
             <div class="flex flex-row w-full">
                 <div class="w-2/5">
-                    <img class="w-full rounded-tl-sm" src="{{ item.product.image.url }}" alt="image">
+                    {% if item.product.image %}
+                    <img class="w-full rounded-t-sm" src="{% if item.product.image %}{{ item.product.image.url }}{% endif %}">
+                    {% else %}
+                    <img class="w-full rounded-t-sm" src="{% static 'images/default-no-image.png' %}">
+                    {% endif %}
                 </div>
                 <div class="flex flex-col items-center justify-center gap-y-2 w-3/5">
                     <div>{{ item.product.name }}</div>

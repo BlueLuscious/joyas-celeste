@@ -21,14 +21,14 @@ class ShoppingCartView(UnicornView):
         **total_amount (float)**: Total amount to pay.
     """
 
+    cart_model: CartModel = None
     cart_items: QuerySet[CartItemModel] = CartItemModel.objects.none()
     total_amount: float = 0.0
 
-    def __init__(self, *args, **kwargs) -> None:
+    def mount(self) -> None:
 
-        """ ShoppingCartView Initializer. """
+        """ ShoppingCartView First Creation. """
 
-        super().__init__(*args, **kwargs)
         self.user: ClientModel = self.request.user
         if self.user.is_authenticated:
             self.cart_model = CartModel.objects.filter(user=self.user).last()

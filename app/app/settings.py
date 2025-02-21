@@ -182,6 +182,33 @@ LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "login"
 
 
+# Cache
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
+}
+
+
+# Unicorn
+UNICORN = {
+    "APPS": ["unicorn", "front", ],
+    "CACHE_ALIAS": "default",
+    "MINIFY_HTML": False,
+    "MINIFIED": False,
+    "SERIAL": {
+        "ENABLED": False,
+        "TIMEOUT": 60,
+    },
+    "SCRIPT_LOCATION": "append",
+    "MORPHER": {
+        "NAME": "morphdom",
+        "RELOAD_SCRIPT_ELEMENTS": False,
+    },
+}
+
+
 # Logs
 LOGGING = {
     "version": 1,

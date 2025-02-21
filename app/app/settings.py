@@ -40,6 +40,7 @@ if not DEBUG:
 
 # Application definition
 INSTALLED_APPS = [
+    "app",
     "client",
     "django.contrib.admin",
     "django.contrib.auth",

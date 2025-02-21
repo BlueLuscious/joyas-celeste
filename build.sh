@@ -2,6 +2,9 @@
 # Exit on error
 set -o errexit
 
+# Move to App
+cd app
+
 # Upgrade PIP
 pip install --upgrade pip
 

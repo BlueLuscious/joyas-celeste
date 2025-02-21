@@ -26,13 +26,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY", "test-key")
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
 DEBUG = True if ENVIRONMENT == "local" else False
 
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "yourdomain.com,render.com").split(",")
+# Hosts
+if not DEBUG:
+    HOSTS = os.getenv("ALLOWED_HOSTS", [])
+    ALLOWED_HOSTS = HOSTS.split(",") if HOSTS else []
 
 
 # Application definition
@@ -170,6 +173,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Authenticate by my model
 AUTH_USER_MODEL = "client.ClientModel"
 
+# First Superuser
+FIRST_ADMIN_PASSWORD = os.getenv("FIRST_ADMIN_PASSWORD", "")
 
 # Set redirects
 LOGIN_REDIRECT_URL = "index"

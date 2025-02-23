@@ -425,5 +425,5 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/venv,python,django,database,node
 
 # static files
-# staticfiles/
+staticfiles/
 ### remove if is necessarily

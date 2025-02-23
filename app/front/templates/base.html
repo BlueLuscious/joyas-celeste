@@ -15,9 +15,6 @@
 </head>
 <body>
     {% csrf_token %}
-
-    <!-- Messages -->
-    {% comment %} {% unicorn "django-messages" tailwind_class="z-30 top-28 md:left-4" %} {% endcomment %}
     
     <section>
         {% include "components-base/navbar.html" %} <!-- NAVBAR -->
@@ -34,6 +31,9 @@
         {% include "components-base/footer.html" %} <!-- FOOTER -->
     </section>
 
+    <!-- messages -->
+    {% unicorn "django-messages" tailwind_class="z-30 top-28 md:left-4" %}
+
     <!-- whatsapp button -->
     <div id="whatsapp_button" onclick="openWhatsApp()"
         class="z-10 fixed bottom-3 right-3 sm:bottom-5 sm:right-5 p-2 pt-3 sm:p-3 sm:pt-4 
@@ -43,10 +43,10 @@
         </button>
     </div>
 
-    <script type="module" src="{% static 'js/base.js' %}"></script>
-    <script src="{% static 'js/product.js' %}"></script>
-    <script type="module" src="{% static 'js/shopping-cart.js' %}"></script>
-    <script type="module" src="{% static 'js/message.js' %}"></script>
-    <script src="{% static 'js/tailwind/tailwind.config.js' %}"></script>
 </body>
+<script type="module" src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/product.js' %}"></script>
+<script type="module" src="{% static 'js/shopping-cart.js' %}"></script>
+<script type="module" src="{% static 'js/message.js' %}"></script>
+<script src="{% static 'js/tailwind/tailwind.config.js' %}"></script>
 </html>

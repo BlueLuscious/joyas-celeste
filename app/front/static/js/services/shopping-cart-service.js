@@ -8,15 +8,9 @@ export class ShoppingCartService {
     * @returns {void} None.
     */
     static addToCart(product_uuid) {
-        console.log(`Product UUID: ${product_uuid}`)
         let form = document.getElementById(`product_form_${product_uuid}`)
         let formData = new FormData(form)
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`)
-        }
-        console.log([...formData.entries()])
         let product_size = formData.get("product_size")
-        console.log(`Product Size: ${product_size}`)
 
         if (product_size) {
             Unicorn.call("shopping-cart", "add_to_cart", product_uuid, product_size)

@@ -41,7 +41,7 @@
                 </div>
                 <div>
                     <form id="product_form_{{ product.uuid }}" class="flex flex-col items-center w-full">
-                        {% comment %} {% csrf_token %} {% endcomment %}
+                        {% csrf_token %}
                         {% unicorn "product-variation" product=product %}
                     </form>
                 </div>

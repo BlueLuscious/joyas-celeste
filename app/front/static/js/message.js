@@ -1,8 +1,8 @@
-// import { MessageService } from "./services/message-service.js"
+import { MessageService } from "./services/message-service.js"
 
-// window.addMessage = MessageService.addMessage
-// window.removeMessage = MessageService.removeMessage
+window.displayMessages = MessageService.displayMessages
+window.hideMessages = MessageService.hideMessages
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     MessageService.removeMessage()
-// })
+document.addEventListener("DOMContentLoaded", () => {
+    MessageService.displayMessages()
+})

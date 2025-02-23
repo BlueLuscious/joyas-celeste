@@ -20,6 +20,7 @@ class ProductVariationView(UnicornView):
     product: ProductModel = None
     variations: QuerySet[ProductVariationModel] = ProductVariationModel.objects.none()
     product_stock: int = 0
+    product_size: int = 0
 
     def mount(self) -> None:
 
@@ -29,8 +30,9 @@ class ProductVariationView(UnicornView):
             self.variations = self.product.variations.filter(stock__gt=0).order_by("measure__size")
 
             if self.variations.exists():
-                default_size = self.variations.first()
-                self.get_stock(default_size.measure.size)
+                default_size = self.variations.first().measure.size
+                self.product_size = default_size
+                self.get_stock(default_size)
 
 
     def get_stock(self, size: int) -> None:
@@ -47,4 +49,8 @@ class ProductVariationView(UnicornView):
         variation = self.product.variations.filter(measure__size=size).first() # TODO: Bug: Sometimes get None
         self.product_stock = variation.stock if variation else 0
         logger.info(f"Product variation: {variation} | Variation stock: {self.product_stock}")
+        
+
+    def updated_product_size(self, value: int) -> None:
+        self.get_stock(value)
         

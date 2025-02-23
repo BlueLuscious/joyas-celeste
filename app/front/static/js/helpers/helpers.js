@@ -44,4 +44,19 @@ export class Helpers {
         element.classList.toggle(translate)
     }
 
+
+    /**
+    * Calls Unicorn.call asynchronously.
+    * @param {string} component Component Name.
+    * @param {string} method Component Method
+    * @param {...any} args Method Args
+    * @returns {Promise<void>}
+    */
+    static unicornCallAsync(component, method, ...args) {
+        return new Promise((resolve) => {
+            Unicorn.call(component, method, ...args);
+            resolve();
+        });
+    }
+
 }

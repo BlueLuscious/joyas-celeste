@@ -1,3 +1,7 @@
+import { Helpers } from "../helpers/helpers.js";
+import { MessageService } from "./message-service.js";
+
+
 export class ShoppingCartService {
 
     /**
@@ -5,15 +9,23 @@ export class ShoppingCartService {
     * 
     * Use Unicorn to call methods, add an item to cart and update cart counter.
     * @param {string} product_uuid Product UUID.
-    * @returns {void} None.
+    * @returns {void}  None.
     */
-    static addToCart(product_uuid) {
-        let form = document.getElementById(`product_form_${product_uuid}`)
-        let formData = new FormData(form)
-        let product_size = formData.get("product_size")
+    static async addToCart(product_uuid) {
+        let product_size = document.getElementById(product_uuid);
 
-        if (product_size) {
-            Unicorn.call("shopping-cart", "add_to_cart", product_uuid, product_size)
+        if (!product_size) {
+            reject(new Error("El elemento de tamaño del producto no existe."));
+        }
+
+        try {
+            await Helpers.unicornCallAsync("shopping-cart", "add_to_cart", product_uuid, product_size.value)
+            await ShoppingCartService.updateCartCounter();
+            await MessageService.displayMessages();
+            await MessageService.hideMessages();
+
+        } catch (error) {
+            console.error("Error en addToCart:", error);
         }
     }
 
@@ -22,10 +34,10 @@ export class ShoppingCartService {
     * Update shopping cart counter:
     * 
     * Use Unicorn to call methods, update shopping cart counter.
-    * @returns {void} None.
+    * @returns {Promise<void>} None.
     */
-    static updateCartCounter() {
-        Unicorn.call("shopping-cart-counter", "update_cart_counter")
+    static async updateCartCounter() {
+        await Helpers.unicornCallAsync("shopping-cart-counter", "update_cart_counter")
     }
 
 }

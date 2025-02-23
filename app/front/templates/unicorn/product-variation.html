@@ -4,7 +4,7 @@
     {% if variations %}
     <div class="flex flex-row items-center justify-center gap-x-2 w-full p-2 text-center text-gray-500">
         <div>Talle</div>
-        <select unicorn:change="get_stock($event.target.value.trim())" id="product_size" name="product_size" 
+        <select unicorn:model="product_size" id="{{ product.uuid }}" name="product_size" 
             class="w-1/3 text-center text-primary-earth_tone_4 border-2 border-primary-earth_tone_4 
             rounded-md outline-none cursor-pointer">
             {% for variation in variations %}

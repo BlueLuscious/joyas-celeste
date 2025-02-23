@@ -36,26 +36,6 @@ class ShoppingCartView(UnicornView):
         self.update_total_amount()
 
 
-    def after_action(self):
-
-        """
-        Update `Bound Properties` and call JS methods.
-
-        **Actions**:
-            - Update `cart_items` reactively.
-            - Update `total_amount` reactively.
-
-        **JS Methods**:
-            updateCartCounter: Update `cart_items_count` reactively. (ShoppingCartCounterView)
-            displayMessages: Show `message_list` reactively. (DjangoMessagesView)
-        """
-
-        self.update_cart_items()
-        self.update_total_amount()
-        self.call("updateCartCounter")
-        self.call("displayMessages")
-
-
     def add_to_cart(self, product: ProductModel, size: int, quantity: int = 1) -> None:
 
         """ 
@@ -72,7 +52,9 @@ class ShoppingCartView(UnicornView):
             cart_item = CartItemService(self.cart_model, product).create_cart_item(key, size, quantity)
             messages.success(self.request, "Producto agregado al carrito")
             logger.info(f"Add item to cart: {cart_item}")
-            self.after_action()
+            self.update_cart_items()
+            self.update_total_amount()
+            self.call("updateCartCounter")
         else:
             cart_item = self.cart_items.get(cart=self.cart_model, key=key)
             if cart_item.quantity < cart_item.stock:
@@ -81,7 +63,9 @@ class ShoppingCartView(UnicornView):
             else:
                 messages.info(self.request, "Cantidad insuficiente")
                 logger.info(f"No more stock: {cart_item}")
-                self.after_action()
+                self.update_cart_items()
+                self.update_total_amount()
+        self.call("displayMessages")
 
 
     def remove_from_cart(self, key: str) -> None:
@@ -97,7 +81,10 @@ class ShoppingCartView(UnicornView):
         cart_item.delete()
         messages.success(self.request, "Producto removido del carrito")
         logger.info(f"Remove item from cart: {cart_item}")
-        self.after_action()
+        self.update_cart_items()
+        self.update_total_amount()
+        self.call("updateCartCounter")
+        self.call("displayMessages")
 
 
     def increment_quantity(self, key: str, quantity: int = 1) -> None:
@@ -116,7 +103,8 @@ class ShoppingCartView(UnicornView):
             cart_item.price = cart_item.product.price * cart_item.quantity
         cart_item.save()
         logger.info(f"Increment quantity | Cart item: {cart_item}")
-        self.after_action()
+        self.update_cart_items()
+        self.update_total_amount()
 
 
     def decrement_quantity(self, key: str, quantity: int = 1) -> None:
@@ -135,7 +123,8 @@ class ShoppingCartView(UnicornView):
             cart_item.price = cart_item.product.price * cart_item.quantity
         cart_item.save()
         logger.info(f"Decrement quantity | Cart item: {cart_item}")
-        self.after_action()
+        self.update_cart_items()
+        self.update_total_amount()
         
 
     def clear_cart(self) -> None:
@@ -143,7 +132,11 @@ class ShoppingCartView(UnicornView):
         """ Clear entire `cart_items` reactively. """
 
         self.cart_model.items.all().delete()
-        self.after_action()
+        messages.success(self.request, "Carrito limpiado exitosamente")
+        self.update_cart_items()
+        self.update_total_amount()
+        self.call("updateCartCounter")
+        self.call("displayMessages")
 
 
     def update_cart_items(self) -> None:

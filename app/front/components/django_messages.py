@@ -22,31 +22,23 @@ class DjangoMessagesView(UnicornView):
 
         """ DjangoMessagesView First Creation. """
 
-        self.messages_list = []
+        self.update_message_list()
 
 
     def add_message(self) -> None:
 
-        """ 
-        Add the last message from Django Messages to a list reactively.
-
-        Add a dict with message data in `message_list`:
-            **text (str)**: Message.
-            **level_tag (str)**: Message Level.
-        """
+        """ Add the first message from Django Messages to `message_list` reactively. """
 
         storage: FallbackStorage = get_messages(self.request)
         message: Message = None
 
-        for message_in_storage in storage:
-            message = message_in_storage
+        if len(list(storage)) >= 1:
+            message = list(storage)[0]
 
         if message:
-            new_message: dict = {
-                "text": message.message,
-                "level_tag": message.level_tag
-            }
+            new_message = dict(text=message.message, level_tag=message.level_tag)
             self.messages_list.append(new_message)
+            self.update_message_list(self.messages_list)
             self.call("hideMessages")
             logger.info(f"Add message to list: {new_message.get('text')}")
         else:
@@ -60,6 +52,7 @@ class DjangoMessagesView(UnicornView):
         if self.messages_list:
             message: dict = self.messages_list.pop(0)
             logger.info(f"Remove message from list: {message.get('text')}")
+        self.update_message_list(self.messages_list)
             
 
     def clear_message_list(self) -> None:
@@ -68,3 +61,9 @@ class DjangoMessagesView(UnicornView):
 
         self.messages_list.clear()
         
+
+    def update_message_list(self, message_list: list = []) -> None:
+
+        """ Update `message_list` reactively. """
+
+        self.messages_list = message_list

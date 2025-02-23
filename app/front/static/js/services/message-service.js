@@ -20,6 +20,6 @@ export class MessageService {
     static hideMessages() {
         setTimeout(() => {
             Unicorn.call("django-messages", "remove_message")
-        }, 4000)
+        }, 3500)
     }
 }

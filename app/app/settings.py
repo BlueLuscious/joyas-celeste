@@ -36,6 +36,8 @@ DEBUG = True if ENVIRONMENT == "local" else False
 if not DEBUG:
     HOSTS = os.getenv("ALLOWED_HOSTS", [])
     ALLOWED_HOSTS = HOSTS.split(",") if HOSTS else []
+    TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", [])
+    CSRF_TRUSTED_ORIGINS = TRUSTED_ORIGINS.split(",") if TRUSTED_ORIGINS else []
 
 
 # Application definition

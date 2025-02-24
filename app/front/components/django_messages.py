@@ -2,7 +2,9 @@ import logging
 from django.contrib import messages
 from django.contrib.messages.storage.base import Message
 from django.contrib.messages.storage.fallback import FallbackStorage
+from django.utils.timezone import now, datetime
 from django_unicorn.components import PollUpdate, UnicornView
+from app.utils.message_o import MessageO
 
 logger = logging.getLogger(__name__)
 
@@ -15,72 +17,60 @@ class DjangoMessagesView(UnicornView):
     **Bound Properties**:
         **message_list (list[dict])**: List of dictionaries with message data.
     """
-
+    
     messages_list: list[dict] = []
 
-    def mount(self) -> None:
+    def mount(self):
 
         """ DjangoMessagesView First Creation. """
 
-        self.update_message_list()
-
-
-    def get_messages(self) -> list[Message]:
+        self.messages_list: list[dict] = []
         storage: FallbackStorage = messages.get_messages(self.request)
         storage.used = True
-        logger.info(f"Get Django Messages: {list(storage)}")
-        return list(storage)
+        self.storage = list(storage)
+
+
+    def add_django_message(self) -> PollUpdate | None:
+
+        """ Add message from Django Messages to `message_list` reactively. """
+
+        if list(self.storage):
+            logger.info(f"Get Django Messages: {list(self.storage)}")
+            message: Message = next(iter(self.storage), None)
+            self.messages_list.append(MessageO(message.message, message.level).to_dict())
+            logger.info(f"Add message to list: {message.message}")
+
+            if len(self.messages_list) == 1:
+                return PollUpdate(timing=3000, method="clean_messages")
+        else:
+            logger.info("No new django message to add")
 
 
     def add_message(self, level: int = 0, text: str = "") -> PollUpdate | None:
 
-        """ Add the first message from Django Messages to `message_list` reactively. """
-
+        """ Add message to `message_list` reactively. """
 
         if level and text != "":
-            messages.add_message(self.request, level, text)
+            self.messages_list.append(MessageO(text, level).to_dict())
+            logger.info(f"Add message to list: {text}")
 
-        storage = self.get_messages()
-        message = next(iter(storage), None)
-
-        if message:
-            new_message = dict(text=message.message, level_tag=message.level_tag)
-            self.messages_list.append(new_message)
-            self.update_message_list(self.messages_list)
-            logger.info(f"Add message to list: {new_message.get('text')}")
-            
             if len(self.messages_list) == 1:
-                return PollUpdate(timing=3000, method="remove_message")
+                return PollUpdate(timing=3000, method="clean_messages")
         else:
             logger.info("No new message to add")
-            self.update_message_list(self.messages_list)
-            return PollUpdate(disable=True)
 
 
-    def remove_message(self) -> PollUpdate:
+    def clean_messages(self) -> PollUpdate | None:
 
-        """ Remove the first message from `message_list` reactively. """
+        """ Remove expired messages from `message_list` reactively. """
 
         if self.messages_list:
-            message: dict = self.messages_list.pop(0)
-            logger.info(f"Remove message from list: {message.get('text')}")
-            self.update_message_list(self.messages_list)
+            logger.info(f"Current messages in list: {self.messages_list}")
+            self.messages_list = [m for m in self.messages_list if now() < datetime.fromisoformat(m["expire_at"])]
+            logger.info(f"Oldest messages in list: {self.messages_list}")
 
-            if len(self.messages_list) > 0:
-                return PollUpdate(timing=3000, method="remove_message")
-        self.update_message_list(self.messages_list)
-        return PollUpdate(disable=True)
-            
-
-    def clear_message_list(self) -> None:
-
-        """ Clear entire `message_list` reactively. """
-
-        self.messages_list.clear()
+            if not self.messages_list:
+                return PollUpdate(disable=True)
+        else:
+            logger.info(f"No old messages in list to clean")
         
-
-    def update_message_list(self, message_list: list = []) -> None:
-
-        """ Update `message_list` reactively. """
-
-        self.messages_list = message_list

@@ -1,25 +1,37 @@
 export class MessageService {
 
     /**
-    * Display Messages:
+    * Show Django Messages:
     * 
-    * Use Unicorn to call methods, display django messages.
+    * Use Unicorn to call methods, show django message.
+    * @returns {void} None.
+    */
+    static addDjangoMessage() {
+        Unicorn.call("django-messages", "add_django_message")
+    }
+
+
+    /**
+    * Show Messages:
+    * 
+    * Use Unicorn to call methods, show message.
     * @param {int} level Message Level (Default `0`).
     * @param {string} text Text Message (Default `""`).
     * @returns {void} None.
     */
-    static displayMessages(level = 0, text = "") {
+    static addMessage(level = 0, text = "") {
         Unicorn.call("django-messages", "add_message", level, text)
     }
 
 
     /**
-    * Hide Messages:
+    * Remove Messages:
     * 
-    * Use Unicorn to call methods, hide django messages.
+    * Use Unicorn to call methods, remove message.
     * @returns {void} None.
     */
-    static hideMessages() {
+    static removeMessage() {
         Unicorn.call("django-messages", "remove_message")
     }
+    
 }

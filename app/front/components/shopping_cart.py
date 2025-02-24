@@ -61,17 +61,17 @@ class ShoppingCartView(UnicornView):
             self.update_cart_items()
             self.update_total_amount()
             self.call("updateCartCounter")
-            self.call("displayMessages", messages.SUCCESS, "Producto agregado al carrito")
+            self.call("addMessage", messages.SUCCESS, "Producto agregado al carrito")
         else:
             cart_item = self.cart_items.get(cart=self.cart_model, key=key)
             if cart_item.quantity < cart_item.stock:
                 self.increment_quantity(key)
-                self.call("displayMessages", messages.SUCCESS, "Producto actualizado al carrito")
+                self.call("addMessage", messages.SUCCESS, "Producto actualizado al carrito")
             else:
                 logger.info(f"No more stock: {cart_item}")
                 self.update_cart_items()
                 self.update_total_amount()
-                self.call("displayMessages", messages.INFO, "Cantidad insuficiente")
+                self.call("addMessage", messages.INFO, "Cantidad insuficiente")
 
 
     def remove_from_cart(self, key: str) -> None:
@@ -89,7 +89,7 @@ class ShoppingCartView(UnicornView):
         self.update_cart_items()
         self.update_total_amount()
         self.call("updateCartCounter")
-        self.call("displayMessages", messages.SUCCESS, "Producto removido del carrito")
+        self.call("addMessage", messages.SUCCESS, "Producto removido del carrito")
 
 
     def increment_quantity(self, key: str, quantity: int = 1) -> None:
@@ -140,7 +140,7 @@ class ShoppingCartView(UnicornView):
         self.update_cart_items()
         self.update_total_amount()
         self.call("updateCartCounter")
-        self.call("displayMessages", messages.SUCCESS, "Carrito limpiado exitosamente")
+        self.call("addMessage", messages.SUCCESS, "Carrito limpiado exitosamente")
 
 
     def update_cart_items(self) -> None:

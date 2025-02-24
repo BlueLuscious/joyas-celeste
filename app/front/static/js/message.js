@@ -1,8 +1,8 @@
 import { MessageService } from "./services/message-service.js"
 
-window.displayMessages = MessageService.displayMessages
-window.hideMessages = MessageService.hideMessages
+window.addMessage = MessageService.addMessage
+window.removeMessage = MessageService.removeMessage
 
 document.addEventListener("DOMContentLoaded", () => {
-    MessageService.displayMessages()
+    MessageService.addDjangoMessage()
 })

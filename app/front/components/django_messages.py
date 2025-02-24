@@ -48,7 +48,13 @@ class DjangoMessagesView(UnicornView):
 
     def add_message(self, level: int = 0, text: str = "") -> PollUpdate | None:
 
-        """ Add message to `message_list` reactively. """
+        """
+        Add message to `message_list` reactively.
+
+        Args:
+            level (int): Message level.
+            text (str): Message text.
+        """
 
         if level and text != "":
             self.messages_list.append(MessageO(text, level).to_dict())

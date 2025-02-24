@@ -5,7 +5,7 @@ from django.utils.timezone import now, timedelta
 class MessageO:
 
     """
-    Message Entity. 
+    MessageO Entity. 
     
     Fields:
         text (str): Message text.
@@ -16,7 +16,14 @@ class MessageO:
     
     def __init__(self, text: str, level: int, expire_time: int = 3000) -> None:
 
-        """ Message Initializer. """
+        """
+        Message Initializer. 
+        
+        Args:
+            text (str): Message text.
+            level (int): Message level.
+            expire_time (int): Message expiration date.
+        """
 
         self.text = text
         self.level = level
@@ -26,7 +33,7 @@ class MessageO:
 
     def to_dict(self) -> dict:
 
-        """ Returns a dict of the Message data. """
+        """ Returns a dict of the MessageO data. """
 
         return dict(
             text=self.text,
@@ -36,7 +43,18 @@ class MessageO:
         )
     
 
-    def get_level_tag(self, level: int) -> str:
+    def get_level_tag(self, level: int = messages.INFO) -> str:
+
+        """
+        Get level tag of a MessageO. 
+        
+        Args:
+            level (int): Message level.
+        
+        Returns:
+            str: Level tag.
+        """
+
         if level == messages.SUCCESS:
             tag = "success"
         elif level == messages.WARNING:

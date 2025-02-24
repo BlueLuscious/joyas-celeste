@@ -12,7 +12,7 @@
     {% include "tailwind/cdn-tailwind.html" %}
 </head>
 <body>
-
+    {% csrf_token %}
     <!-- Messages -->
     {% unicorn "django-messages" tailwind_class="z-30 top-4 md:left-4" %}
 

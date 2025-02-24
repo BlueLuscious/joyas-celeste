@@ -13,6 +13,7 @@
         {% if request.path != "/checkout/" and request.path != "/payment/" %}
         onclick="openSideNavbar('background_rsn', 'right_side_navbar', 'translate-x-full')"
         {% endif %}>
+        {% csrf_token %}
         {% unicorn "shopping-cart-counter" %}
         {% include "../icons/shopping-bag.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 cursor-pointer" %}
     </div>

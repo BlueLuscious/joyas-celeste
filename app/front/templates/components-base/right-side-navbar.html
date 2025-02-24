@@ -9,6 +9,7 @@
     sm:w-2/4 lg:w-1/4 bg-white transform translate-x-full transition-transform duration-300 ease-in-out">
 
     <div class="relative w-full h-full">
+        {% csrf_token %}
         {% unicorn "shopping-cart" dollar_blue=dollar_blue %}
     </div>
 </div>

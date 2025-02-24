@@ -3,7 +3,8 @@
 {% load unicorn %}
 
 {% block content %}
-<body>          
+<body>
+    {% csrf_token %}
     <!-- Products Component -->
     {% unicorn "products" category=category subcategory=subcategory %}
 </body>

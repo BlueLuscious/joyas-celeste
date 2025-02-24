@@ -1,5 +1,5 @@
 import logging
-from django.contrib.messages import get_messages
+from django.contrib import messages
 from django.contrib.messages.storage.base import Message
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django_unicorn.components import PollUpdate, UnicornView
@@ -25,15 +25,23 @@ class DjangoMessagesView(UnicornView):
         self.update_message_list()
 
 
-    def add_message(self) -> PollUpdate | None:
+    def get_messages(self) -> list[Message]:
+        storage: FallbackStorage = messages.get_messages(self.request)
+        storage.used = True
+        logger.info(f"Get Django Messages: {list(storage)}")
+        return list(storage)
+
+
+    def add_message(self, level: int = 0, text: str = "") -> PollUpdate | None:
 
         """ Add the first message from Django Messages to `message_list` reactively. """
 
-        storage: FallbackStorage = get_messages(self.request)
-        message: Message = None
 
-        if len(list(storage)) >= 1:
-            message = list(storage)[0]
+        if level and text != "":
+            messages.add_message(self.request, level, text)
+
+        storage = self.get_messages()
+        message = next(iter(storage), None)
 
         if message:
             new_message = dict(text=message.message, level_tag=message.level_tag)

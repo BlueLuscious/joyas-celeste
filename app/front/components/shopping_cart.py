@@ -60,21 +60,18 @@ class ShoppingCartView(UnicornView):
             logger.info(f"Add item to cart: {cart_item}")
             self.update_cart_items()
             self.update_total_amount()
-            messages.success(self.request, "Producto agregado al carrito")
-            self.call("displayMessages")
             self.call("updateCartCounter")
+            self.call("displayMessages", messages.SUCCESS, "Producto agregado al carrito")
         else:
             cart_item = self.cart_items.get(cart=self.cart_model, key=key)
             if cart_item.quantity < cart_item.stock:
                 self.increment_quantity(key)
-                messages.success(self.request, "Producto actualizado en el carrito")
-                self.call("displayMessages")
+                self.call("displayMessages", messages.SUCCESS, "Producto actualizado al carrito")
             else:
                 logger.info(f"No more stock: {cart_item}")
                 self.update_cart_items()
                 self.update_total_amount()
-                messages.info(self.request, "Cantidad insuficiente")
-                self.call("displayMessages")
+                self.call("displayMessages", messages.INFO, "Cantidad insuficiente")
 
 
     def remove_from_cart(self, key: str) -> None:
@@ -91,9 +88,8 @@ class ShoppingCartView(UnicornView):
         logger.info(f"Remove item from cart: {cart_item}")
         self.update_cart_items()
         self.update_total_amount()
-        messages.success(self.request, "Producto removido del carrito")
-        self.call("displayMessages")
         self.call("updateCartCounter")
+        self.call("displayMessages", messages.SUCCESS, "Producto removido del carrito")
 
 
     def increment_quantity(self, key: str, quantity: int = 1) -> None:
@@ -143,9 +139,8 @@ class ShoppingCartView(UnicornView):
         self.cart_model.items.all().delete()
         self.update_cart_items()
         self.update_total_amount()
-        messages.success(self.request, "Carrito limpiado exitosamente")
         self.call("updateCartCounter")
-        self.call("displayMessages")
+        self.call("displayMessages", messages.SUCCESS, "Carrito limpiado exitosamente")
 
 
     def update_cart_items(self) -> None:

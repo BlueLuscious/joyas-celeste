@@ -16,6 +16,9 @@
 <body>
     {% csrf_token %}
     
+    <!-- Messages -->
+    {% unicorn "django-messages" tailwind_class="z-30 top-28 md:left-4" %}
+
     <section>
         {% include "components-base/navbar.html" %} <!-- NAVBAR -->
         {% include "components-base/left-side-navbar.html" %} <!-- LEFT SIDE NAVBAR -->
@@ -30,9 +33,6 @@
     <section>
         {% include "components-base/footer.html" %} <!-- FOOTER -->
     </section>
-
-    <!-- messages -->
-    {% unicorn "django-messages" tailwind_class="z-30 top-28 md:left-4" %}
 
     <!-- whatsapp button -->
     <div id="whatsapp_button" onclick="openWhatsApp()"

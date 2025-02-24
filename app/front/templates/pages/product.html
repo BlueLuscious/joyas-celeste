@@ -40,10 +40,9 @@
                     </div>
                 </div>
                 <div>
-                    <form id="product_form_{{ product.uuid }}" class="flex flex-col items-center w-full">
-                        {% csrf_token %}
+                    <div class="flex flex-col items-center w-full">
                         {% unicorn "product-variation" product=product %}
-                    </form>
+                    </div>
                 </div>
                 {% if product.description %}
                 <div class="flex flex-col items-center w-full">

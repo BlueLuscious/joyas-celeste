@@ -8,9 +8,11 @@ export class ShoppingCartService {
     * @returns {void} None.
     */
     static addToCart(product_uuid) {
+        console.log(`Product UUID: ${product_uuid}`)
         let product_size = document.getElementById(product_uuid)
 
         if (product_size) {
+            console.log(`Product Size: ${product_size.value}`)
             Unicorn.call("shopping-cart", "add_to_cart", product_uuid, product_size.value)
         }
     }

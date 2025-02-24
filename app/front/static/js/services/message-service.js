@@ -4,10 +4,12 @@ export class MessageService {
     * Display Messages:
     * 
     * Use Unicorn to call methods, display django messages.
+    * @param {int} level Message Level (Default `0`).
+    * @param {string} text Text Message (Default `""`).
     * @returns {void} None.
     */
-    static displayMessages() {
-        Unicorn.call("django-messages", "add_message")
+    static displayMessages(level = 0, text = "") {
+        Unicorn.call("django-messages", "add_message", level, text)
     }
 
 

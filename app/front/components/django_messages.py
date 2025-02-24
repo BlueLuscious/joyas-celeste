@@ -68,6 +68,7 @@ class DjangoMessagesView(UnicornView):
 
             if len(self.messages_list) > 0:
                 return PollUpdate(timing=3000, method="remove_message")
+        self.update_message_list(self.messages_list)
         return PollUpdate(disable=True)
             
 

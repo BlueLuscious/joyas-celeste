@@ -63,7 +63,7 @@
         {% endif %}
     </div>
 
-    {% if cart_items %}
+    {% if cart and cart_items %}
     <div class="flex-shrink-0 flex flex-col bg-white">
         <div class="flex flex-col gap-y-3 w-full p-3">
             <a href="{% url 'checkout' %}" class="w-full p-3 bg-primary-earth_tone_4 
@@ -76,7 +76,7 @@
                         Subtotal:
                     </div>
                     <div class="text-md font-semibold">
-                        $ {{ total_amount|convert_price_to_ARS:dollar_blue|format_number_AR }}
+                        $ {{ cart.total_price|convert_price_to_ARS:dollar_blue|format_number_AR }}
                     </div>
                 </div>
                 <div class="flex flex-row justify-between">
@@ -95,7 +95,7 @@
                 Total:
             </div>
             <div class="text-lg text-white font-semibold">
-                $ {{ total_amount|convert_price_to_ARS:dollar_blue|format_number_AR }}
+                $ {{ cart.total_price|convert_price_to_ARS:dollar_blue|format_number_AR }}
             </div>
         </div>
     </div>

@@ -21,7 +21,7 @@ class ShoppingCartCounterView(UnicornView):
         """ ShoppingCartCounterView First Creation. """
 
         if self.request.user.is_authenticated:
-            self.cart_model = CartModel.objects.filter(user=self.request.user).last()
+            self.cart = CartModel.objects.filter(user=self.request.user).last()
         self.update_cart_counter()
 
 
@@ -29,7 +29,6 @@ class ShoppingCartCounterView(UnicornView):
 
         """ Update `cart_items_count` reactively. """
 
-        if self.request.user.is_authenticated and self.cart_model:
-            self.cart_items_count = self.cart_model.items.count()
+        self.cart_items_count = self.cart.items.count() if self.cart else 0
         logger.info(f"Quantity of items in cart: {self.cart_items_count}")
         

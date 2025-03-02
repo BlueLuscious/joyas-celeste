@@ -1,6 +1,7 @@
 import logging
 from django_unicorn.components import UnicornView
 from cart.models.cart_model import CartModel
+from client.models.client_model import ClientModel
 
 logger = logging.getLogger(__name__)
 
@@ -20,8 +21,8 @@ class ShoppingCartCounterView(UnicornView):
 
         """ ShoppingCartCounterView First Creation. """
 
-        if self.request.user.is_authenticated:
-            self.cart = CartModel.objects.filter(user=self.request.user).last()
+        self.user: ClientModel = self.request.user
+        self.cart = CartModel.objects.filter(user=self.user).last() if self.user.is_authenticated else None
         self.update_cart_counter()
 
 

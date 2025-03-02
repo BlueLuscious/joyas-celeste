@@ -37,8 +37,7 @@ class ShoppingCartView(UnicornView):
 
         """ Set `cart` reactively. """
 
-        if self.user.is_authenticated:
-            self.cart = CartModel.objects.filter(user=self.user).last()
+        self.cart = CartModel.objects.filter(user=self.user).last() if self.user.is_authenticated else None
         logger.info(f"Set cart: {self.cart}")
 
 

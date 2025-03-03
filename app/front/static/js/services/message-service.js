@@ -1,9 +1,9 @@
 export class MessageService {
 
     /**
-    * Show Django Messages:
+    * Add Django Messages:
     * 
-    * Use Unicorn to call methods, show django message.
+    * Use Unicorn to call methods, add django message.
     * @returns {void} None.
     */
     static addDjangoMessage() {
@@ -12,9 +12,9 @@ export class MessageService {
 
 
     /**
-    * Show Messages:
+    * Add Messages:
     * 
-    * Use Unicorn to call methods, show message.
+    * Use Unicorn to call methods, add message.
     * @param {int} level Message Level (Default `0`).
     * @param {string} text Text Message (Default `""`).
     * @returns {void} None.

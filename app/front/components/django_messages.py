@@ -24,7 +24,7 @@ class DjangoMessagesView(UnicornView):
 
         """ DjangoMessagesView First Creation. """
 
-        self.messages_list: list[dict] = []
+        self.messages_list = []
         storage: FallbackStorage = messages.get_messages(self.request)
         storage.used = True
         self.storage = list(storage)
@@ -34,8 +34,8 @@ class DjangoMessagesView(UnicornView):
 
         """ Add message from Django Messages to `message_list` reactively. """
 
-        if list(self.storage):
-            logger.info(f"Get Django Messages: {list(self.storage)}")
+        if self.storage:
+            logger.info(f"Get Django Messages: {self.storage}")
             message: Message = next(iter(self.storage), None)
             self.messages_list.append(MessageO(message.message, message.level).to_dict())
             logger.info(f"Add message to list: {message.message}")

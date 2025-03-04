@@ -17,7 +17,7 @@
     <!-- Shopping Cart Button -->
     <button type="button" id="cart" class="relative pr-5" 
         {% if request.path != "/checkout/" and request.path != "/payment/" %} 
-        unicorn:click.debounce-0500="display_cart('True')"
+        unicorn:click.debounce-0300="display_cart('True')"
         {% endif %}>
         {% csrf_token %}
         <div id="bubble_counter" 

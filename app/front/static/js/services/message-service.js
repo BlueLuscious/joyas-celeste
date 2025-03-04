@@ -22,16 +22,5 @@ export class MessageService {
     static addMessage(level = 0, text = "") {
         Unicorn.call("django-messages", "add_message", level, text)
     }
-
-
-    /**
-    * Remove Messages:
-    * 
-    * Use Unicorn to call methods, remove message.
-    * @returns {void} None.
-    */
-    static removeMessage() {
-        Unicorn.call("django-messages", "remove_message")
-    }
     
 }

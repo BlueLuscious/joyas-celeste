@@ -59,7 +59,7 @@ class DjangoMessagesView(UnicornView):
             text (str): Message text.
         """
 
-        if level and text != "":
+        if level and text.strip() != "":
             self.messages_list.append(MessageO(text, level).to_dict())
             logger.info(f"Add message to list: {text}")
 

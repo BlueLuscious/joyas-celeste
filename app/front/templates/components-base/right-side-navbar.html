@@ -25,7 +25,7 @@
             <!-- Cart Header -->
             <div class="flex flex-row items-center justify-between w-full h-20 mt-2 px-2">
                 <div class="ml-5 text-xl cinzel-semibold">Carrito</div>
-                <button type="button" id="close_cart" unicorn:click="display_cart('False')" 
+                <button type="button" id="close_cart" unicorn:click.debounce-0500="display_cart('False')" 
                     class="flex items-center mr-5 ml-auto">
                     {% include "../icons/x-mark.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 transition-transform duration-300 ease-in-out cursor-pointer hover:-rotate-90" %}
                 </button>

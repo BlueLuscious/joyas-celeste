@@ -3,7 +3,7 @@
 
 <div>
     <!-- Navbar -->
-    {% include "components-base/navbar.html" %}
+    {% include "components-base/navbar.html" with cart_items=cart_items %}
     <!-- Right Side Navbar -->
-    {% include "components-base/right-side-navbar.html" %}
+    {% include "components-base/right-side-navbar.html" with is_cart_open=is_cart_open cart=cart cart_items=cart_items %}
 </div>

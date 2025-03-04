@@ -3,13 +3,117 @@
 {% load filters.product_filter %}
 
 <div id="background_rsn" class="fixed z-40 left-0 bottom-0 w-full h-full bg-black bg-opacity-20
-    transform translate-x-full">
+    transform 
+    {% if not is_cart_open %} translate-x-full {% endif %}">
 </div>
 <div id="right_side_navbar" class="fixed z-50 right-0 bottom-0 flex flex-col items-center gap-y-4 h-full w-full 
-    sm:w-2/4 lg:w-1/4 bg-white transform translate-x-full transition-transform duration-300 ease-in-out">
+    sm:w-2/4 lg:w-1/4 bg-white transform transition-transform duration-300 ease-in-out
+    {% if not is_cart_open %} translate-x-full {% endif %}">
 
     <div class="relative w-full h-full">
         {% csrf_token %}
-        {% unicorn "shopping-cart" dollar_blue=dollar_blue %}
+        
+        <div class="flex flex-col h-screen">
+
+            <!-- Not Cart Items Message -->
+            {% if not cart_items %}
+            <div id="empty_shopping_cart" class="absolute flex justify-center w-full top-1/2">
+                <div class="text-lg mukta-light">Tu carrito está vacío</div>
+            </div>
+            {% endif %}
+        
+            <!-- Cart Header -->
+            <div class="flex flex-row items-center justify-between w-full h-20 mt-2 px-2">
+                <div class="ml-5 text-xl cinzel-semibold">Carrito</div>
+                <button type="button" id="close_cart" unicorn:click="display_cart('False')" 
+                    class="flex items-center mr-5 ml-auto">
+                    {% include "../icons/x-mark.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 transition-transform duration-300 ease-in-out cursor-pointer hover:-rotate-90" %}
+                </button>
+            </div>
+        
+            <!-- Cart items -->
+            <div id="cart_items" class="overflow-y-auto overscroll-contain flex flex-grow flex-col gap-y-4 
+                h-[32rem] mx-2 px-2 py-4 border-y-2 border-secondary-gray_tone_1">
+                {% if cart_items %}
+                {% for item in cart_items %}
+                <div class="relative flex flex-col w-full border 
+                    border-primary-earth_tone_3_light rounded-sm shadow-md">
+                    <div class="flex flex-row w-full">
+                        <div class="w-2/5">
+                            {% if item.product.image %}
+                            <img class="w-full rounded-t-sm" src="{% if item.product.image %}{{ item.product.image.url }}{% endif %}">
+                            {% else %}
+                            <img class="w-full rounded-t-sm" src="{% static 'images/default-no-image.png' %}">
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col items-center justify-center gap-y-2 w-3/5">
+                            <div>{{ item.product.name }}</div>
+                            <div class="font-semibold">$ {{ item.price|convert_price_to_ARS:dollar_blue|format_number_AR }}</div>
+                            <div>Talle {{ item.size }}</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row items-center justify-around p-2.5 bg-primary-earth_tone_3_light">
+                        <button type="button" unicorn:click="decrement_quantity('{{ item.key }}')"
+                            class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
+                            {% include "../icons/minus-sign.html" with tailwind_class="size-4" %}
+                        </button>
+                        <div class="w-1/4 p-0.5 text-center text-primary-earth_tone_4 bg-white border-2
+                            border-primary-earth_tone_4 rounded-md">
+                            {{ item.quantity }}
+                        </div>
+                        <button type="button" unicorn:click="increment_quantity('{{ item.key }}')"
+                            class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
+                            {% include "../icons/plus-sign.html" with tailwind_class="size-4" %}                              
+                        </button>
+                    </div>
+                    <button type="button" class="absolute top-1 right-1"
+                        unicorn:click="remove_from_cart('{{ item.key }}')">
+                        {% include "../icons/trash.html" with tailwind_class="size-6 text-red-700" %}
+                    </button>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            
+            <!-- Total Cart Price -->
+            {% if cart and cart_items %}
+            <div class="flex-shrink-0 flex flex-col bg-white">
+                <div class="flex flex-col gap-y-3 w-full p-3">
+                    <a href="{% url 'checkout' %}" class="w-full p-3 bg-primary-earth_tone_4 
+                        text-white text-center rounded-md shadow-md hover:bg-primary-earth_tone_4/70">
+                        Continuar la compra
+                    </a>
+                    <div class="flex flex-col gap-y-2">
+                        <div class="flex flex-row justify-between">
+                            <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">
+                                Subtotal:
+                            </div>
+                            <div class="text-md font-semibold">
+                                $ {{ cart.total_price|convert_price_to_ARS:dollar_blue|format_number_AR }}
+                            </div>
+                        </div>
+                        <div class="flex flex-row justify-between">
+                            <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">
+                                Envio:
+                            </div>
+                            <div class="text-md font-semibold">
+                                $ {{ 0|format_number_AR }} <!-- Agregar boton de añadir costo de Envio -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-row justify-between p-3 bg-primary-earth_tone_4">
+                    <div class="text-lg text-primary-earth_tone_3_light cinzel-semibold">
+                        Total:
+                    </div>
+                    <div class="text-lg text-white font-semibold">
+                        $ {{ cart.total_price|convert_price_to_ARS:dollar_blue|format_number_AR }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
     </div>
 </div>

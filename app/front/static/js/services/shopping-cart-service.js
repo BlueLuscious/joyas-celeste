@@ -17,15 +17,4 @@ export class ShoppingCartService {
         }
     }
 
-
-    /**
-    * Update shopping cart counter:
-    * 
-    * Use Unicorn to call methods, update shopping cart counter.
-    * @returns {void} None.
-    */
-    static updateCartCounter() {
-        Unicorn.call("shopping-cart-counter", "update_cart_counter")
-    }
-
 }

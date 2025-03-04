@@ -2,19 +2,30 @@
 {% load unicorn %}
 
 <div class="fixed left-0 top-0 z-20 w-full flex flex-row items-center justify-between p-2 bg-white shadow-lg">
-    <div id="menu" class="pl-5" 
+
+    <!-- Menu Button -->
+    <button type="button" id="menu" class="pl-5" 
         onclick="openSideNavbar('background_lsn', 'left_side_navbar', '-translate-x-full')">
         {% include "../icons/menu.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 cursor-pointer" %}
-    </div>
+    </button>
+
+    <!-- Logo -->
     <div class="w-32 h-20">
         <img class="w-32 h-20" src="{% static 'images/cj-logo.png' %}" alt="">
     </div>
-    <div id="cart" class="relative pr-5" 
-        {% if request.path != "/checkout/" and request.path != "/payment/" %}
-        onclick="openSideNavbar('background_rsn', 'right_side_navbar', 'translate-x-full')"
+
+    <!-- Shopping Cart Button -->
+    <button type="button" id="cart" class="relative pr-5" 
+        {% if request.path != "/checkout/" and request.path != "/payment/" %} 
+        unicorn:click="display_cart('True')"
         {% endif %}>
         {% csrf_token %}
-        {% unicorn "shopping-cart-counter" %}
+        <div id="bubble_counter" 
+            class="absolute -top-1 right-3 w-6 h-6 bg-primary-earth_tone_4 text-center text-white 
+            rounded-full shadow-md cursor-pointer scale-90">
+            {{ cart.items.count }}
+        </div>
         {% include "../icons/shopping-bag.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 cursor-pointer" %}
-    </div>
+    </button>
+
 </div>

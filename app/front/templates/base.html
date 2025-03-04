@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script defer src="https://unpkg.com/@alpinejs/morph@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     {% unicorn_scripts %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,20 +21,20 @@
     <!-- Messages -->
     {% unicorn "django-messages" tailwind_class="z-30 top-28 md:left-4" %}
 
-    <section>
-        {% include "components-base/navbar.html" %} <!-- NAVBAR -->
-        {% include "components-base/left-side-navbar.html" %} <!-- LEFT SIDE NAVBAR -->
-        {% include "components-base/right-side-navbar.html" %} <!-- RIGHT SIDE NAVBAR -->
-    </section>    
+    <!-- Shopping Cart -->
+    {% unicorn "shopping-cart" dollar_blue=dollar_blue %}
 
+    <!-- Left Side Navbar -->
+    {% include "components-base/left-side-navbar.html" %}
+
+    <!-- Main Content -->
     <section class="bg-primary-earth_tone_3_light">
         {% block content %}
         {% endblock content %}
     </section>
 
-    <section>
-        {% include "components-base/footer.html" %} <!-- FOOTER -->
-    </section>
+    <!-- Footer -->
+    {% include "components-base/footer.html" %}
 
     <!-- whatsapp button -->
     <div id="whatsapp_button" onclick="openWhatsApp()"

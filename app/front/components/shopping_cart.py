@@ -77,8 +77,7 @@ class ShoppingCartView(UnicornView):
             logger.info(f"Add item to cart: {cart_item}")
             self.set_cart()
             self.set_cart_items()
-            messages.success(self.request, "Producto agregado al carrito")
-            self.call("addDjangoMessage")
+            self.call("addMessage", messages.SUCCESS, "Producto agregado al carrito")
         else:
             cart_item = CartItemModel.objects.get(cart=self.cart, key=key)
             if cart_item.quantity < cart_item.stock:

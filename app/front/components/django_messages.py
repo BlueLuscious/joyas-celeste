@@ -16,12 +16,13 @@ class DjangoMessagesView(UnicornView):
 
     **Bound Properties**:
         **message_list (list[dict])**: List of dictionaries with message data.
+        **is_poll_disable (bool)**: Keep poll refreshing or stop it.
     """
     
     messages_list: list[dict] = []
     is_poll_disable: bool = True
 
-    def mount(self):
+    def mount(self) -> None:
 
         """ DjangoMessagesView First Creation. """
 

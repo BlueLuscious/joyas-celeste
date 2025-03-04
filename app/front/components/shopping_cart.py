@@ -27,6 +27,9 @@ class ShoppingCartView(UnicornView):
     cart_items: QuerySet[CartItemModel] = CartItemModel.objects.none()
 
     def mount(self) -> None:
+
+        """ DjangoMessagesView First Creation. """
+        
         self.user = ClientModel.objects.filter(pk=self.request.user.pk).first() if self.request.user else None
         self.set_cart()
         self.set_cart_items()

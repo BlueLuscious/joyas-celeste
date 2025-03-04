@@ -28,7 +28,9 @@ class ShoppingCartView(UnicornView):
     user: ClientModel = None
 
     def mount(self) -> None:
-        self.user = self.request.user
+        self.user = self.request.user if self.request.user.is_authenticated else None
+        if self.user:
+            self.user = ClientModel.objects.get(pk=self.user.pk)
 
 
     def hydrate(self) -> None:

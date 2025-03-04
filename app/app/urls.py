@@ -23,9 +23,9 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("unicorn/", include("django_unicorn.urls")),
     path("", include("front.urls")),
     path("", include("authy.urls")),
-    path("unicorn/", include("django_unicorn.urls")),
 ]
 
 if settings.DEBUG:

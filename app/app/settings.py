@@ -177,6 +177,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "client.ClientModel"
 
 # First Superuser
+FIRST_ADMIN_USERNAME = os.getenv("FIRST_ADMIN_USERNAME", "")
 FIRST_ADMIN_PASSWORD = os.getenv("FIRST_ADMIN_PASSWORD", "")
 
 # Set redirects

@@ -19,6 +19,7 @@ class DjangoMessagesView(UnicornView):
     """
     
     messages_list: list[dict] = []
+    is_poll_disable: bool = True
 
     def mount(self):
 
@@ -40,7 +41,8 @@ class DjangoMessagesView(UnicornView):
             self.messages_list.append(MessageO(message.message, message.level).to_dict())
             logger.info(f"Add message to list: {message.message}")
 
-            if len(self.messages_list) == 1:
+            if self.is_poll_disable:
+                self.is_poll_disable = False
                 return PollUpdate(timing=3000, method="clean_messages")
         else:
             logger.info("No new django message to add")
@@ -60,7 +62,8 @@ class DjangoMessagesView(UnicornView):
             self.messages_list.append(MessageO(text, level).to_dict())
             logger.info(f"Add message to list: {text}")
 
-            if len(self.messages_list) == 1:
+            if self.is_poll_disable:
+                self.is_poll_disable = False
                 return PollUpdate(timing=3000, method="clean_messages")
         else:
             logger.info("No new message to add")
@@ -75,7 +78,8 @@ class DjangoMessagesView(UnicornView):
             self.messages_list = [m for m in self.messages_list if now() < datetime.fromisoformat(m["expire_at"])]
             logger.info(f"Oldest messages in list: {self.messages_list}")
 
-            if not self.messages_list:
+            if not self.messages_list and not self.is_poll_disable:
+                self.is_poll_disable = True
                 return PollUpdate(disable=True)
         else:
             logger.info(f"No old messages in list to clean")

@@ -42,6 +42,8 @@ class ShoppingCartView(UnicornView):
         """
 
         self.is_cart_open = is_open
+        self.set_cart()
+        self.set_cart_items()
 
 
     def set_cart(self) -> None:

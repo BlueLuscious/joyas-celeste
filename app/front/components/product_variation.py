@@ -19,6 +19,7 @@ class ProductVariationView(UnicornView):
     
     variations: QuerySet[ProductVariationModel] = ProductVariationModel.objects.none()
     product_stock: int = 0
+    product_size: int = 0
 
     def mount(self) -> None:
 
@@ -44,7 +45,8 @@ class ProductVariationView(UnicornView):
             size (int): Product size.
         """
 
-        variation = self.product.variations.get(measure__size=size) # TODO: Bug: Sometimes get None
+        self.product_size = size
+        variation = self.product.variations.filter(measure__size=size).first() # TODO: Bug: Sometimes get None
         self.product_stock = variation.stock if variation else 0
         logger.info(f"Product variation: {variation} | Variation stock: {self.product_stock}")
         

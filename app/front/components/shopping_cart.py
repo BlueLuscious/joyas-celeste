@@ -28,9 +28,9 @@ class ShoppingCartView(UnicornView):
     user: ClientModel = None
 
     def mount(self) -> None:
-        self.user = self.request.user if self.request.user.is_authenticated else None
-        if self.user:
-            self.user = ClientModel.objects.get(pk=self.user.pk)
+        self.user = ClientModel.objects.get(pk=self.request.user.pk) if self.request.user.is_authenticated else None
+        self.set_cart()
+        self.set_cart_items()
 
 
     def hydrate(self) -> None:
@@ -62,7 +62,7 @@ class ShoppingCartView(UnicornView):
         
         """ Set `cart_items` reactively. """
 
-        self.cart_items = self.cart.items.all() if self.cart else CartItemModel.objects.none()
+        self.cart_items = CartItemModel.objects.filter(cart=self.cart) if self.cart else CartItemModel.objects.none()
         logger.info(f"Set cart items: {self.cart_items}")
 
 

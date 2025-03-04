@@ -25,10 +25,9 @@ class ShoppingCartView(UnicornView):
     is_cart_open: bool = False
     cart: CartModel = None
     cart_items: QuerySet[CartItemModel] = CartItemModel.objects.none()
-    user: ClientModel = None
 
     def mount(self) -> None:
-        self.user = ClientModel.objects.get(pk=self.request.user.pk) if self.request.user else None
+        self.user: ClientModel = self.request.user
         self.set_cart()
         self.set_cart_items()
 

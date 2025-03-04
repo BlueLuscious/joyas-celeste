@@ -184,6 +184,9 @@ FIRST_ADMIN_PASSWORD = os.getenv("FIRST_ADMIN_PASSWORD", "")
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "login"
 
+# Set paths
+SIGN_UP_PATH = "sign-up"
+
 
 # Logs
 LOGGING = {

@@ -1,6 +1,5 @@
 from app.exceptions.custom_exception import CustomException
-
-SIGN_UP_REDIRECT = "sign-up"
+from app.settings import SIGN_UP_PATH
 
 
 class SignUpError(CustomException):
@@ -12,7 +11,7 @@ class SignUpError(CustomException):
             log,
             "Ocurrió un error inesperado",
             "Sign Up Unexpected Error",
-            SIGN_UP_REDIRECT,
+            SIGN_UP_PATH,
         )
 
 class PasswordMismatchError(CustomException):
@@ -24,7 +23,7 @@ class PasswordMismatchError(CustomException):
             log,
             "Las contraseñas no coinciden", 
             "Mismatching Passwords",
-            SIGN_UP_REDIRECT,
+            SIGN_UP_PATH,
         )
 
 class PasswordLengthError(CustomException):
@@ -36,7 +35,7 @@ class PasswordLengthError(CustomException):
             log,
             "La contraseña debe tener en 6 y 12 caracteres",
             "Invalid Password Length",
-            SIGN_UP_REDIRECT,
+            SIGN_UP_PATH,
         )
 
 class UserAlreadyExistsError(CustomException):
@@ -48,6 +47,6 @@ class UserAlreadyExistsError(CustomException):
             log,
             "Un usuario con este nombre ya existe",
             "Existing User",
-            SIGN_UP_REDIRECT,
+            SIGN_UP_PATH,
         )
         

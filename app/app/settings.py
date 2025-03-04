@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import dj_database_url
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,18 +24,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-&8@n)_5t*az4x540@x88#6ysvtcj43f$^onlc+^7gw^09^y^4+"
+SECRET_KEY = os.getenv("SECRET_KEY", "test-key")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# ENVIRONMENT = os.environ.get("ENVIRONMENT", "local")
+ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
+DEBUG = True if ENVIRONMENT == "local" else False
 
-ALLOWED_HOSTS = []
+
+# Hosts
+if not DEBUG:
+    HOSTS = os.getenv("ALLOWED_HOSTS", [])
+    ALLOWED_HOSTS = HOSTS.split(",") if HOSTS else []
+    TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", [])
+    CSRF_TRUSTED_ORIGINS = TRUSTED_ORIGINS.split(",") if TRUSTED_ORIGINS else []
 
 
 # Application definition
-
 INSTALLED_APPS = [
+    "app",
     "client",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -43,12 +54,19 @@ INSTALLED_APPS = [
     "authy",
     "back",
     "cart",
+    "order",
     "product",
     "front",
+    "storages",
 ]
 
+if not DEBUG:
+    INSTALLED_APPS.append("gunicorn")
+
+# Middlewares
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware", # Whitenoise
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -83,18 +101,25 @@ WSGI_APPLICATION = "app.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if ENVIRONMENT == "local":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=os.getenv("DATABASE_URL", ""),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -113,47 +138,51 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# Bucket S3 (Current Wasabi)
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "")
+AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "")
+AWS_S3_ENDPOINT_URL = f"https://s3.{AWS_S3_REGION_NAME}.wasabisys.com"
+AWS_QUERYSTRING_AUTH = True
 
-# # Levanta servidor whitenoise de statics files cuando corre en docker (sino no llegarian los statics)
-# if ENVIRONMENT != "local":
-#     # Tell Django to copy statics to the `staticfiles` directory
-#     # in your application directory on Render.
-#     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-#     # Turn on WhiteNoise storage backend that takes care of compressing static files
-#     # and creating unique names for each version so they can safely be cached forever.
-#     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# Media files
+if ENVIRONMENT == "local":
+    MEDIA_URL = "media/"
+    MEDIA_ROOT = BASE_DIR / "media"
+else:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/"
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 # Authenticate by my model
 AUTH_USER_MODEL = "client.ClientModel"
+
+# First Superuser
+FIRST_ADMIN_PASSWORD = os.getenv("FIRST_ADMIN_PASSWORD", "")
 
 # Set redirects
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "login"
 
-# Media files
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Logs
 LOGGING = {
@@ -181,5 +210,11 @@ LOGGING = {
     },
 }
 
+
 # CriptoYa API
 CRIPTO_YA_BASE_URL = "https://criptoya.com"
+
+
+# MercadoPago API
+MP_PUBLIC_KEY = os.getenv("MP_PUBLIC_KEY", "") # Seller MP # TODO: Change for production
+MP_ACCESS_TOKEN = os.getenv("MP_ACCESS_TOKEN", "") # TODO: Change for production

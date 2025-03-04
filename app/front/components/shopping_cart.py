@@ -28,7 +28,7 @@ class ShoppingCartView(UnicornView):
 
     def mount(self) -> None:
 
-        """ DjangoMessagesView First Creation. """
+        """ ShoppingCartView First Creation. """
         
         self.user = ClientModel.objects.filter(pk=self.request.user.pk).first() if self.request.user else None
         self.set_cart()

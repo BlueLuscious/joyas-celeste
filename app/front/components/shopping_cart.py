@@ -27,7 +27,7 @@ class ShoppingCartView(UnicornView):
     cart_items: QuerySet[CartItemModel] = CartItemModel.objects.none()
 
     def mount(self) -> None:
-        self.user: ClientModel = self.request.user
+        self.user = ClientModel.objects.filter(pk=self.request.user.pk).first() if self.request.user else None
         self.set_cart()
         self.set_cart_items()
 
@@ -48,7 +48,7 @@ class ShoppingCartView(UnicornView):
 
         """ Set `cart` reactively. """
 
-        self.cart = CartModel.objects.filter(user=self.user).last() if self.user.is_authenticated else None
+        self.cart = CartModel.objects.filter(user=self.user).last() if self.user and self.user.is_authenticated else None
         logger.info(f"Set cart: {self.cart}")
 
 
@@ -85,6 +85,8 @@ class ShoppingCartView(UnicornView):
                 self.call("addMessage", messages.SUCCESS, "Producto actualizado al carrito")
             else:
                 logger.info(f"No more stock: {cart_item}")
+                self.set_cart()
+                self.set_cart_items()
                 self.call("addMessage", messages.INFO, "Cantidad insuficiente")
 
 
@@ -120,8 +122,8 @@ class ShoppingCartView(UnicornView):
             cart_item.quantity += quantity
             cart_item.price = cart_item.product.price * cart_item.quantity
             cart_item.save()
-            self.set_cart()
-            self.set_cart_items()
+        self.set_cart()
+        self.set_cart_items()
         logger.info(f"Increment quantity | Cart item: {cart_item}")
 
 
@@ -140,8 +142,8 @@ class ShoppingCartView(UnicornView):
             cart_item.quantity -= quantity
             cart_item.price = cart_item.product.price * cart_item.quantity
             cart_item.save()
-            self.set_cart()
-            self.set_cart_items()
+        self.set_cart()
+        self.set_cart_items()
         logger.info(f"Decrement quantity | Cart item: {cart_item}")
         
 

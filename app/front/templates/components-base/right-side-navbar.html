@@ -25,7 +25,7 @@
             <!-- Cart Header -->
             <div class="flex flex-row items-center justify-between w-full h-20 mt-2 px-2">
                 <div class="ml-5 text-xl cinzel-semibold">Carrito</div>
-                <button type="button" id="close_cart" unicorn:click.debounce-0500="display_cart('False')" 
+                <button type="button" id="close_cart" unicorn:click="display_cart('False')" 
                     class="flex items-center mr-5 ml-auto">
                     {% include "../icons/x-mark.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 transition-transform duration-300 ease-in-out cursor-pointer hover:-rotate-90" %}
                 </button>
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="flex flex-row items-center justify-around p-2.5 bg-primary-earth_tone_3_light">
-                        <button type="button" unicorn:click.debounce-0500="decrement_quantity('{{ item.key }}')"
+                        <button type="button" unicorn:click.debounce-0100="decrement_quantity('{{ item.key }}')"
                             class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
                             {% include "../icons/minus-sign.html" with tailwind_class="size-4" %}
                         </button>
@@ -61,13 +61,13 @@
                             border-primary-earth_tone_4 rounded-md">
                             {{ item.quantity }}
                         </div>
-                        <button type="button" unicorn:click.debounce-0500="increment_quantity('{{ item.key }}')"
+                        <button type="button" unicorn:click.debounce-0100="increment_quantity('{{ item.key }}')"
                             class="p-2 px-3 text-white bg-primary-earth_tone_4 rounded-sm">
                             {% include "../icons/plus-sign.html" with tailwind_class="size-4" %}                              
                         </button>
                     </div>
                     <button type="button" class="absolute top-1 right-1"
-                        unicorn:click.debounce-0500="remove_from_cart('{{ item.key }}')">
+                        unicorn:click.debounce-0100="remove_from_cart('{{ item.key }}')">
                         {% include "../icons/trash.html" with tailwind_class="size-6 text-red-700" %}
                     </button>
                 </div>

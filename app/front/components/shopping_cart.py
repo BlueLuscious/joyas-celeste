@@ -25,9 +25,10 @@ class ShoppingCartView(UnicornView):
     is_cart_open: bool = False
     cart: CartModel = None
     cart_items: QuerySet[CartItemModel] = CartItemModel.objects.none()
+    user: ClientModel = None
 
     def mount(self) -> None:
-        self.user: ClientModel = self.request.user
+        self.user = self.request.user
 
 
     def hydrate(self) -> None:
@@ -75,12 +76,12 @@ class ShoppingCartView(UnicornView):
         """
 
         key = f"{str(product.uuid)}_{size}"
-        if not self.cart_items.filter(cart=self.cart, key=key).exists():
+        if not CartItemModel.objects.filter(cart=self.cart, key=key).exists():
             cart_item = CartItemService(self.cart, product).create_cart_item(key, size, quantity)
             logger.info(f"Add item to cart: {cart_item}")
             self.call("addMessage", messages.SUCCESS, "Producto agregado al carrito")
         else:
-            cart_item = self.cart_items.get(cart=self.cart, key=key)
+            cart_item = CartItemModel.objects.get(cart=self.cart, key=key)
             if cart_item.quantity < cart_item.stock:
                 self.increment_quantity(key)
                 self.call("addMessage", messages.SUCCESS, "Producto actualizado al carrito")
@@ -98,7 +99,7 @@ class ShoppingCartView(UnicornView):
             key (str): Unique Identifier.
         """
 
-        cart_item = self.cart_items.get(cart=self.cart, key=key)
+        cart_item = CartItemModel.objects.get(cart=self.cart, key=key)
         cart_item.delete()
         logger.info(f"Remove item from cart: {cart_item}")
         self.call("addMessage", messages.SUCCESS, "Producto removido del carrito")
@@ -114,11 +115,12 @@ class ShoppingCartView(UnicornView):
             quantity (int): Quantity to increase, default 1.
         """
         
-        cart_item = self.cart_items.get(cart=self.cart, key=key)
+        cart_item = CartItemModel.objects.get(cart=self.cart, key=key)
         if cart_item.quantity < cart_item.stock:
             cart_item.quantity += quantity
             cart_item.price = cart_item.product.price * cart_item.quantity
             cart_item.save()
+            self.set_cart_items()
         logger.info(f"Increment quantity | Cart item: {cart_item}")
 
 
@@ -132,11 +134,12 @@ class ShoppingCartView(UnicornView):
             quantity (int): Quantity to decrease, default 1.
         """
 
-        cart_item = self.cart_items.get(cart=self.cart, key=key)
+        cart_item = CartItemModel.objects.get(cart=self.cart, key=key)
         if cart_item.quantity > 1:
             cart_item.quantity -= quantity
             cart_item.price = cart_item.product.price * cart_item.quantity
             cart_item.save()
+            self.set_cart_items()
         logger.info(f"Decrement quantity | Cart item: {cart_item}")
         
 
@@ -144,5 +147,5 @@ class ShoppingCartView(UnicornView):
 
         """ Clear entire `cart_items` reactively. """
 
-        self.cart.items.all().delete()
+        cart_items = CartItemModel.objects.filter(self.cart).delete()
         self.call("addMessage", messages.SUCCESS, "Carrito limpiado exitosamente")

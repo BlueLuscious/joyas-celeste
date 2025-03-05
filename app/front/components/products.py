@@ -102,28 +102,28 @@ class ProductsView(UnicornView):
         self.page_numbers = pagination_service.get_pagination_controls_range(5)
 
 
-    def updated_selected_category_filter(self, value: str) -> None:
+    def updated(self, name: str, value: str) -> None:
 
         """
-        Trigger when `selected_category_filter` is updated.
+        Trigger when a Bound Property is updated from the front-end.
+
+        Actions:
+            - Sets subcategories relative to a selected category and vice versa reactively.
 
         Args:
-            value (str): `selected_category_filter` value.
+            name (str): Bound property name.
+            value (str): Bound property value.
         """
 
-        self.selected_category = None if value == "" else CategoryModel.objects.get(pk=value)
-        self.selected_subcategory = None if self.selected_subcategory_filter == "" else SubcategoryModel.objects.get(pk=self.selected_subcategory_filter)
-    
+        if name not in ["selected_category_filter", "selected_subcategory_filter"]:
+            self.selected_category = None if self.selected_category_filter == "" else CategoryModel.objects.get(pk=self.selected_category_filter)
+            self.selected_subcategory = None if self.selected_subcategory_filter == "" else SubcategoryModel.objects.get(pk=self.selected_subcategory_filter)
 
-    def updated_selected_subcategory_filter(self, value: str) -> None:
-
-        """
-        Trigger when `selected_subcategory_filter` is updated.
-
-        Args:
-            value (str): `selected_subcategory_filter` value.
-        """
-
-        self.selected_category = None if self.selected_category_filter == "" else CategoryModel.objects.get(pk=self.selected_category_filter)
-        self.selected_subcategory = None if value == "" else SubcategoryModel.objects.get(pk=value)
+        if name == "selected_category_filter":
+            self.selected_category = None if value == "" else CategoryModel.objects.get(pk=value)
+            self.selected_subcategory = None if self.selected_subcategory_filter == "" else SubcategoryModel.objects.get(pk=self.selected_subcategory_filter)
         
+        if name == "selected_subcategory_filter":
+            self.selected_category = None if self.selected_category_filter == "" else CategoryModel.objects.get(pk=self.selected_category_filter)
+            self.selected_subcategory = None if value == "" else SubcategoryModel.objects.get(pk=value)
+            

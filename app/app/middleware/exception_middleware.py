@@ -18,9 +18,11 @@ class ExceptionMiddleware:
 
         self.get_response = get_response
 
+
     def __call__(self, request: WSGIRequest) -> HttpResponse:
         response: HttpResponse = self.get_response(request)
         return response
+
 
     def process_exception(self, request: WSGIRequest, exception: CustomException) -> HttpResponseRedirect:
         if isinstance(exception, CustomException):

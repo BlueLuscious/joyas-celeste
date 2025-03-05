@@ -34,8 +34,8 @@ class ProductService(ProductFilterService, ProductOrderService):
         self.queryset = self.queryset.annotate(
             has_stock=Exists(variations_with_stock)
         ).filter(has_stock=True)
+        
         logger.info(f"Products with stock: {self.queryset}")
-
         return self.queryset
 
 

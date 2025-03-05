@@ -30,7 +30,6 @@ class QueryFieldCollection:
         """
 
         self.fields[key] = QueryFieldDTO(field_name, label)
-        logger.info(f"Added field: {self.fields[key]}")
         return self.fields[key]
     
 
@@ -46,7 +45,6 @@ class QueryFieldCollection:
             QueryFieldDTO: QueryFieldDTO Instance.
         """
 
-        logger.info(f"Gotten field: {self.fields.get(key)}")
         return self.fields.get(key)
     
 
@@ -59,6 +57,5 @@ class QueryFieldCollection:
             dict[str, QueryFieldDTO]: A collection of QueryFieldDTO's.
         """
 
-        logger.info(f"Gotten fields: {self.fields}")
         return self.fields
     

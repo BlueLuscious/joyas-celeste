@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     """ Command to create the first superuser. """
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         User = get_user_model()
         if User.objects.count() == 0:
             username = FIRST_ADMIN_USERNAME

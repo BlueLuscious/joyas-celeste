@@ -47,6 +47,7 @@ class OrderModel(models.Model):
                 
         return f"Order: {self.uuid} - {self.user}"
     
+    
     @classmethod
     def create_order(cls, user: ClientModel) -> "OrderModel":
         

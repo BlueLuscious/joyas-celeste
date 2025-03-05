@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 class ClientService:
 
-    """ Service for Client Model. """
+    """ Service for ClientModel. """
 
     def __init__(self, user: ClientModel = None) -> None:
 

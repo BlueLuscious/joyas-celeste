@@ -32,6 +32,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
         Args:
             obj (CategoryModel): CategoryModel Instance.
+
+        Returns:
+            str: Subcategories.
         """
 
         return ", ".join([subcategory.name for subcategory in obj.subcategories.all()])

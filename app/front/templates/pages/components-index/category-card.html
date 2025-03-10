@@ -1,7 +1,8 @@
 {% load static %}
 
-<div class="relative flex items-center w-full h-full bg-cover bg-no-repeat bg-center  
-    rounded-lg shadow-md transform transition-transform duration-300 ease-in-out hover:scale-105
+<!-- Category Card -->
+<div id="category_{{ category_name|lower }}_card" class="relative flex items-center size-full bg-cover bg-no-repeat 
+    bg-center rounded-lg shadow-md transform transition-transform duration-300 ease-in-out hover:scale-105
     {% if category_name|lower == 'anillos' %}bg-[url('{% static 'images/ring-card.webp' %}')]
     {% elif category_name|lower == 'aros' %}bg-[url('{% static 'images/earrings-card.webp' %}')]
     {% elif category_name|lower == 'colgantes' %}bg-[url('{% static 'images/necklace-card.webp' %}')]
@@ -9,12 +10,13 @@
     {% endif %}
     "
 >
-    <!-- Blur -->
-    <div class="absolute bottom-0 left-0 right-0 w-full h-full bg-black/25 rounded-lg"></div>
+    <!-- Blurring -->
+    <div class="absolute bottom-0 left-0 right-0 size-full bg-black/25 rounded-lg"></div>
     
     <!-- Label -->
-    <a href="{{ url }}" class="z-0 flex items-center justify-center w-full h-full text-center">
+    <a href="{{ url }}" id="category_{{ category_name|lower }}_card_redirect" 
+        class="z-0 flex items-center justify-center size-full text-center"
+    >
         <span class="text-xl sm:text-3xl text-white cinzel-semibold">{{ category_name }}</span>
     </a>
-
 </div>

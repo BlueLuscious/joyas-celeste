@@ -2,32 +2,31 @@
 {% load unicorn %}
 {% load filters.product_filter %}
 
-<div class="relative flex flex-col items-center w-full h-full bg-white text-lg mukta-light 
-    rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
-    
+<!-- Product Card-->
+<div id="product_{{ product.uuid }}" class="flex flex-col items-center size-full bg-white text-sm sm:text-lg 
+    mukta-light rounded-lg shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105"
+>    
+    <!-- Add Product To Cart Button -->
     {% if request.user.is_authenticated %}
-    <button type="button" onclick="addToCart('{{ product.uuid }}')"
-        class="absolute top-2 right-2 p-1 bg-white rounded-md shadow-md cursor-pointer">
-        {% include "../../icons/shopping-bag-add.html" %}
+    <button type="button" id="add_product_{{ product.uuid }}_button" onclick="addToCart('{{ product.uuid }}')" 
+        class="absolute top-1 right-1 sm:top-2 sm:right-2 p-1 bg-white rounded-md shadow-md cursor-pointer"
+    >
+        {% include "../../icons/shopping-bag-add.html" with tailwind_class="size-6 sm:size-7 text-primary-earth_tone_4" %}
     </button>
     {% endif %}
 
-    <div class="w-full">
-        <a href="{% url 'product' name=product.slug %}">
-            {% if product.image %}
-            <img class="w-full rounded-t-lg" src="{% if product.image %}{{ product.image.url }}{% endif %}">
-            {% else %}
-            <img class="w-full rounded-t-lg" src="{% static 'images/default-no-image.png' %}">
-            {% endif %}
-        </a>
-    </div>
-    <div class="w-full p-2 text-center text-xl">
-        {{ product.name }}
-    </div>
-    <div class="w-full p-2 text-center font-semibold">
-        $ {{ product.price|convert_price_to_ARS:dollar_blue|format_number_AR }}
-    </div>
-    <div class="flex flex-col items-center w-full">
+    <!-- Product Card Info -->
+    <a href="{% url 'product' name=product.slug %}" id="product_{{ product.uuid }}_redirect" class="w-full">
+        <img class="w-full rounded-t-lg" 
+        {% if product.image %} src="{{ product.image.url }}" {% else %} src="{% static 'images/default-no-image.png' %}" {% endif %}
+    ></a>
+
+    <div class="flex flex-col gap-y-2 w-full p-2">
+        <div class="w-full text-center text-md sm:text-xl">{{ product.name }}</div>
+        <div class="w-full text-center font-semibold">
+            $ {{ product.price|convert_price_to_ARS:dollar_blue|format_number_AR }}
+        </div>
+        
         {% csrf_token %}
         {% unicorn "product-variation" product=product %}
     </div>

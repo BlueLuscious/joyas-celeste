@@ -5,34 +5,33 @@
 {% load filters.product_filter %}
 
 {% block content %}
-<body>
-    <!-- Category Cards -->
-    <section class="relative w-full h-screen pt-24 bg-primary-earth_tone_3">
-        <div class="grid grid-cols-1 sm:grid-cols-2 items-center justify-items-center
-            w-full h-full py-8 px-8 gap-8 md:py-12 md:px-12 md:gap-12">
+<!-- Category Cards -->
+<section id="category_cards_section" class="w-full h-screen pt-24 bg-primary-earth_tone_3">
+    <div class="grid grid-cols-1 sm:grid-cols-2 items-center justify-items-center
+        size-full p-8 gap-8 md:p-12 md:gap-12"
+    >
+        {% for category in categories %}
+            {% url 'category' name=category.slug as category_url %}
+            {% index_category_card category_url category.name %}
+        {% endfor %}
+    </div>
+</section>
 
-            {% for category in categories %}
-                {% url 'category' name=category.slug as category_url %}
-                {% index_category_card category_url category.name %}
-            {% endfor %}
+<!-- Products -->
+<section id="products_section" class="w-full py-4 sm:py-8 lg:py-12">
+    <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
+        <span class="text-2xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
+            Nuevos Productos
+        </span>
+    </div>
+    <div id="products" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center content-evenly 
+        justify-items-center size-full p-4 gap-4 sm:p-8 sm:gap-8 lg:p-12 lg:gap-12"
+    >
+        {% for product in products %}
+        {% product_card request product dollar_blue %}
+        {% endfor %}
+    </div>
+</section>
 
-        </div>
-    </section>
-
-    <!-- Products -->
-    <section class="relative w-full py-8 sm:py-12">
-        <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
-            <span class="text-2xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
-                Nuevos Productos
-            </span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center content-evenly 
-            justify-items-center w-full h-full py-8 px-8 gap-8 sm:py-12 sm:px-12 sm:gap-12">
-            {% for product in products %}
-            {% product_card request product dollar_blue %}
-            {% endfor %}
-        </div>
-    </section>
-</body>
 <script src="{% static 'js/index.js' %}"></script>
 {% endblock content %}

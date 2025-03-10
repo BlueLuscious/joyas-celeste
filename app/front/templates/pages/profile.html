@@ -2,34 +2,36 @@
 {% load static %}
 
 {% block content %}
-<section class="relative w-full min-h-screen pt-36 pb-12">
+<section id="profile_section" class="relative w-full min-h-screen pt-36 pb-12">
 
     <!-- Label -->
-    <div class="flex justify-center w-full">
-        <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
-            <span class="text-3xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
-                Mi Perfil
-            </span>
-        </div>
+    <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
+        <span class="text-2xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
+            Mi Perfil
+        </span>
     </div>
 
     <!-- User Data -->
-    <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-center 
-        content-evenly justify-items-center gap-8 md:gap-12 w-full h-full p-8 md:p-12 mukta-light">
+    <div id="profile_user_data" class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-center 
+        content-evenly justify-items-center gap-8 md:gap-12 size-full p-8 md:p-12 mukta-light"
+    >
         <div class="flex flex-col gap-y-4 w-full p-4 md:p-12 bg-white rounded-lg shadow-lg">
             <label class="font-semibold">Nombre completo</label>
             <input type="text" value="{{ request.user.get_full_name }}" readonly
-                class="p-2 ring-2 ring-primary-earth_tone_4_0750 outline-none rounded-md">
+                class="p-2 ring-2 ring-primary-earth_tone_4_0750 outline-none rounded-md"
+            >
         </div>
         <div class="flex flex-col gap-y-4 w-full p-4 md:p-12 bg-white rounded-lg shadow-lg">
             <label class="font-semibold">Email</label>
             <input type="text" value="{{ request.user.email }}" readonly 
-                class="p-2 ring-2 ring-primary-earth_tone_4_0750 outline-none rounded-md">
+                class="p-2 ring-2 ring-primary-earth_tone_4_0750 outline-none rounded-md"
+            >
         </div>
         <div class="flex flex-col gap-y-4 w-full p-4 md:p-12 bg-white rounded-lg shadow-lg">
             <label class="font-semibold">Contraseña</label>
             <input type="password" value="*********************" readonly
-                class="p-2 ring-2 ring-primary-earth_tone_4_0750 outline-none rounded-md">
+                class="p-2 ring-2 ring-primary-earth_tone_4_0750 outline-none rounded-md"
+            >
         </div>
     </div>
 

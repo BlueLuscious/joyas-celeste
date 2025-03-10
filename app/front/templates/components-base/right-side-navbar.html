@@ -34,12 +34,9 @@
             >
                 <div class="flex flex-row items-stretch justify-between gap-x-1 w-full p-1">
                     <div class="self-center w-2/5">
-                        {% if item.product.image %}
-                        <img class="w-full rounded-md" src="{% if item.product.image %}{{ item.product.image.url }}{% endif %}">
-                        {% else %}
-                        <img class="w-full rounded-md" src="{% static 'images/default-no-image.png' %}">
-                        {% endif %}
-                    </div>
+                        <img class="w-full rounded-md" 
+                        {% if item.product.image %} src="{{ item.product.image.url }}" {% else %} src="{% static 'images/default-no-image.png' %}" {% endif %}
+                    ></div>
                     <div class="flex flex-col items-center justify-center gap-y-1">
                         <div>{{ item.product.name }}</div>
                         <div class="font-semibold">$ {{ item.price|convert_price_to_ARS:dollar_blue|format_number_AR }}</div>

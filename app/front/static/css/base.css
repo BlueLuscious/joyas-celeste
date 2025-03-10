@@ -56,8 +56,8 @@ body {
 }
 
 
-#left_side_navbar::-webkit-scrollbar,
-#cart_items::-webkit-scrollbar,
+#left_sidebar_body::-webkit-scrollbar,
+#shopping_cart_items::-webkit-scrollbar,
 .sub_menu::-webkit-scrollbar {
     display: none;
     appearance: none;

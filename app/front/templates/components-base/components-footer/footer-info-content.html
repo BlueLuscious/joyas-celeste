@@ -1,14 +1,10 @@
-<div class="flex flex-col items-center p-6">
-    <div id="{{ id }}" 
-        class="flex flex-row items-center md:flex-col md:gap-y-4 lg:flex-row gap-x-4 w-fit cursor-pointer"
-        {% if event != "" %} onclick="{{ event }}()" {% endif %}>
-        <div>
-            {% include "icons/"|add:id|add:".html" with tailwind_class=icon_tailwind_class %}
-        </div>
-        <div class="p-1 border-b-2 border-transparent text-primary-earth_tone_3_light transition-all 
-            duration-200 ease-in-out hover:border-b-2 hover:border-primary-earth_tone_3_light 
-            hover:scale-105">
-            {{ content }}
-        </div>
-    </div>
+<!-- Footer Info Content -->
+<div id="{{ id }}_redirect" {% if event != "" %} onclick="{{ event }}()" {% endif %}
+    class="flex flex-row items-center gap-x-3 w-fit cursor-pointer"
+>
+    {% include "icons/"|add:id|add:".html" with tailwind_class=icon_tailwind_class %}
+    <div class="p-1 text-center border-b-2 border-transparent text-primary-earth_tone_3_light 
+        transition-all duration-200 ease-in-out hover:border-b-2 hover:border-primary-earth_tone_3_light 
+        hover:scale-105"
+    >{{ content }}</div>
 </div>

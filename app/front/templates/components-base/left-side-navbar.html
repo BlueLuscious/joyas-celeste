@@ -1,103 +1,107 @@
-<div id="background_lsn" class="fixed z-40 left-0 bottom-0 w-full h-full bg-black bg-opacity-20
-    transform -translate-x-full">
-</div>
-<div id="left_side_navbar" class="fixed z-50 left-0 bottom-0 flex flex-col gap-y-6
-    h-full w-full sm:w-2/4 lg:w-1/4 p-2 bg-white overflow-auto overscroll-contain 
-    transform -translate-x-full transition-transform duration-300 ease-in-out">
+<!-- Blurring -->
+<div id="background_lsb" class="fixed z-40 left-0 bottom-0 size-full bg-black bg-opacity-50 transform -translate-x-full"></div>
 
-    <div class="relative w-full h-full">
-        <div class="flex flex-row items-center justify-between w-full h-20">
-            <div id="close_menu" class="flex items-center ml-5 mr-auto"
-                onclick="openSideNavbar('background_lsn', 'left_side_navbar', '-translate-x-full')">
-                {% include "../icons/x-mark.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 transition-transform duration-300 ease-in-out cursor-pointer hover:rotate-90" %}
-            </div>
-            <div class="mr-5 text-xl cinzel-semibold">
-                Menú
+<!-- Left Sidebar -->
+<div id="left_sidebar" class="fixed z-50 left-0 bottom-0 size-full max-w-sm bg-white 
+    transform -translate-x-full transition-transform duration-300 ease-in-out"
+>
+    <div class="relative flex flex-col size-full">
+
+        <!-- Left Sidebar Header -->
+        <div id="left_sidebar_header" class="px-3">
+            <div class="flex flex-row items-center justify-between w-full h-24 px-1 border-b-2 border-gray-200">
+                <button type="button" id="close_menu_button" 
+                    onclick="openSideNavbar('background_lsb', 'left_sidebar', '-translate-x-full')"
+                >
+                    {% include "../icons/x-mark.html" with tailwind_class="size-8 text-primary-earth_tone_4 transition-transform duration-300 ease-in-out hover:rotate-90" %}
+                </button>
+                <div class="text-xl cinzel-semibold">Menú</div>
             </div>
         </div>
     
-        <div class="flex flex-col items-center w-full py-4 px-2 border-t-2 border-secondary-gray_tone_1">
-            <div class="flex flex-col gap-y-2 w-full">
+        <!-- Left Sidebar Body -->
+        <div id="left_sidebar_body" class="flex flex-col gap-y-2 w-full p-4 overflow-auto overscroll-contain">
     
-                {% if request.user.is_authenticated %}
-                <div class="p-2 text-center border-2 border-primary-earth_tone_4 rounded-sm">
-                    <a href="{% url 'profile' %}">
-                        <div class="w-full text-lg text-primary-earth_tone_4 cursor-pointer">Perfil</div>
-                    </a>
-                </div>
-                {% else %}
-                <div class="p-2 text-center border-2 border-primary-earth_tone_4 rounded-sm">
-                    <a href="{% url 'sign-up' %}">
-                        <div class="w-full text-lg cursor-pointer">Crear Cuenta</div>
-                    </a>
-                </div>
-                {% endif %}
-                
-                <div class="p-2 text-center border-2 rounded-sm">
-                    <a href="{% url 'index' %}">
-                        <div class="w-full text-lg cursor-pointer">Inicio</div>
-                    </a>
-                </div>
-    
-                <div class="p-2 text-center border-2 rounded-sm">
-                    <a href="{% url 'products' %}">
-                        <div class="w-full text-lg cursor-pointer">Productos</div>
-                    </a>
-                </div>
-                
-                <div>
-                    <div class="flex flex-row items-center justify-between p-2 text-center border-2 rounded-sm">
-                        <div class="w-full text-lg">Categorias</div>
-                        {% include "../icons/arrow-down.html" with rotate="rotate-0" tailwind_class="card_arrow w-5 h-5 transition-transform duration-300 ease-in-out cursor-pointer" %}                
-                    </div>
-        
-                    <div class="sub_menu h-0 p-0 transition-all duration-500 ease-in-out opacity-0 overflow-auto">
-                        <ul class="flex flex-col items-left gap-y-2">
-                            {% for category in categories %}
-                            <div class="flex flex-row items-center justify-between w-full px-3">
-                                <div class="w-fit">
-                                    <a href="{% url 'category' name=category.slug %}">
-                                        <li class="w-fit py-1 border-b-2">{{ category.name }}</li>
-                                    </a>
-                                </div>
-                                {% include "../icons/arrow-down.html" with rotate="rotate-0" tailwind_class="card_arrow w-5 h-5 transition-transform duration-300 ease-in-out cursor-pointer" %}
-                            </div>
-        
-                            <div class="flex flex-col items-left w-full pl-3">
-                                <div class="flex flex-col gap-y-2 w-full">
-        
-                                    <div class="sub_menu h-0 p-0 transition-all duration-500 ease-in-out opacity-0 overflow-auto">
-                                        <ul class="flex flex-col items-left gap-y-2">
-                                            {% for subcategory in category.subcategories.all %}
-                                            <div class="w-fit pl-3">
-                                                <a href="{% url 'subcategory' name=category.slug sub_name=subcategory.slug %}">
-                                                    <li class="w-fit py-1 border-b-2">{{ subcategory.name }}</li>
-                                                </a>
-                                            </div>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-        
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Log Out Button -->
-                {% if request.user.is_authenticated %}
-                <div class="p-2 bg-primary-earth_tone_4 text-center text-white border-2 border-primary-earth_tone_4 rounded-sm">
-                    <form id="logout_form" method="POST" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button class="w-full text-lg cursor-pointer">Cerrar Sesion</button>
-                    </form>
-                </div>
-                {% endif %}
-                
+            {% if request.user.is_authenticated %}
+            <!-- Profile Redirect -->
+            <a href="{% url 'profile' %}" id="profile_redirect" class="p-2 text-center border-2 border-primary-earth_tone_4 rounded-sm">
+                <div class="w-full text-lg text-primary-earth_tone_4">Perfil</div>
+            </a>
+            {% else %}
+            <!-- Sign Up & Login Redirects -->
+            <div class="flex flex-row gap-x-2 text-center">
+                <a href="{% url 'sign-up' %}" id="sign_up_redirect" class="w-full p-2 border-2 border-primary-earth_tone_4 rounded-sm">
+                    <div class="w-full text-lg text-primary-earth_tone_4 cursor-pointer">Registrarse</div>
+                </a>
+                <a href="{% url 'login' %}" id="login_redirect" class="w-full p-2 bg-primary-earth_tone_4 
+                    border-2 border-primary-earth_tone_4 rounded-sm"
+                >
+                    <div class="w-full text-lg text-white cursor-pointer">Iniciar Sesión</div>
+                </a>
             </div>
+            {% endif %}
+            
+            <!-- Index Redirect -->
+            <a href="{% url 'index' %}" id="index_redirect" class="p-2 text-center 
+                text-gray-600 border-2 border-gray-300 rounded-sm"
+            >
+                <div class="w-full text-lg">Inicio</div>
+            </a>
+    
+            <!-- Products Redirect -->
+            <a href="{% url 'products' %}" id="products_redirect" class="p-2 text-center 
+                text-gray-600 border-2 border-gray-300 rounded-sm"
+            >
+                <div class="w-full text-lg">Productos</div>
+            </a>
+            
+            <!-- Categories Redirects -->
+            <div class="text-gray-600">
+                <div class="flex flex-row items-center justify-between p-2 text-center border-2 border-gray-300 rounded-sm">
+                    <div class="w-full text-lg">Categorias</div>
+                    {% include "../icons/arrow-down.html" with rotate="rotate-0" tailwind_class="card_arrow w-5 h-5 transition-transform duration-300 ease-in-out cursor-pointer" %}                
+                </div>
+                
+                <!-- Hidden Categories -->
+                <div id="categories_redirects" class="sub_menu h-full max-h-0 transition-all duration-300 ease-in-out opacity-0 overflow-auto">
+                    <div class="flex flex-col items-left gap-y-2 p-3">
+                        {% for category in categories %}
+                        <div class="flex flex-row items-center justify-between w-full">
+                            <a href="{% url 'category' name=category.slug %}" id="category_{{ category.slug }}_redirect" class="w-fit">
+                                <div class="w-fit py-1 border-b-2 border-gray-300">{{ category.name }}</div>
+                            </a>
+                            {% include "../icons/arrow-down.html" with rotate="rotate-0" tailwind_class="card_arrow w-5 h-5 transition-transform duration-300 ease-in-out cursor-pointer" %}
+                        </div>
+                        
+                        <!-- Hidden Subcategories -->
+                        <div id="subcategories_redirects" class="sub_menu h-full max-h-0 transition-all 
+                            duration-300 ease-in-out opacity-0 overflow-auto"
+                        >
+                            <div class="flex flex-col items-left gap-y-2 px-3">
+                                {% for subcategory in category.subcategories.all %}
+                                <a href="{% url 'subcategory' name=category.slug sub_name=subcategory.slug %}" 
+                                    id="subcategory_{{ subcategory.slug }}_redirect" class="w-fit"
+                                >
+                                    <div class="w-fit py-1 border-b-2 border-gray-300">{{ subcategory.name }}</div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Log Out Button -->
+            {% if request.user.is_authenticated %}
+            <form id="log_out_form" method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" id="log_out_button" class="w-full p-2 bg-primary-earth_tone_4 text-lg 
+                    text-center text-white border-2 border-primary-earth_tone_4 rounded-sm"
+                >Cerrar Sesión</button>
+            </form>
+            {% endif %}
+
         </div>
-        
     </div>
-
 </div>

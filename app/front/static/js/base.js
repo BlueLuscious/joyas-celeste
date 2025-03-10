@@ -18,9 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
     cardArrows.forEach((arrow, index) => {
         arrow.addEventListener("click", () => {
             cardArrows[index].classList.toggle("rotate-180")
-            subMenus[index].classList.toggle("h-full")
-            subMenus[index].classList.toggle("opacity-100")
-            subMenus[index].classList.toggle("p-2")
+
+            if (subMenus[index].classList.contains("max-h-0")) {
+                subMenus[index].classList.remove("max-h-0", "opacity-0")
+                subMenus[index].classList.add("max-h-full", "opacity-100")
+            } else {
+                subMenus[index].classList.remove("max-h-full", "opacity-100")
+                subMenus[index].classList.add("max-h-0", "opacity-0")
+            }
         })
     })
 

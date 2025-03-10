@@ -28,7 +28,7 @@
     {% include "components-base/left-side-navbar.html" %}
 
     <!-- Main Content -->
-    <section class="bg-primary-earth_tone_3_light">
+    <section id="main_content" class="bg-primary-earth_tone_3_light">
         {% block content %}
         {% endblock content %}
     </section>
@@ -36,18 +36,16 @@
     <!-- Footer -->
     {% include "components-base/footer.html" %}
 
-    <!-- whatsapp button -->
-    <div id="whatsapp_button" onclick="openWhatsApp()"
-        class="z-10 fixed bottom-3 right-3 sm:bottom-5 sm:right-5 p-2 pt-3 sm:p-3 sm:pt-4 
-        bg-tertiary-whatsapp_green_tone rounded-full shadow-xl cursor-pointer scale-80">
-        <button type="button">
-            {% include "icons/whatsapp.html" with tailwind_class="w-9 h-7 sm:w-10 sm:h-8 text-white" %}
-        </button>
-    </div>
+    <!-- Whatsapp Button -->
+    <button type="button" id="whatsapp_button" onclick="openWhatsApp()"
+        class="z-10 fixed bottom-3 right-3 sm:bottom-5 sm:right-5 flex items-center p-2.5 sm:p-3 
+        bg-tertiary-whatsapp_green_tone rounded-full shadow-xl scale-80 hover:bg-tertiary-whatsapp_green_tone/80"
+    >
+        {% include "icons/whatsapp.html" with tailwind_class="size-7 sm:size-9 text-white" %}
+    </button>
 
 </body>
 <script type="module" src="{% static 'js/base.js' %}"></script>
-<script src="{% static 'js/product.js' %}"></script>
 <script type="module" src="{% static 'js/shopping-cart.js' %}"></script>
 <script type="module" src="{% static 'js/message.js' %}"></script>
 <script src="{% static 'js/tailwind/tailwind.config.js' %}"></script>

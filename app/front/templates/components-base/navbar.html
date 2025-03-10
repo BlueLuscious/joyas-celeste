@@ -1,31 +1,33 @@
 {% load static %}
 {% load unicorn %}
 
-<div class="fixed left-0 top-0 z-20 w-full flex flex-row items-center justify-between p-2 bg-white shadow-lg">
-
+<div id="navbar" class="z-20 fixed left-0 top-0 flex flex-row items-center justify-between 
+    w-full h-24 py-2 px-4 bg-white shadow-lg"
+>
     <!-- Menu Button -->
-    <button type="button" id="menu" class="pl-5" 
-        onclick="openSideNavbar('background_lsn', 'left_side_navbar', '-translate-x-full')">
-        {% include "../icons/menu.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 cursor-pointer" %}
+    <button type="button" id="open_menu_button" 
+        onclick="openSideNavbar('background_lsb', 'left_sidebar', '-translate-x-full')"
+    >
+        {% include "../icons/menu.html" with tailwind_class="size-8 text-primary-earth_tone_4" %}
     </button>
 
     <!-- Logo -->
-    <div class="w-32 h-20">
-        <img class="w-32 h-20" src="{% static 'images/cj-logo.png' %}" alt="">
+    <div id="cj_logo" class="w-32 h-20">
+        <img class="w-32 h-20" src="{% static 'images/cj-logo.png' %}" alt="cj-logo">
     </div>
 
     <!-- Shopping Cart Button -->
-    <button type="button" id="cart" class="relative pr-5" 
+    <button type="button" id="open_cart_button" class="relative" 
         {% if request.path != "/checkout/" and request.path != "/payment/" %} 
         unicorn:click="display_cart('True')"
-        {% endif %}>
-        {% csrf_token %}
-        <div id="bubble_counter" 
-            class="absolute -top-1 right-3 w-6 h-6 bg-primary-earth_tone_4 text-center text-white 
-            rounded-full shadow-md cursor-pointer scale-90">
+        {% endif %}
+    >
+        <!-- Shopping Cart Counter -->
+        <div id="cart_bubble_counter" class="absolute -top-1 -right-2 size-6 bg-primary-earth_tone_4 
+            text-center text-white rounded-full shadow-md scale-90"
+        >
             {{ cart_items.count }}
         </div>
-        {% include "../icons/shopping-bag.html" with tailwind_class="w-8 h-8 text-primary-earth_tone_4 cursor-pointer" %}
+        {% include "../icons/shopping-bag.html" with tailwind_class="size-8 text-primary-earth_tone_4" %}
     </button>
-
 </div>

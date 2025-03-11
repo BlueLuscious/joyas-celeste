@@ -4,70 +4,69 @@
 {% load filters.product_filter %}
 
 {% block content %}
-<body>
-    <section class="relative w-full min-h-screen pt-36 pb-12">
-        <div class="relative flex-1 grid grid-cols-1 md:grid-cols-2 w-full gap-y-12 px-8 
-            md:gap-x-20 md:px-16 lg:gap-x-36 lg:px-32">
+<!-- Product -->
+<section id="product_{{ product.uuid }}" class="w-full min-h-screen pt-24">
+    <div class="flex-1 flex flex-col sm:flex-row justify-center w-full gap-8 p-8 md:gap-x-12 md:p-12">
 
-            <div class="relative flex flex-col items-center w-full h-fit bg-white text-lg mukta-light 
-                rounded-lg shadow-xl">
-                <div class="w-full overflow-hidden rounded-lg" id="image_container">
-                    {% if product.image %}
-                    <img class="w-full transition-transform duration-500 ease-in-out transform" id="zoom_image" 
-                        src="{% if product.image %}{{ product.image.url }}{% endif %}">
-                    {% else %}
-                    <img class="w-full transition-transform duration-500 ease-in-out transform" id="zoom_image" 
-                        src="{% static 'images/default-no-image.png' %}">
-                    {% endif %}
+        <!-- Product Image -->
+        <div class="relative flex flex-col items-center w-full sm:max-w-lg h-fit text-lg rounded-lg shadow-xl">
+            <div class="w-full overflow-hidden rounded-lg" id="image_container">
+                <img class="w-full transition-transform duration-500 ease-in-out transform" id="zoom_image" 
+                {% if product.image %} src="{{ product.image.url }}" {% else %} src="{% static 'images/default-no-image.png' %}" {% endif %}
+            ></div>
+
+            <!-- Add Product To Cart Button -->
+            {% if request.user.is_authenticated %}
+            <button type="button" id="add_product_{{ product.uuid }}_button" onclick="addToCart('{{ product.uuid }}')"
+                class="absolute top-2 right-2 p-1 bg-white rounded-md shadow-md cursor-pointer"
+            >
+                {% include "../icons/shopping-bag-add.html" with tailwind_class="size-7 text-primary-earth_tone_4" %}
+            </button>
+            {% endif %}
+        </div>
+
+        <!-- Product Info -->
+        <div class="flex flex-col justify-between gap-y-6 w-full sm:max-w-2xl p-4 bg-white text-xl text-center
+            mukta-light rounded-lg shadow-xl"
+        >
+            <div class="flex flex-col gap-y-2 w-full">
+                <div class="text-2xl text-primary-earth_tone_4 font-medium">{{ product.name }}</div>
+                <div class="text-black font-semibold">
+                    $ {{ product.price|convert_price_to_ARS:dollar_blue|format_number_AR }}
                 </div>
-
-                {% if request.user.is_authenticated %}
-                <button type="button" onclick="addToCart('{{ product.uuid }}')"
-                    class="absolute top-2 right-2 p-1 bg-white rounded-md shadow-md cursor-pointer">
-                    {% include "../icons/shopping-bag-add.html" %}
-                </button>
-                {% endif %}
             </div>
 
-            <div class="relative flex flex-col gap-y-6 w-full h-fit p-4 bg-white text-xl mukta-light 
-                rounded-lg shadow-xl">
-                <div class="flex flex-col items-center w-full">
-                    <div class="w-full p-2 text-center text-2xl text-primary-earth_tone_4 font-medium">
-                        {{ product.name }}
-                    </div>
-                    <div class="p-2 text-black font-semibold">
-                        $ {{ product.price|convert_price_to_ARS:dollar_blue|format_number_AR }}
-                    </div>
+            {% csrf_token %}
+            <!-- Product Variation Component -->
+            {% unicorn "product-variation" product=product %}
+
+            {% if product.description %}
+            <div class="flex flex-col gap-y-2 w-full">
+                <div class="text-gray-500">Descripción:</div>
+                <div>{{ product.description }}</div>
+            </div>
+            {% endif %}
+            
+            <div class="flex flex-col gap-y-2 w-full">
+                <div>
+                    <span class="text-gray-500">Categoría:</span>
+                    <a href="{% url 'category' name=product.category.slug %}" id="category_redirect">
+                        <span class="font-medium">{{ product.category.name }}</span>
+                    </a>
                 </div>
                 <div>
-                    <div class="flex flex-col items-center w-full">
-                        {% csrf_token %}
-                        {% unicorn "product-variation" product=product %}
-                    </div>
-                </div>
-                {% if product.description %}
-                <div class="flex flex-col items-center w-full">
-                    <div class="p-1 text-gray-500">Descripción: </div>
-                    <div class="p-1">{{ product.description }}</div>
-                </div>
-                {% endif %}
-                <div class="flex flex-col items-center w-full">
-                    <div class="p-2">
-                        <span class="text-gray-500">Categoría: </span>
-                        <a href="{% url 'category' name=product.category.slug %}">
-                            <span class="font-medium">{{ product.category.name }}</span>
-                        </a>
-                    </div>
-                    <div class="p-2">
-                        <span class="text-gray-500">Subcategoría: </span>
-                        <a href="{% url 'subcategory' name=product.category.slug sub_name=product.subcategory.slug %}">
-                            <span class="font-medium">{{ product.subcategory.name }}</span>
-                        </a>
-                    </div>
+                    <span class="text-gray-500">Subcategoría:</span>
+                    <a href="{% url 'subcategory' name=product.category.slug sub_name=product.subcategory.slug %}"
+                        id="subcategory_redirect"
+                    >
+                        <span class="font-medium">{{ product.subcategory.name }}</span>
+                    </a>
                 </div>
             </div>
-            
         </div>
-    </section>
-</body>
+
+    </div>
+</section>
+
+<script src="{% static 'js/product.js' %}"></script>
 {% endblock content %}

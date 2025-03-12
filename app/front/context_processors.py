@@ -31,7 +31,6 @@ def common_context(request: HttpRequest) -> dict:
         dollar_blue_ask: float = dollar_quotes.get("blue").get("ask")
         cache.set("dollar_blue_ask", dollar_blue_ask, timeout=3600)
 
-
     context = dict(
         categories=categories,
         subcategories=subcategories,

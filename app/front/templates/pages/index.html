@@ -25,12 +25,13 @@
         </span>
     </div>
     <div id="products" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center content-evenly 
-        justify-items-center size-full p-4 gap-4 sm:p-8 sm:gap-8 lg:p-12 lg:gap-12"
+        justify-items-center p-4 gap-4 sm:p-8 sm:gap-8 lg:p-12 lg:gap-12 size-full"
     >
         {% for product in products %}
         {% product_card request product dollar_blue %}
         {% endfor %}
     </div>
+    <!-- TODO: Create "See More" Button -->
 </section>
 
 <script src="{% static 'js/index.js' %}"></script>

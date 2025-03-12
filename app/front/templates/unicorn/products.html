@@ -8,18 +8,18 @@
     <!-- Settings -->
     {% include "unicorn/components-products/settings.html" %}
 
-    <section class="relative flex flex-col w-full min-h-screen pt-32 sm:pt-36">
+    <section class="relative flex flex-col w-full min-h-screen pt-32 lg:pt-36">
 
         <!-- Label -->
-        <div class="flex justify-center w-full">
-            <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
-                <span class="text-2xl sm:text-4xl text-primary-earth_tone_3 cinzel-semibold">
-                    {% if category and subcategory %} {{ category }} {{ subcategory }}
-                    {% elif category %} {{ category }}
-                    {% else %} Productos
-                    {% endif %}
-                </span>
-            </div>
+        <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
+            <span class="sm:text-4xl text-primary-earth_tone_3 cinzel-semibold 
+                {% if subcategory %} text-xl {% else %} text-2xl {% endif %}"
+            >
+                {% if category and subcategory %} {{ category }} {{ subcategory }}
+                {% elif category %} {{ category }}
+                {% else %} Productos
+                {% endif %}
+            </span>
         </div>
 
         <!-- Loading Screen -->
@@ -28,33 +28,32 @@
         >
             <div class="flex items-center justify-center size-full">
                 <div class="flex flex-row items-center justify-center gap-x-4 w-fit p-2 bg-white rounded-md">
-                    {% include "../icons/circle.html" with tailwind_class="w-8 md:w-10 h-8 md:h-10 text-primary-earth_tone_3 fill-primary-earth_tone_4 animate-spin" %}
+                    {% include "../icons/circle.html" with tailwind_class="size-8 md:size-10 text-primary-earth_tone_3 fill-primary-earth_tone_4 animate-spin" %}
                     <div class="text-lg md:text-xl">Cargando productos</div>
                 </div>
             </div>
         </div>
 
         <!-- Products -->
-        <div class="flex-1 flex justify-center size-full 
-            {% if products %} items-start {% else %} items-center {% endif %}" 
-            unicorn:loading.class="hidden"
+        <div unicorn:loading.class="hidden" class="flex-1 flex 
+            {% if products %} flex-col items-start justify-between gap-y-8 lg:gap-y-12 size-full px-4 py-8 sm:p-8 lg:p-12 
+            {% else %} items-center justify-center 
+            {% endif %}"
         >
             {% if products %}
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 
-                items-center content-evenly justify-items-center gap-12 w-full h-full p-8 sm:p-12">
+            <div id="products" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center content-evenly 
+                justify-items-center gap-4 sm:gap-8 lg:gap-12 size-full"
+            >
                 {% for product in products %}
                 {% product_card request product dollar_blue %}
                 {% endfor %}
             </div>
-            <div>
-                {% pagination_controls page_data page_numbers %}
-            </div>
+            {% pagination_controls page_data page_numbers %}
             {% else %}
             <div class="flex flex-wrap items-center justify-center size-full">
                 <div class="p-2 sm:p-4 text-center text-lg sm:text-2xl text-primary-earth_tone_4 mukta-light 
-                    border-b-2 border-primary-earth_tone_4 rounded-sm">
-                    Aún no hay productos
-                </div>
+                    border-b-2 border-primary-earth_tone_4 rounded-sm"
+                >Aún no hay productos</div>
             </div>
             {% endif %}
         </div>

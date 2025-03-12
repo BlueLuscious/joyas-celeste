@@ -1,38 +1,40 @@
 {% if page_data.has_other_pages %}
-<div class="flex flex-row gap-x-6 items-center justify-center">
+<div id="pagination_controls" class="flex flex-row gap-x-3 sm:gap-x-6 items-center justify-center w-full">
+
+    <!-- Previous Page Button -->
     {% if page_data.has_previous %}
-    <div unicorn:click="update_products('{{ page_data.previous_page_number }}')">
-        <div class="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110">
-            {% include "../../icons/arrow-down.html" with rotate="rotate-90" tailwind_class="size-6 text-primary-earth_tone_4" %}
-        </div>
-    </div>
+    <button type="button" id="previous_page_button" class="transition-transform duration-300 ease-in-out hover:scale-110" 
+        unicorn:click="update_products('{{ page_data.previous_page_number }}')"
+    >
+        {% include "../../icons/arrow-down.html" with rotate="rotate-90" tailwind_class="size-5 sm:size-6 text-primary-earth_tone_4" %}
+    </button>
     {% endif %}
 
+    <!-- Pages -->
     <div class="flex flex-row gap-x-2">
         {% for num in page_numbers %}
             {% if page_data.number == num %}
-            <div class="px-4 py-1 bg-primary-earth_tone_4 text-center text-lg text-primary-earth_tone_3
-                rounded-sm cursor-default">
-                {{ num }}
-            </div>
+            <div class="px-4 py-1 bg-primary-earth_tone_4 text-center sm:text-lg text-primary-earth_tone_3 
+                rounded-sm cursor-default"
+            >{{ num }}</div>
             {% else %}
-            <div unicorn:click="update_products('{{ num }}')">
-                <div class="px-3 py-1 text-center text-lg text-primary-earth_tone_4 border-b-2
-                    border-primary-earth_tone_4 rounded-sm cursor-pointer
-                    transition-transform duration-300 ease-in-out hover:scale-105">
-                    {{ num }}
-                </div>
-            </div>
+            <!-- Page Button -->
+            <button type="button" id="page_{{ num }}_button" unicorn:click="update_products('{{ num }}')" 
+                class="px-3 py-1 text-center sm:text-lg text-primary-earth_tone_4 border-b-2 border-primary-earth_tone_4 
+                rounded-sm transition-transform duration-300 ease-in-out hover:scale-105"
+            >{{ num }}</button>
             {% endif %}
         {% endfor %}
     </div>
 
+    <!-- Next Page Button -->
     {% if page_data.has_next %}
-    <div unicorn:click="update_products('{{ page_data.next_page_number }}')">
-        <div class="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110">
-            {% include "../../icons/arrow-down.html" with rotate="-rotate-90" tailwind_class="size-6 text-primary-earth_tone_4" %}
-        </div>
-    </div>
+    <button type="button" id="next_page_button" class="transition-transform duration-300 ease-in-out hover:scale-110" 
+        unicorn:click="update_products('{{ page_data.next_page_number }}')"
+    >
+        {% include "../../icons/arrow-down.html" with rotate="-rotate-90" tailwind_class="size-5 sm:size-6 text-primary-earth_tone_4" %}
+    </button>
     {% endif %}
+    
 </div>
 {% endif %}

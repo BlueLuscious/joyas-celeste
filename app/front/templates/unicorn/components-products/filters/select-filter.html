@@ -1,5 +1,6 @@
 <select id="{{ select_id }}" unicorn:model="{{ selected_filter }}" unicorn:change="update_products" 
-    class="p-2 border border-primary-earth_tone_4 rounded-lg cursor-pointer focus:outline-none">
+    class="p-2 border border-primary-earth_tone_4 rounded-lg cursor-pointer focus:outline-none"
+>
     <option value="">Elige {{ filter_name }}</option>
     {% for criteria in criterias %}
     <option value="{{ criteria.uuid }}">{{ criteria.name }}</option>

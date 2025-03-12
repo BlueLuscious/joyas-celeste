@@ -3,9 +3,7 @@
 {% load unicorn %}
 
 {% block content %}
-<body>
-    {% csrf_token %}
-    <!-- Products Component -->
-    {% unicorn "products" category=category %}
-</body>
+{% csrf_token %}
+<!-- Products Component By Category -->
+{% unicorn "products" category=category %}
 {% endblock content %}

@@ -4,7 +4,7 @@
 
 {% block content %}
 <section class="w-full min-h-screen pt-32 md:pt-36">
-    <div class="flex-1 flex flex-col w-full h-full">
+    <div class="flex-1 flex flex-col size-full">
 
         <!-- Label -->
         <div class="w-full p-6 bg-primary-earth_tone_4 text-center">
@@ -14,17 +14,19 @@
         </div>
 
         <!-- Cart Checkout -->
-        <div class="flex flex-col justify-center md:justify-start gap-y-6 w-full max-w-3xl py-8 px-4 md:p-12">
+        <div id="checkout_cart" class="flex flex-col justify-center md:justify-start gap-y-6 w-full max-w-3xl px-4 py-8 md:p-12">
 
             <!-- Cart Items -->
-            <div class="px-2 bg-white rounded-sm shadow-lg">
+            <div id="checkout_cart_items" class="px-2 bg-white rounded-sm shadow-lg">
                 {% for item in cart_items %}
-                <div class="relative w-full py-2 bg-white text-center border-b border-b-1">
-                    <div class="flex flex-row">
-                        <div class="w-4/5 md:w-1/3">
-                            <img class="w-full" src="{{ item.product.image.url }}" alt="image">
-                        </div>
-                        <div class="flex flex-col md:flex-row items-center justify-center md:justify-between gap-y-1 w-full md:px-4">
+                <div id="cart_item_{{ item.key }}" class="relative w-full py-2 bg-white text-center sm:text-left border-b border-b-1">
+                    <div class="flex flex-row items-center gap-x-1">
+                        <img class="w-full max-w-24 sm:max-w-36 h-fit rounded-sm" 
+                            {% if item.product.image %} src="{{ item.product.image.url }}" {% else %} src="{% static 'images/default-no-image.png' %}" {% endif %}
+                        >
+                        <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-y-1 
+                            w-full sm:px-4 text-sm sm:text-base"
+                        >
                             <div class="flex flex-col gap-1">
                                 <div>{{ item.product.name }}</div>
                                 <div>Talle {{ item.size }}</div>
@@ -40,29 +42,23 @@
             </div>
 
             <!-- Total Cart Amount -->
-            <div class="bg-white rounded-sm shadow-lg">
-                <div class="flex flex-col gap-y-2 p-2">
+            <div id="checkout_balances" class="bg-white rounded-sm shadow-lg">
+                <div class="flex flex-col gap-y-2 p-3">
                     <div class="flex flex-row justify-between">
-                        <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">
-                            Subtotal:
-                        </div>
+                        <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">Subtotal</div>
                         <div class="text-md font-semibold">
                             $ {{ cart.total_price|convert_price_to_ARS:dollar_blue|format_number_AR }}
                         </div>
                     </div>
                     <div class="flex flex-row justify-between">
-                        <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">
-                            Envio:
-                        </div>
+                        <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">Envio</div>
                         <div class="text-md font-semibold">
                             $ {{ 0|format_number_AR }} <!-- Agregar boton de añadir costo de Envio -->
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-row justify-between p-3 bg-primary-earth_tone_4 rounded-b-sm">
-                    <div class="text-lg text-primary-earth_tone_3_light cinzel-semibold">
-                        Total:
-                    </div>
+                    <div class="text-lg text-primary-earth_tone_3_light cinzel-semibold">Total</div>
                     <div class="text-lg text-white font-semibold">
                         $ {{ cart.total_price|convert_price_to_ARS:dollar_blue|format_number_AR }}
                     </div>
@@ -72,16 +68,14 @@
             <!-- Buttons -->
             <div class="flex flex-row w-full justify-center sm:justify-start gap-x-4">
                 <a href="{% if request.META.HTTP_REFERER %} {{ request.META.HTTP_REFERER }} {% else %} {% url 'index' %} {% endif %}" 
-                    class="w-full p-3 bg-white text-primary-earth_tone_4 
-                    text-lg text-center font-medium rounded-md mukta-light shadow-md hover:bg-gray-50/70">
-                    Volver
-                </a>
+                    id="come_back_button" class="w-full p-3 bg-white text-primary-earth_tone_4 
+                    text-lg text-center font-medium rounded-md shadow-md hover:bg-gray-50/70 mukta-light"
+                >Volver</a>
                 <form method="POST" action="{% url 'payment' %}" class="flex flex-col w-full">
                     {% csrf_token %}
-                    <button type="submit" class="p-3 bg-primary-earth_tone_4 text-lg text-white 
-                        text-center font-medium rounded-md mukta-light shadow-md hover:bg-primary-earth_tone_4/70">
-                        Confirmar
-                    </button>
+                    <button type="submit" id="checkout_confirm_button" class="p-3 bg-primary-earth_tone_4 text-lg text-white 
+                        text-center font-medium rounded-md shadow-md hover:bg-primary-earth_tone_4/70 mukta-light"
+                    >Confirmar</button>
                 </form>
             </div>
 

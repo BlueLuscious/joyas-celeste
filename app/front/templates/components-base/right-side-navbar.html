@@ -79,13 +79,13 @@
                     >Continuar la compra</a>
                     <div class="flex flex-col gap-y-2">
                         <div class="flex flex-row justify-between">
-                            <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">Subtotal:</div>
+                            <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">Subtotal</div>
                             <div class="text-md font-semibold">
                                 $ {{ cart.total_price|convert_price_to_ARS:dollar_blue|format_number_AR }}
                             </div>
                         </div>
                         <div class="flex flex-row justify-between">
-                            <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">Envio:</div>
+                            <div class="text-md text-primary-earth_tone_4 font-semibold mukta-light">Envio</div>
                             <div class="text-md font-semibold">
                                 $ {{ 0|format_number_AR }} <!-- Agregar boton de añadir costo de Envio -->
                             </div>
@@ -94,7 +94,7 @@
                 </div>    
             </div>
             <div class="flex flex-row justify-between p-3 bg-primary-earth_tone_4">
-                <div class="text-lg text-primary-earth_tone_3_light cinzel-semibold">Total:</div>
+                <div class="text-lg text-primary-earth_tone_3_light cinzel-semibold">Total</div>
                 <div class="text-lg text-white font-semibold">
                     $ {{ cart.total_price|convert_price_to_ARS:dollar_blue|format_number_AR }}
                 </div>

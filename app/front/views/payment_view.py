@@ -7,6 +7,8 @@ from django.template.backends.django import Template
 from django.views import View
 from back.services.mercado_pago_service import MercadoPagoService
 from cart.models.cart_model import CartModel
+from order.models.order_item_model import OrderItemModel
+from order.models.order_model import OrderModel
 
 logger = logging.getLogger(__name__)
 
@@ -29,12 +31,20 @@ class PaymentView(View):
 
 
         # TODO: Create order and order item.
+        OrderModel.objects.all().delete()
+        if cart_items:
+            order = OrderModel.create_order(request.user)
+            order.save()
+            for item in cart_items:
+                order_item = OrderItemModel.create_order_item(item, order)
+                order_item.save()
 
 
         mp_service = MercadoPagoService()
         preference = mp_service.create_preference(cart_items, dollar_blue_ask) 
 
         context = {
+            "order": order,
             "preference": preference,
             "public_key": mp_service.public_key,
         }

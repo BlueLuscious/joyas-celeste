@@ -19,6 +19,8 @@ class CheckoutView(View):
         cart_model = CartModel.objects.filter(user=request.user).last()
         cart_items = cart_model.items.all()
 
+        # TODO: Validate checkout, create NoItemsInCartError exception.
+
         context = {
             "cart": cart_model,
             "cart_items": cart_items,
